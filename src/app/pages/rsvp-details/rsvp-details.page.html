@@ -1,9 +1,38 @@
 <ion-header>
   <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>RSVP</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+    <ion-list lines="full">
+        <ion-item>
+          <ion-input required type="text" placeholder="Name" [(ngModel)]="rsvp.Name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Email" [(ngModel)]="rsvp.Email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Phone #" [(ngModel)]="rsvp.PhoneNo"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Address 1" [(ngModel)]="rsvp.Address1"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Address 2" [(ngModel)]="rsvp.Address2"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="City" [(ngModel)]="rsvp.AddressCity"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="State" [(ngModel)]="rsvp.AddressState"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="number" placeholder="DinnerChoice" [(ngModel)]="rsvp.DinnerChoice"></ion-input>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="full" (click)="saveTodo()">Save</ion-button>
 </ion-content>
