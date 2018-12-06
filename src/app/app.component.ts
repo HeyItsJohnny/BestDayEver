@@ -16,6 +16,11 @@ export class AppComponent {
       icon: 'home'
     },
     {
+      title: 'Wedding Details',
+      url: '/weddingDayDetails',
+      icon: 'list'
+    },
+    {
       title: 'Guests',
       url: '/rsvpList',
       icon: 'list'
