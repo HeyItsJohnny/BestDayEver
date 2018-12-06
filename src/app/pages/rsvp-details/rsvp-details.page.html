@@ -31,8 +31,11 @@
             <ion-input required type="text" placeholder="State" [(ngModel)]="rsvp.AddressState"></ion-input>
         </ion-item>
         <ion-item>
+            <ion-input required type="text" placeholder="Zip Code" [(ngModel)]="rsvp.AddressPostCode"></ion-input>
+        </ion-item>
+        <ion-item>
             <ion-input required type="number" placeholder="DinnerChoice" [(ngModel)]="rsvp.DinnerChoice"></ion-input>
         </ion-item>
       </ion-list>
-      <ion-button expand="full" (click)="saveTodo()">Save</ion-button>
+      <ion-button expand="full" (click)="saveRsvp()">Save</ion-button>
 </ion-content>

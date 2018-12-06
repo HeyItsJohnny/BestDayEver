@@ -35,7 +35,7 @@ export class RsvpDetailsPage implements OnInit {
     }
   }
 
-  async loadRsvp() {
+  async loadRsvp() {   
     const loading = await this.loadingController.create({
       message: 'Loading RSVPs..'
     });
