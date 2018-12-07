@@ -1,4 +1,4 @@
-import { WeddingParty, WeddingPartyService} from 'src/app/services/wedding-party.service'
+import { WeddingParty, WeddingPartyService} from 'src/app/services/wedding-party.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController } from '@ionic/angular';

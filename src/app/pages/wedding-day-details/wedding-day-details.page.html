@@ -1,9 +1,30 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Wedding Day Details</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+    <ion-title>Wedding Day</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+    <ion-list lines="full">
+        <ion-item>
+            <ion-input required type="date" [(ngModel)]="weddingDayDetails.WeddingDate"></ion-input>
+        </ion-item>   
+        <ion-item>
+            <ion-input required type="text" placeholder="Bride Name" [(ngModel)]="weddingDayDetails.BrideName"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Groom Name" [(ngModel)]="weddingDayDetails.GroomName"></ion-input>
+        </ion-item>      
+        <ion-item>
+            <ion-input required type="number" placeholder="Estimated No. Of Guests" [(ngModel)]="weddingDayDetails.EstimatedNoOfGuests"></ion-input>
+        </ion-item>   
+        <ion-item>
+            <ion-label>Wedding Invites Sent Out</ion-label>
+            <ion-checkbox [(ngModel)]="weddingDayDetails.WeddingInvitesSentOut"  disabled="true"></ion-checkbox>
+        </ion-item>   
+    </ion-list>
+    <ion-button expand="full" (click)="saveWeddingDay()">Save</ion-button>
 </ion-content>

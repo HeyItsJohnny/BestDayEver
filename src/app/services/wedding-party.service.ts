@@ -14,6 +14,7 @@ export interface WeddingParty {
 @Injectable({
   providedIn: 'root'
 })
+
 export class WeddingPartyService {
   private weddingPartysCollection: AngularFirestoreCollection<WeddingParty>;
   private weddingPartys: Observable<WeddingParty[]>;
