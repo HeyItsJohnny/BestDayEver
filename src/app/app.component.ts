@@ -32,12 +32,7 @@ export class AppComponent {
     },
     {
       title: 'Wedding Party DETAILS',
-      url: '/weddingPartyDetails',
-      icon: 'list'
-    },
-    {
-      title: 'List',
-      url: '/list',
+      url: '/WeddingPartyDetails',
       icon: 'list'
     }
   ];
