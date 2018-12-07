@@ -15,13 +15,13 @@ export interface WeddingParty {
   providedIn: 'root'
 })
 export class WeddingPartyService {
-  private weddingPartyCollection: AngularFirestoreCollection<WeddingParty>;
-  private weddingParty: Observable<WeddingParty[]>;
+  private weddingPartysCollection: AngularFirestoreCollection<WeddingParty>;
+  private weddingPartys: Observable<WeddingParty[]>;
 
   constructor(db: AngularFirestore) { 
-    this.weddingPartyCollection = db.collection<WeddingParty>('weddingParty');
+    this.weddingPartysCollection = db.collection<WeddingParty>('weddingPartys');
  
-    this.weddingParty = this.weddingPartyCollection.snapshotChanges().pipe(
+    this.weddingPartys = this.weddingPartysCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data();
@@ -33,23 +33,22 @@ export class WeddingPartyService {
   }
 
   getWeddingPartys() {
-    return this.weddingParty;
+    return this.weddingPartys;
   }
  
   getWeddingParty(id) {
-    return this.weddingPartyCollection.doc<WeddingParty>(id).valueChanges();
+    return this.weddingPartysCollection.doc<WeddingParty>(id).valueChanges();
   }
  
   updateWeddingParty(weddingParty: WeddingParty, id: string) {
-    return this.weddingPartyCollection.doc(id).update(weddingParty);
+    return this.weddingPartysCollection.doc(id).update(weddingParty);
   }
  
   addWeddingParty(weddingParty: WeddingParty) {
-    return this.weddingPartyCollection.add(weddingParty);
+    return this.weddingPartysCollection.add(weddingParty);
   }
  
   removeWeddingParty(id) {
-    return this.weddingPartyCollection.doc(id).delete();
+    return this.weddingPartysCollection.doc(id).delete();
   }
-
 }

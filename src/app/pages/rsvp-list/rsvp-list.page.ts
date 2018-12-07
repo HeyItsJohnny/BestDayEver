@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-//import { Rsvp, RsvpService } from '../services/rsv.service';
 import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
 
 @Component({
@@ -7,6 +6,7 @@ import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
   templateUrl: './rsvp-list.page.html',
   styleUrls: ['./rsvp-list.page.scss'],
 })
+
 export class RsvpListPage implements OnInit {
 
   rsvps: Rsvp[];

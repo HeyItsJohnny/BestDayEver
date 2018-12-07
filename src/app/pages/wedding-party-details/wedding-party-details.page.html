@@ -1,9 +1,25 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>weddingPartyDetails</ion-title>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
+    <ion-title>Wedding Party</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+    <ion-list lines="full">
+        <ion-item>
+          <ion-input required type="text" placeholder="Name" [(ngModel)]="weddingParty.Name"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Email" [(ngModel)]="weddingParty.Email"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Phone #" [(ngModel)]="weddingParty.PhoneNo"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Wedding Side" [(ngModel)]="weddingParty.WeddingSide"></ion-input>
+        </ion-item>
+      <ion-button expand="full" (click)="saveWeddingParty()">Save</ion-button>
 </ion-content>
