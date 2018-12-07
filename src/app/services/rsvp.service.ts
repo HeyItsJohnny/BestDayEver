@@ -21,6 +21,7 @@ export interface Rsvp {
 @Injectable({
   providedIn: 'root'
 })
+
 export class RsvpService {
   private rsvpsCollection: AngularFirestoreCollection<Rsvp>;
   private rsvps: Observable<Rsvp[]>;
