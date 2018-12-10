@@ -1,9 +1,32 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
     <ion-title>Dinner Details</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+    <ion-list lines="full">
+        <ion-item>
+          <ion-input required type="text" placeholder="Name" [(ngModel)]="dinner.Name"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input required type="text" placeholder="Description" [(ngModel)]="dinner.Description"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input required type="text" placeholder="Type" [(ngModel)]="dinner.DinnerType"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-input required type="number" placeholder="Display Order" [(ngModel)]="dinner.DisplayOrder"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="time" [(ngModel)]="dinner.DinnerTime"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="date" [(ngModel)]="dinner.DinnerDate"></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="saveDinner()">Save</ion-button>
 </ion-content>

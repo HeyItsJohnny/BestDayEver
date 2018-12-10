@@ -1,9 +1,23 @@
 <ion-header>
   <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-back-button defaultHref="/home"></ion-back-button>
+      </ion-buttons>
     <ion-title>Event Setup</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+    <ion-list lines="full">
+        <ion-item>
+          <ion-input required type="text" placeholder="Description" [(ngModel)]="event.Subject"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="text" placeholder="Description" [(ngModel)]="event.Description"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input required type="date" [(ngModel)]="event.DateOfEvent"></ion-input>
+        </ion-item>  
+    </ion-list>
+    <ion-button expand="full" (click)="saveEvent()">Save</ion-button>
 </ion-content>

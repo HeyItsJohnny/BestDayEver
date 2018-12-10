@@ -44,7 +44,7 @@ export class DinnerDetailsPage implements OnInit {
     });
   }
 
-  async saveRsvp() {
+  async saveDinner() {
  
     const loading = await this.loadingController.create({
       message: 'Saving Dinner..'
