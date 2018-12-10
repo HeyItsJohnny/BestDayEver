@@ -32,7 +32,12 @@ export class AppComponent {
     },
     {
       title: 'Events',
-      url: '/Events',
+      url: '/eventDetails',
+      icon: 'list'
+    },
+    {
+      title: 'Dinner Details',
+      url: '/dinnerDetails',
       icon: 'list'
     }
   ];
