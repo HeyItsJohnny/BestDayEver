@@ -10,16 +10,20 @@
 <ion-content padding>
     <ion-list lines="full">
         <ion-item>
+            <ion-label>Wedding Date</ion-label>
             <ion-input required type="date" [(ngModel)]="weddingDayDetails.WeddingDate"></ion-input>
         </ion-item>   
         <ion-item>
-            <ion-input required type="text" placeholder="Bride Name" [(ngModel)]="weddingDayDetails.BrideName"></ion-input>
+            <ion-label>Bride Name</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDayDetails.BrideName"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="text" placeholder="Groom Name" [(ngModel)]="weddingDayDetails.GroomName"></ion-input>
+            <ion-label>Groom Name</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDayDetails.GroomName"></ion-input>
         </ion-item>      
         <ion-item>
-            <ion-input required type="number" placeholder="Estimated No. Of Guests" [(ngModel)]="weddingDayDetails.EstimatedNoOfGuests"></ion-input>
+            <ion-label>Est. Number of Guests</ion-label>
+            <ion-input required type="number" [(ngModel)]="weddingDayDetails.EstimatedNoOfGuests"></ion-input>
         </ion-item>   
         <ion-item>
             <ion-label>Wedding Invites Sent Out</ion-label>

@@ -10,31 +10,40 @@
 <ion-content padding>
     <ion-list lines="full">
         <ion-item>
-          <ion-input required type="text" placeholder="Name" [(ngModel)]="rsvp.Name"></ion-input>
+            <ion-label>Name</ion-label>
+            <ion-input required type="text" [(ngModel)]="rsvp.Name"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="text" placeholder="Email" [(ngModel)]="rsvp.Email"></ion-input>
+            <ion-label>Email</ion-label>
+            <ion-input required type="text" [(ngModel)]="rsvp.Email"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="text" placeholder="Phone #" [(ngModel)]="rsvp.PhoneNo"></ion-input>
+            <ion-label>Phone Number</ion-label>
+            <ion-input required type="text" [(ngModel)]="rsvp.PhoneNo"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="text" placeholder="Address 1" [(ngModel)]="rsvp.Address1"></ion-input>
+            <ion-label>Address 1</ion-label>
+            <ion-input required type="text" [(ngModel)]="rsvp.Address1"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="text" placeholder="Address 2" [(ngModel)]="rsvp.Address2"></ion-input>
+            <ion-label>Address 2</ion-label>
+            <ion-input required type="text" [(ngModel)]="rsvp.Address2"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="text" placeholder="City" [(ngModel)]="rsvp.AddressCity"></ion-input>
+            <ion-label>City</ion-label>
+            <ion-input required type="text" [(ngModel)]="rsvp.AddressCity"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="text" placeholder="State" [(ngModel)]="rsvp.AddressState"></ion-input>
+            <ion-label>State</ion-label>
+            <ion-input required type="text" [(ngModel)]="rsvp.AddressState"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="text" placeholder="Zip Code" [(ngModel)]="rsvp.AddressPostCode"></ion-input>
+            <ion-label>Zip Code</ion-label>
+            <ion-input required type="text" [(ngModel)]="rsvp.AddressPostCode"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-input required type="number" placeholder="DinnerChoice" [(ngModel)]="rsvp.DinnerChoice"></ion-input>
+            <ion-label>Dinner Choice</ion-label>
+            <ion-input required type="number" [(ngModel)]="rsvp.DinnerChoice"></ion-input>
         </ion-item>
       </ion-list>
       <ion-button expand="full" (click)="saveRsvp()">Save</ion-button>
