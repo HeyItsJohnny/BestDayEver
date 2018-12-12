@@ -30,7 +30,8 @@ const routes: Routes = [
   { path: 'dinnerList', loadChildren: './pages/dinner-list/dinner-list.module#DinnerListPageModule' },
   { path: 'VendorDetails', loadChildren: './pages/vendor-details/vendor-details.module#VendorDetailsPageModule' },
   { path: 'VendorDetails/:id', loadChildren: './pages/vendor-details/vendor-details.module#VendorDetailsPageModule' },
-  { path: 'VendorList', loadChildren: './pages/vendor-list/vendor-list.module#VendorListPageModule' },  { path: 'Register', loadChildren: './pages/register/register.module#RegisterPageModule' }
+  { path: 'VendorList', loadChildren: './pages/vendor-list/vendor-list.module#VendorListPageModule' },  { path: 'Register', loadChildren: './pages/register/register.module#RegisterPageModule' },
+  { path: 'Login', loadChildren: './pages/login/login.module#LoginPageModule' }
 
 
 
