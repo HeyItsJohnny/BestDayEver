@@ -27,7 +27,11 @@ const routes: Routes = [
   { path: 'eventDetails', loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule' },
   { path: 'eventDetails/:id', loadChildren: './pages/event-details/event-details.module#EventDetailsPageModule' },
   { path: 'eventList', loadChildren: './pages/event-list/event-list.module#EventListPageModule' },
-  { path: 'dinnerList', loadChildren: './pages/dinner-list/dinner-list.module#DinnerListPageModule' }
+  { path: 'dinnerList', loadChildren: './pages/dinner-list/dinner-list.module#DinnerListPageModule' },
+  { path: 'VendorDetails', loadChildren: './pages/vendor-details/vendor-details.module#VendorDetailsPageModule' },
+  { path: 'VendorDetails/:id', loadChildren: './pages/vendor-details/vendor-details.module#VendorDetailsPageModule' },
+  { path: 'VendorList', loadChildren: './pages/vendor-list/vendor-list.module#VendorListPageModule' }
+
 
 ];
 

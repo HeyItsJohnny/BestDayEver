@@ -36,8 +36,13 @@ export class AppComponent {
       icon: 'list'
     },
     {
-      title: 'Dinner Details',
+      title: 'Dinners',
       url: '/dinnerList',
+      icon: 'list'
+    },
+    {
+      title: 'Vendors',
+      url: '/VendorList',
       icon: 'list'
     }
   ];
