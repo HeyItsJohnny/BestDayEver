@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/models/user';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from "angularfire2/auth";
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,7 @@ export class RegisterPage implements OnInit {
 
   user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) { }
+  constructor(private afAuth: AngularFireAuth, private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -27,6 +28,12 @@ export class RegisterPage implements OnInit {
     }
     catch(e) {
       console.error(e);
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: e,
+        buttons: ['OK']
+      });
+      await alert.present();
     }
    }
 

@@ -3,6 +3,7 @@ import { User } from 'src/models/user';
 import { NavController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from "angularfire2/auth";
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,7 @@ export class LoginPage implements OnInit {
 
   user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router) { }
+  constructor(private afAuth: AngularFireAuth, private router: Router, private alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -28,6 +29,12 @@ export class LoginPage implements OnInit {
     }
     catch(e) {
       console.error(e);
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: e,
+        buttons: ['OK']
+      });
+      await alert.present();
     }
   }
 
