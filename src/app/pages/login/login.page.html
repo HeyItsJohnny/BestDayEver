@@ -1,9 +1,19 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Login!!!</ion-title>
+    <ion-title>Login</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
+  <ion-item>
+    <ion-label floating>Email Address:</ion-label>
+    <ion-input required type="text" [(ngModel)]="user.email"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating>Password</ion-label>
+    <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
+  </ion-item>
 
+  <ion-button expand="full" (click)="login(user)">Login</ion-button>
+  <ion-button expand="full" color = "light" (click)="register()">Sign Up</ion-button>
 </ion-content>
