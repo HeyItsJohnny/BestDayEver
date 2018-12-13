@@ -4,6 +4,10 @@ import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
+import { Router } from '@angular/router';
+import { AngularFireAuth } from "angularfire2/auth";
+import { AlertController } from '@ionic/angular';
+
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
@@ -57,7 +61,10 @@ export class AppComponent {
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
-    private statusBar: StatusBar
+    private statusBar: StatusBar,
+    private afAuth: AngularFireAuth, 
+    private router: Router, 
+    private alertController: AlertController
   ) {
     this.initializeApp();
   }
@@ -67,5 +74,16 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
+  }
+
+  async Logout() {
+    await this.afAuth.auth.signOut();
+    this.router.navigateByUrl('/Login');
+    const alert = await this.alertController.create({
+      header: 'Success',
+      message: 'You have successfully logged out!',
+      buttons: ['OK']
+    });
+    await alert.present();
   }
 }
