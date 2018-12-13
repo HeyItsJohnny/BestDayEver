@@ -23,14 +23,12 @@ export class LoginPage implements OnInit {
     try {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email,user.password);
       console.log(result);
-      console.log('OK');
       if (result) {
         this.router.navigateByUrl('/home');
       }  
     }
     catch(e) {
       console.error(e);
-      console.log('NOT OK');
       const alert = await this.alertController.create({
         header: 'Error',
         message: 'Incorrect username or password.',
