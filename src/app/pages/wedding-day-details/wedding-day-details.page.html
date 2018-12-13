@@ -10,23 +10,23 @@
 <ion-content padding>
     <ion-list lines="full">
         <ion-item>
-            <ion-label stacked>Wedding Date:</ion-label>
+            <ion-label stacked class="bold-label">Wedding Date:</ion-label>
             <ion-input required type="date" [(ngModel)]="weddingDayDetails.WeddingDate"></ion-input>
         </ion-item>   
         <ion-item>
-            <ion-label stacked>Bride Name:</ion-label>
+            <ion-label stacked class="bold-label">Bride Name:</ion-label>
             <ion-input required type="text" [(ngModel)]="weddingDayDetails.BrideName"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label stacked>Groom Name:</ion-label>
+            <ion-label stacked class="bold-label">Groom Name:</ion-label>
             <ion-input required type="text" [(ngModel)]="weddingDayDetails.GroomName"></ion-input>
         </ion-item>      
         <ion-item>
-            <ion-label stacked>Est. Number of Guests:</ion-label>
+            <ion-label stacked class="bold-label">Est. Number of Guests:</ion-label>
             <ion-input required type="number" [(ngModel)]="weddingDayDetails.EstimatedNoOfGuests"></ion-input>
         </ion-item>   
         <ion-item>
-            <ion-label stacked>Wedding Invites Sent Out:</ion-label>
+            <ion-label stacked class="bold-label">Wedding Invites Sent Out:</ion-label>
             <ion-checkbox [(ngModel)]="weddingDayDetails.WeddingInvitesSentOut"  disabled="true"></ion-checkbox>
         </ion-item>   
     </ion-list>
