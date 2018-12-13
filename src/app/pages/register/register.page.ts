@@ -12,7 +12,7 @@ export class RegisterPage implements OnInit {
 
   user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private alertCtrl: AlertController) { }
+  constructor(private afAuth: AngularFireAuth, private router: Router) { }
 
   ngOnInit() {
   }
