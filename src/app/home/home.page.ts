@@ -12,11 +12,11 @@ export class HomePage implements OnInit{
   constructor(private alertController: AlertController, private afAuth: AngularFireAuth, private router: Router) { }
 
   ngOnInit() {
-    var user = this.afAuth.auth.currentUser;
+    /*var user = this.afAuth.auth.currentUser;
     if (user == null) {
       console.log('THERE IS NO USER..');
       this.router.navigateByUrl('/Login');
-    }
+    }*/
   }
   
 }
