@@ -77,7 +77,7 @@ export class AppComponent {
   }
 
   async Logout() {
-    await this.afAuth.auth.signOut();
+    await this.afAuth.auth.signOut();    
     this.router.navigateByUrl('/Login');
     const alert = await this.alertController.create({
       header: 'Success',
@@ -86,5 +86,5 @@ export class AppComponent {
     });
     await alert.present();
   }
-  
+
 }
