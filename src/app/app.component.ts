@@ -53,7 +53,7 @@ export class AppComponent {
     },
     {
       title: 'Vendors',
-      url: '/members/VendorList',
+      url: '/members/vendorList',
       icon: 'list'
     }
   ];

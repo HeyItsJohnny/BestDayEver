@@ -16,7 +16,7 @@
         </ng-container>
       
         <ion-item-sliding *ngFor="let item of events">
-          <ion-item lines="inset" button [routerLink]="['/eventDetails', item.id]">
+          <ion-item lines="inset" button [routerLink]="['/members/eventDetails', item.id]">
             <ion-label>
               {{ item.Subject }}
             </ion-label>
@@ -32,7 +32,7 @@
     </ion-list>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button routerLink="/eventDetails" routerDirection="forward">
+        <ion-fab-button routerLink="/members/eventDetails" routerDirection="forward">
           <ion-icon name="add"></ion-icon>
         </ion-fab-button>
       </ion-fab>
