@@ -20,8 +20,11 @@ export class AuthenticationService {
   constructor(
     private afAuth: AngularFireAuth, 
     private router: Router, 
-    private alertController: AlertController) { 
-      this.checkToken();
+    private alertController: AlertController,
+    private plt: Platform) { 
+      this.plt.ready().then(() => {
+        this.checkToken();
+      });
     }
 
   checkToken() {
