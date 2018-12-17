@@ -52,7 +52,9 @@ export class AuthenticationService {
       const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email,user.password);
       console.log(result);
       if (result) {
-        this.router.navigateByUrl('/home');
+        this.authenticationState.next(true);
+        console.log('GO TO HOME..');        
+        this.router.navigateByUrl('/members/home');
       }  
     }
     catch(e) {

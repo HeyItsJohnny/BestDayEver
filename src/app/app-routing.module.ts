@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { AuthGuardService } from './services/auth-guard.service';
 
 const routes: Routes = [
   {
@@ -7,16 +8,13 @@ const routes: Routes = [
     redirectTo: 'Login',
     pathMatch: 'full'
   },
-  {
-    path: 'home',
-    loadChildren: './home/home.module#HomePageModule'
-  },
-  /*{ 
+  { path: 'Register', loadChildren: './register/register.module#RegisterPageModule' },
+  { path: 'Login', loadChildren: './login/login.module#LoginPageModule' },
+  { 
     path: 'members', 
     canActivate: [AuthGuardService],
     loadChildren: './members/member-routing.module#MemberRoutingModule'
-  },*/
-  
+  }/*
   { path: 'rsvpDetails/:id', loadChildren: './pages/rsvp-details/rsvp-details.module#RsvpDetailsPageModule' },
   { path: 'rsvpDetails', loadChildren: './pages/rsvp-details/rsvp-details.module#RsvpDetailsPageModule' },
   { path: 'rsvpList', loadChildren: './pages/rsvp-list/rsvp-list.module#RsvpListPageModule' },
@@ -33,11 +31,7 @@ const routes: Routes = [
   { path: 'VendorDetails', loadChildren: './pages/vendor-details/vendor-details.module#VendorDetailsPageModule' },
   { path: 'VendorDetails/:id', loadChildren: './pages/vendor-details/vendor-details.module#VendorDetailsPageModule' },
   { path: 'VendorList', loadChildren: './pages/vendor-list/vendor-list.module#VendorListPageModule' },
-  { path: 'Register', loadChildren: './pages/register/register.module#RegisterPageModule' },
-  { path: 'Login', loadChildren: './pages/login/login.module#LoginPageModule' }
-
-
-
+  */
 ];
 
 @NgModule({

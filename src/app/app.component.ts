@@ -1,22 +1,24 @@
 import { Component } from '@angular/core';
 
+
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AuthenticationService } from '../app/services/authentication.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  rootPage:any = 'Login';
+  //rootPage:any = 'Login';
   
   public appPages = [
     {
       title: 'Home',
-      url: '/home',
+      url: '/members/home',
       icon: 'home'
     },
     {
@@ -26,32 +28,32 @@ export class AppComponent {
     },
     {
       title: 'Wedding Details',
-      url: '/weddingDayDetails',
+      url: '/members/weddingDayDetails',
       icon: 'list'
     },
     {
       title: 'Guests',
-      url: '/rsvpList',
+      url: '/members/rsvpList',
       icon: 'list'
     },
     {
       title: 'Wedding Party',
-      url: '/weddingPartyList',
+      url: '/members/weddingPartyList',
       icon: 'list'
     },
     {
       title: 'Events',
-      url: '/eventList',
+      url: '/members/eventList',
       icon: 'list'
     },
     {
       title: 'Dinners',
-      url: '/dinnerList',
+      url: '/members/dinnerList',
       icon: 'list'
     },
     {
       title: 'Vendors',
-      url: '/VendorList',
+      url: '/members/VendorList',
       icon: 'list'
     }
   ];
@@ -60,7 +62,8 @@ export class AppComponent {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {
     this.initializeApp();
   }
@@ -69,6 +72,15 @@ export class AppComponent {
     this.platform.ready().then(() => {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
+
+      this.authService.authenticationState.subscribe(state => {
+        if (state) {
+          this.router.navigate(['members', 'home']);
+        } else {
+          this.router.navigate(['Login']);
+        }
+      });
+
     });
   }
 
