@@ -5,6 +5,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from "angularfire2/auth";
 import { AlertController } from '@ionic/angular';
 
+import { AuthenticationService } from 'src/app/services/authentication.service';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -14,28 +16,17 @@ export class LoginPage implements OnInit {
 
   user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private alertController: AlertController) { }
+  constructor(
+    private afAuth: AngularFireAuth, 
+    private router: Router, 
+    private alertController: AlertController, 
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
-  async login(user: User) {
-    try {
-      const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email,user.password);
-      console.log(result);
-      if (result) {
-        this.router.navigateByUrl('/home');
-      }  
-    }
-    catch(e) {
-      console.error(e);
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: 'Incorrect username or password.',
-        buttons: ['OK']
-      });
-      await alert.present();
-    }
+  login(user: User) {
+    this.authService.login(user);
   }
 
   register() {

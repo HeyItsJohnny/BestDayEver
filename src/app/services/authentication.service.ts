@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Platform } from '@ionic/angular';
 import { Storage } from '@ionic/storage';
 import { BehaviorSubject } from 'rxjs';
+import { User } from 'src/models/user';
 
 import { AngularFireAuth } from "angularfire2/auth";
 import { AlertController } from '@ionic/angular';
@@ -11,6 +12,8 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class AuthenticationService {
+
+  user = {} as User;
 
   constructor(
     private afAuth: AngularFireAuth, 
@@ -26,5 +29,49 @@ export class AuthenticationService {
       buttons: ['OK']
     });
     await alert.present();
+  }
+
+  async login(user: User) {
+    try {
+      const result = await this.afAuth.auth.signInWithEmailAndPassword(user.email,user.password);
+      console.log(result);
+      if (result) {
+        this.router.navigateByUrl('/home');
+      }  
+    }
+    catch(e) {
+      console.error(e);
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: 'Incorrect username or password.',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
+  }
+
+  async register(user: User) {
+    try {
+      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);
+      console.log(result);
+      if (result) {
+        const alert = await this.alertController.create({
+          header: 'Success',
+          message: 'Thanks for signing up! Please sign in to continue.',
+          buttons: ['OK']
+        });
+        this.router.navigateByUrl('/Login');
+        await alert.present();
+      } 
+    }
+    catch(e) {
+      console.error(e);
+      const alert = await this.alertController.create({
+        header: 'Error',
+        message: e,
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 }

@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from "angularfire2/auth";
 import { AlertController } from '@ionic/angular';
 
+import { AuthenticationService } from 'src/app/services/authentication.service';
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
@@ -13,28 +15,16 @@ export class RegisterPage implements OnInit {
 
   user = {} as User;
 
-  constructor(private afAuth: AngularFireAuth, private router: Router, private alertController: AlertController) { }
+  constructor(
+    private afAuth: AngularFireAuth, 
+    private router: Router, 
+    private alertController: AlertController,
+    private authService: AuthenticationService) { }
 
   ngOnInit() {
   }
 
-  async register(user: User) {
-    try {
-      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);
-      console.log(result);
-      if (result) {
-        this.router.navigateByUrl('/home');
-      } 
-    }
-    catch(e) {
-      console.error(e);
-      const alert = await this.alertController.create({
-        header: 'Error',
-        message: e,
-        buttons: ['OK']
-      });
-      await alert.present();
-    }
-   }
-
+  register(user: User) {
+    this.authService.register(user);
+  }
 }
