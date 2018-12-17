@@ -13,12 +13,28 @@ import { Router } from '@angular/router';
 })
 export class AuthenticationService {
 
+  authenticationState = new BehaviorSubject(false);
+
   user = {} as User;
 
   constructor(
     private afAuth: AngularFireAuth, 
     private router: Router, 
-    private alertController: AlertController) { }
+    private alertController: AlertController) { 
+      this.checkToken();
+    }
+
+  checkToken() {
+    var user = this.afAuth.auth.currentUser;
+    if (user != null) {
+      console.log('THERE IS NO USER..');
+      this.authenticationState.next(true);
+    }
+  }
+
+  isAuthenticated() {
+    return this.authenticationState.value;
+  }
 
   async logout() {
     await this.afAuth.auth.signOut();    
