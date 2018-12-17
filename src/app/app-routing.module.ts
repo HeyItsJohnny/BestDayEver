@@ -16,6 +16,7 @@ const routes: Routes = [
     canActivate: [AuthGuardService],
     loadChildren: './members/member-routing.module#MemberRoutingModule'
   },*/
+  
   { path: 'rsvpDetails/:id', loadChildren: './pages/rsvp-details/rsvp-details.module#RsvpDetailsPageModule' },
   { path: 'rsvpDetails', loadChildren: './pages/rsvp-details/rsvp-details.module#RsvpDetailsPageModule' },
   { path: 'rsvpList', loadChildren: './pages/rsvp-list/rsvp-list.module#RsvpListPageModule' },
