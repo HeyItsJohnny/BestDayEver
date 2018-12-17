@@ -7,18 +7,19 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AuthenticationService } from '../app/services/authentication.service';
 import { Router } from '@angular/router';
+import { AuthGuardService } from './services/auth-guard.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
-  //rootPage:any = 'Login';
   
   public appPages = [
     {
       title: 'Home',
       url: '/members/home',
+      canActivate: [AuthGuardService],
       icon: 'home'
     },
     {
@@ -29,31 +30,37 @@ export class AppComponent {
     {
       title: 'Wedding Details',
       url: '/members/weddingDayDetails',
+      canActivate: [AuthGuardService],
       icon: 'list'
     },
     {
       title: 'Guests',
       url: '/members/rsvpList',
+      canActivate: [AuthGuardService],
       icon: 'list'
     },
     {
       title: 'Wedding Party',
       url: '/members/weddingPartyList',
+      canActivate: [AuthGuardService],
       icon: 'list'
     },
     {
       title: 'Events',
       url: '/members/eventList',
+      canActivate: [AuthGuardService],
       icon: 'list'
     },
     {
       title: 'Dinners',
       url: '/members/dinnerList',
+      canActivate: [AuthGuardService],
       icon: 'list'
     },
     {
       title: 'Vendors',
       url: '/members/vendorList',
+      canActivate: [AuthGuardService],
       icon: 'list'
     }
   ];
