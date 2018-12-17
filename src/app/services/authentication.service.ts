@@ -27,7 +27,7 @@ export class AuthenticationService {
   checkToken() {
     var user = this.afAuth.auth.currentUser;
     if (user != null) {
-      console.log('THERE IS NO USER..');
+      console.log('THERE IS A USER!');
       this.authenticationState.next(true);
     }
   }
