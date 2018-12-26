@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 export interface WeddingDayDetails {
-  id: string;
+  id?: string;
   WeddingPartyGroupdID: string;
   WeddingDate: Date;
   EstimatedNoOfGuests: number;
