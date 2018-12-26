@@ -13,5 +13,21 @@
     <ion-label floating class="bold-label">Password:</ion-label>
     <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
   </ion-item>
+  <ion-item>
+    <ion-label floating class="bold-label">First Name:</ion-label>
+    <ion-input required type="text" [(ngModel)]="user.firstname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating class="bold-label">Last Name:</ion-label>
+    <ion-input required type="text" [(ngModel)]="user.lastname"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating class="bold-label">Phone No.:</ion-label>
+    <ion-input required type="text" [(ngModel)]="user.phoneno"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating class="bold-label">Wedding ID:</ion-label>
+    <ion-input required type="text" [(ngModel)]="user.WeddingID"></ion-input>
+  </ion-item>
   <ion-button expand="full" (click)="register(user)">Sign Me Up!</ion-button>
 </ion-content>

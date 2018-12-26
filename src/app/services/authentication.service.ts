@@ -7,6 +7,8 @@ import { User } from 'src/models/user';
 import { AngularFireAuth } from "angularfire2/auth";
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+//import{ AngularFireDatabase } from 'angularfire2/database';
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,8 @@ export class AuthenticationService {
   constructor(
     private afAuth: AngularFireAuth, 
     private router: Router, 
+    //private afDatabase: AngularFireDatabase,   //Create Profile
+    private db: AngularFirestore,
     private alertController: AlertController,
     private plt: Platform) { 
       this.plt.ready().then(() => {
@@ -73,15 +77,16 @@ export class AuthenticationService {
 
   async register(user: User) {
     try {
-      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);
+      const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);      
       console.log(result);
       if (result) {
+        this.createProfile(user,result.user.uid);   //Create Profile
         const alert = await this.alertController.create({
           header: 'Success',
           message: 'Thanks for signing up! Please sign in to continue.',
           buttons: ['OK']
         });
-        this.router.navigateByUrl('/Login');
+        //this.router.navigateByUrl('/Login');  //Create Profile
         await alert.present();
       } 
     }
@@ -94,5 +99,18 @@ export class AuthenticationService {
       });
       await alert.present();
     }
+  }
+
+  createProfile(user: User, userid: string)  {
+    //Create Profile
+    console.log('Email: ' + user.email);
+    console.log('First Name: ' + user.firstname);
+    console.log('Last Name: ' + user.lastname);
+    console.log('Wedding ID: ' + user.WeddingID);
+    this.db.doc('profile/' + userid).set(this.user).then(() => this.router.navigateByUrl('/Login'));
+    /*this.afAuth.authState.subscribe(auth => {
+      this.db.doc('profile/${user.uid}').set(this.user)
+      .then(() => this.router.navigateByUrl('/Login'));
+    })*/
   }
 }
