@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { AngularFireAuth } from "angularfire2/auth";
 
 export interface Profile {
   id?: string;
@@ -20,7 +21,9 @@ export class ProfileService {
   private profilesCollection: AngularFirestoreCollection<Profile>;
   private profile: Observable<Profile[]>;
 
-  constructor(db: AngularFirestore) { 
+  constructor(
+    db: AngularFirestore,
+    private afAuth: AngularFireAuth) { 
     this.profilesCollection = db.collection<Profile>('profile');
  
     this.profile = this.profilesCollection.snapshotChanges().pipe(
@@ -38,8 +41,9 @@ export class ProfileService {
     return this.profile;
   }*/
  
-  getProfile(id) {
-    return this.profilesCollection.doc<Profile>(id).valueChanges();
+  getProfile() {
+    var authUser = this.afAuth.auth.currentUser;
+    return this.profilesCollection.doc<Profile>(authUser.uid).valueChanges();
   }
  
   updateProfile(prof: Profile, id: string) {
