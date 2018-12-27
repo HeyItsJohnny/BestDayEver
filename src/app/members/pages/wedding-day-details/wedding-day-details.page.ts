@@ -37,11 +37,30 @@ export class WeddingDayDetailsPage implements OnInit {
 
   ngOnInit() {
     this.profileService.getProfile().subscribe(res => {
+      console.log('WEDDING ID: ' + res.WeddingID);
+      if (res.WeddingID = null)
+      {
+        this.weddingDayId= this.route.snapshot.params['id'];
+        console.log('NULL');
+      }else {
+        this.weddingDayId = res.WeddingID;
+        console.log('NOT NULL');
+      }
+      if (this.weddingDayId)  {
+        console.log('LOADING!!!!');
+        this.loadWeddingDay();
+      }
+    });
+    /*this.profileService.getProfile().subscribe(res => {
       this.weddingDayId = res.WeddingID;
       if (this.weddingDayId)  {
         this.loadWeddingDay();
       }
-    });    
+    });*/
+    /*this.weddingDayId= this.route.snapshot.params['id'];
+    if (this.weddingDayId)  {
+      this.loadWeddingDay();
+    }*/
   }
 
   async loadWeddingDay() {   

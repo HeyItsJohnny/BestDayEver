@@ -46,6 +46,7 @@ export class WeddingDayDetailsService {
   }
  
   addWeddingDay(weddingParty: WeddingDayDetails) {
+    //console.log('Wedding DAY ID: ' + weddingParty.id);
     return this.weddingDaysCollection.add(weddingParty);
   }
  
