@@ -36,7 +36,7 @@ export class WeddingDayDetailsPage implements OnInit {
     private loadingController: LoadingController) { }
 
   ngOnInit() {
-    /*this.profileService.getProfile().subscribe(res => {
+    this.profileService.getProfile().subscribe(res => {
       console.log('WEDDING ID: ' + res.WeddingID);
       if (res.WeddingID = null)
       {
@@ -50,13 +50,13 @@ export class WeddingDayDetailsPage implements OnInit {
         console.log('LOADING!!!!');
         this.loadWeddingDay();
       }
-    });*/
-    this.profileService.getProfile().subscribe(res => {
+    });
+    /*this.profileService.getProfile().subscribe(res => {
       this.weddingDayId = res.WeddingID;
       if (this.weddingDayId)  {
         this.loadWeddingDay();
       }
-    });
+    });*/
     /*this.weddingDayId= this.route.snapshot.params['id'];
     if (this.weddingDayId)  {
       this.loadWeddingDay();
