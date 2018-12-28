@@ -36,10 +36,6 @@ export class ProfileService {
       })
     );
   }
-
-  /*getProfiles() {
-    return this.profile;
-  }*/
  
   getProfile() {
     var authUser = this.afAuth.auth.currentUser;
@@ -53,8 +49,9 @@ export class ProfileService {
   addProfile(prof: Profile) {
     return this.profilesCollection.add(prof);
   }
- 
-  /*removeProfile(id) {
-    return this.profilesCollection.doc(id).delete();
-  }*/
+
+  updateWeddingID(WeddingIDStr: string){
+    var authUser = this.afAuth.auth.currentUser;
+    this.profilesCollection.doc(authUser.uid).update({WeddingID: WeddingIDStr});
+  }
 }

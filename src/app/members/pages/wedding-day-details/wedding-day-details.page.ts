@@ -24,7 +24,6 @@ export class WeddingDayDetailsPage implements OnInit {
     UpdatedAt: 0,
     CreatedAt: 0
   };
-
   weddingDayId = null;
 
   constructor(
@@ -36,7 +35,16 @@ export class WeddingDayDetailsPage implements OnInit {
     private loadingController: LoadingController) { }
 
   ngOnInit() {
-    this.loadData();
+    this.profileService.getProfile().subscribe(res => {
+      if (res.WeddingID == null) {
+        this.weddingDayId = this.route.snapshot.params['id'];
+      } else {
+        this.weddingDayId = res.WeddingID; 
+      }
+      if (this.weddingDayId)  {
+        this.loadWeddingDay();
+      }
+    });
   }
 
   async loadWeddingDay() {   
@@ -55,31 +63,17 @@ export class WeddingDayDetailsPage implements OnInit {
       message: 'Saving Wedding Day Information..'
     });
     await loading.present();
- 
     if (this.weddingDayId) {
       this.weddingDayDetailsService.updateWeddingday(this.weddingDay, this.weddingDayId).then(() => {
         loading.dismiss();
         this.nav.goBack(true);
       });
     } else {
-      this.weddingDayDetailsService.addWeddingDay(this.weddingDay).then(function(docRef) {
-        console.log("Document written with ID: ", docRef.id);
+      this.weddingDayDetailsService.addWeddingDay(this.weddingDay).then(docRef => {
+        this.profileService.updateWeddingID(docRef.id);
       });
       loading.dismiss();
       this.nav.goBack(true);
     }
-  }
-
-  async loadData() {
-    this.profileService.getProfile().subscribe(res => {
-      if (res.WeddingID == null) {
-        this.weddingDayId = this.route.snapshot.params['id'];
-      } else {
-        this.weddingDayId = res.WeddingID; 
-      }
-      if (this.weddingDayId)  {
-        this.loadWeddingDay();
-      }
-    });
   }
 }
