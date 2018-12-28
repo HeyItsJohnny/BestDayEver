@@ -15,7 +15,7 @@ import { Profile, ProfileService } from 'src/app/services/profile.service';
 export class WeddingDayDetailsPage implements OnInit {
 
   weddingDay: WeddingDayDetails = {
-    WeddingPartyGroupdID: '12345',
+    WeddingPartyGroupdID: '',
     WeddingDate: null,
     EstimatedNoOfGuests: 0,
     GroomName: '',
