@@ -73,7 +73,7 @@ export class WeddingDayDetailsPage implements OnInit {
   async loadData() {
     this.profileService.getProfile().subscribe(res => {
       if (res.WeddingID == null) {
-        this.weddingDayId= this.route.snapshot.params['id'];
+        this.weddingDayId = this.route.snapshot.params['id'];
       } else {
         this.weddingDayId = res.WeddingID; 
       }
