@@ -37,36 +37,6 @@ export class WeddingDayDetailsPage implements OnInit {
 
   ngOnInit() {
     this.loadData();
-    /*this.profileService.getProfile().subscribe(res => {
-      console.log('WEDDING ID 1: ' + res.WeddingID);
-      
-
-      if (res.WeddingID == '')
-      {
-        this.weddingDayId = this.route.snapshot.params['id'];
-        console.log('NULL');
-      } else {
-        this.weddingDayId = res.WeddingID;
-        console.log('NOT NULL');
-      }
-
-      console.log('WEDDING ID 2: ' + this.weddingDayId);
-      
-      if (this.weddingDayId)  {
-        console.log('LOADING!!!!');
-        this.loadWeddingDay();
-      }
-    });*/
-    /*this.profileService.getProfile().subscribe(res => {
-      this.weddingDayId = res.WeddingID;
-      if (this.weddingDayId)  {
-        this.loadWeddingDay();
-      }
-    });*/
-    /*this.weddingDayId= this.route.snapshot.params['id'];
-    if (this.weddingDayId)  {
-      this.loadWeddingDay();
-    }*/
   }
 
   async loadWeddingDay() {   
@@ -100,28 +70,15 @@ export class WeddingDayDetailsPage implements OnInit {
   }
 
   async loadData() {
-
-    //this.weddingDayId= this.route.snapshot.params['id'];
-    /*this.profileService.getProfile().subscribe(res => {
-      console.log('WEDDING ID 1: ' + res.WeddingID);
-      if (res.WeddingID != '')
-      {
-        this.weddingDayId = res.WeddingID;
-        console.log('NOT NULL');
+    this.profileService.getProfile().subscribe(res => {
+      if (res.WeddingID == null) {
+        this.weddingDayId= this.route.snapshot.params['id'];
+      } else {
+        this.weddingDayId = res.WeddingID; 
       }
-
-      console.log('WEDDING ID 2: ' + this.weddingDayId);
-      this.weddingDayId = res.WeddingID;
       if (this.weddingDayId)  {
-        console.log('LOADING!!!!');
         this.loadWeddingDay();
       }
-    });*/
-
-
-    this.weddingDayId= this.route.snapshot.params['id'];
-    if (this.weddingDayId)  {
-      this.loadWeddingDay();
-    }
+    });
   }
 }
