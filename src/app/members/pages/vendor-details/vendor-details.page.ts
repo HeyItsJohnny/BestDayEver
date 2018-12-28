@@ -63,12 +63,12 @@ export class VendorDetailsPage implements OnInit {
     await loading.present();
  
     if (this.vendorId) {
-      this.vendorService.updateVendorToProfile(this.vendor, this.vendorId).then(() => {
+      this.vendorService.updateVendor(this.vendor, this.vendorId).then(() => {
         loading.dismiss();
         this.nav.goBack(true);
       });
     } else {
-      this.vendorService.addVendorToProfile(this.vendor).then(() => {
+      this.vendorService.addVendor(this.vendor).then(() => {
         loading.dismiss();
         this.nav.goBack(true);
       });

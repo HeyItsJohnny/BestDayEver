@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Profile, ProfileService } from 'src/app/services/profile.service';
 import { AngularFireAuth } from "angularfire2/auth";
-import { auth } from 'firebase';
 
 export interface Vendor {
   id?: string;
@@ -31,10 +30,12 @@ export class VendorService {
 
   constructor(
     db: AngularFirestore,
-    private profileService: ProfileService,
     private afAuth: AngularFireAuth) { 
+    
+    //Profile -
     var authUser = this.afAuth.auth.currentUser;
     this.vendorsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('vendor');
+    //Profile +
  
     this.vendors = this.vendorsCollection.snapshotChanges().pipe(
       map(actions => {
@@ -54,33 +55,16 @@ export class VendorService {
   getVendor(id) {
     return this.vendorsCollection.doc<Vendor>(id).valueChanges();
   }
- 
-  updateVendor(vendor: Vendor, id: string) {
-    return this.vendorsCollection.doc(id).update(vendor);
-  }
- 
+
   addVendor(vendor: Vendor) {
     return this.vendorsCollection.add(vendor);
   }
 
-  getVendorsFromProfile() {
-    return this.vendors;
-  }
-
-  addVendorToProfile(vendor: Vendor) {
-    return this.vendorsCollection.add(vendor);
-  }
-
-  updateVendorToProfile(vendor: Vendor, id: string) {
+  updateVendor(vendor: Vendor, id: string) {
     return this.vendorsCollection.doc(id).update(vendor);
   }
 
-  removeVendorFromProfile(id) {
-    return this.vendorsCollection.doc(id).delete();
-  }
- 
   removeVendor(id) {
     return this.vendorsCollection.doc(id).delete();
   }
-
 }

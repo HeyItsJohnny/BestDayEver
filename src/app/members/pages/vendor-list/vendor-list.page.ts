@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Vendor, VendorService } from 'src/app/services/vendor.service';
-import { Profile, ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-vendor-list',
@@ -11,9 +10,7 @@ export class VendorListPage implements OnInit {
 
   vendors: Vendor[];
 
-  constructor(
-    private vendorService: VendorService,
-    private profileService: ProfileService) { }
+  constructor(private vendorService: VendorService) { }
 
   ngOnInit() {
     this.vendorService.getVendors().subscribe(res => {
@@ -21,6 +18,6 @@ export class VendorListPage implements OnInit {
     });
   }
   remove(item) {
-    this.vendorService.removeVendorFromProfile(item.id);
+    this.vendorService.removeVendor(item.id);
   }
 }
