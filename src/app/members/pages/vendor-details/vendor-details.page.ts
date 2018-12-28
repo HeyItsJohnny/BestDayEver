@@ -2,6 +2,7 @@ import { Vendor, VendorService } from 'src/app/services/vendor.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController } from '@ionic/angular';
+import { Profile, ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-vendor-details',
@@ -27,7 +28,12 @@ export class VendorDetailsPage implements OnInit {
 
   vendorId = null;
 
-  constructor(private route: ActivatedRoute, private nav: NavController, private vendorService: VendorService, private loadingController: LoadingController) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private nav: NavController, 
+    private vendorService: VendorService, 
+    private profileService: ProfileService, 
+    private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.vendorId = this.route.snapshot.params['id'];
@@ -62,10 +68,11 @@ export class VendorDetailsPage implements OnInit {
         this.nav.goBack(true);
       });
     } else {
-      this.vendorService.addVendor(this.vendor).then(() => {
-        loading.dismiss();
-        this.nav.goBack(true);
+      this.vendorService.addVendor(this.vendor).then(docRef => {
+        this.profileService.addToProfile('vendor',docRef.id);
       });
+      loading.dismiss();
+      this.nav.goBack(true);
     }
   }
 
