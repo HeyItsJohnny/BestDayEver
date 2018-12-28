@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Profile, ProfileService } from 'src/app/services/profile.service';
+import { AngularFireAuth } from "angularfire2/auth";
+import { auth } from 'firebase';
 
 export interface Vendor {
   id?: string;
@@ -26,8 +29,12 @@ export class VendorService {
   private vendorsCollection: AngularFirestoreCollection<Vendor>;
   private vendors: Observable<Vendor[]>;
 
-  constructor(db: AngularFirestore) { 
-    this.vendorsCollection = db.collection<Vendor>('vendors');
+  constructor(
+    db: AngularFirestore,
+    private profileService: ProfileService,
+    private afAuth: AngularFireAuth) { 
+    var authUser = this.afAuth.auth.currentUser;
+    this.vendorsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('vendor');
  
     this.vendors = this.vendorsCollection.snapshotChanges().pipe(
       map(actions => {
@@ -54,6 +61,22 @@ export class VendorService {
  
   addVendor(vendor: Vendor) {
     return this.vendorsCollection.add(vendor);
+  }
+
+  getVendorsFromProfile() {
+    return this.vendors;
+  }
+
+  addVendorToProfile(vendor: Vendor) {
+    return this.vendorsCollection.add(vendor);
+  }
+
+  updateVendorToProfile(vendor: Vendor, id: string) {
+    return this.vendorsCollection.doc(id).update(vendor);
+  }
+
+  removeVendorFromProfile(id) {
+    return this.vendorsCollection.doc(id).delete();
   }
  
   removeVendor(id) {

@@ -21,7 +21,6 @@ export class VendorListPage implements OnInit {
     });
   }
   remove(item) {
-    this.profileService.removeFromProfile('vendor',item.id);
-    this.vendorService.removeVendor(item.id);
+    this.vendorService.removeVendorFromProfile(item.id);
   }
 }
