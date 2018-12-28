@@ -62,10 +62,11 @@ export class WeddingDayDetailsPage implements OnInit {
         this.nav.goBack(true);
       });
     } else {
-      this.weddingDayDetailsService.addWeddingDay(this.weddingDay).then(() => {
-        loading.dismiss();
-        this.nav.goBack(true);
+      this.weddingDayDetailsService.addWeddingDay(this.weddingDay).then(function(docRef) {
+        console.log("Document written with ID: ", docRef.id);
       });
+      loading.dismiss();
+      this.nav.goBack(true);
     }
   }
 
