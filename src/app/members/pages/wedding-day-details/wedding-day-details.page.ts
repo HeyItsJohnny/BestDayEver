@@ -36,21 +36,27 @@ export class WeddingDayDetailsPage implements OnInit {
     private loadingController: LoadingController) { }
 
   ngOnInit() {
-    this.profileService.getProfile().subscribe(res => {
-      console.log('WEDDING ID: ' + res.WeddingID);
-      if (res.WeddingID = null)
+    this.loadData();
+    /*this.profileService.getProfile().subscribe(res => {
+      console.log('WEDDING ID 1: ' + res.WeddingID);
+      
+
+      if (res.WeddingID == '')
       {
-        this.weddingDayId= this.route.snapshot.params['id'];
+        this.weddingDayId = this.route.snapshot.params['id'];
         console.log('NULL');
-      }else {
+      } else {
         this.weddingDayId = res.WeddingID;
         console.log('NOT NULL');
       }
+
+      console.log('WEDDING ID 2: ' + this.weddingDayId);
+      
       if (this.weddingDayId)  {
         console.log('LOADING!!!!');
         this.loadWeddingDay();
       }
-    });
+    });*/
     /*this.profileService.getProfile().subscribe(res => {
       this.weddingDayId = res.WeddingID;
       if (this.weddingDayId)  {
@@ -75,7 +81,6 @@ export class WeddingDayDetailsPage implements OnInit {
   }
 
   async saveWeddingDay() {
- 
     const loading = await this.loadingController.create({
       message: 'Saving Wedding Day Information..'
     });
@@ -91,6 +96,32 @@ export class WeddingDayDetailsPage implements OnInit {
         loading.dismiss();
         this.nav.goBack(true);
       });
+    }
+  }
+
+  async loadData() {
+
+    //this.weddingDayId= this.route.snapshot.params['id'];
+    /*this.profileService.getProfile().subscribe(res => {
+      console.log('WEDDING ID 1: ' + res.WeddingID);
+      if (res.WeddingID != '')
+      {
+        this.weddingDayId = res.WeddingID;
+        console.log('NOT NULL');
+      }
+
+      console.log('WEDDING ID 2: ' + this.weddingDayId);
+      this.weddingDayId = res.WeddingID;
+      if (this.weddingDayId)  {
+        console.log('LOADING!!!!');
+        this.loadWeddingDay();
+      }
+    });*/
+
+
+    this.weddingDayId= this.route.snapshot.params['id'];
+    if (this.weddingDayId)  {
+      this.loadWeddingDay();
     }
   }
 }
