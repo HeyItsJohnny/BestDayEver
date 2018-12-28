@@ -2,16 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Time } from '@angular/common';
 
 export interface Dinner {
   id?: string;
   Name: string;
   Description: string;
-  DinnerType: string;
   DisplayOrder: number;
-  DinnerTime: Time;
-  DinnerDate: Date;
   UpdatedAt: number;
   CreatedAt: number;
 }

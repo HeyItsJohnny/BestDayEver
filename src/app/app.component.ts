@@ -52,7 +52,7 @@ export class AppComponent {
       icon: 'list'
     },
     {
-      title: 'Dinners',
+      title: 'Dinner Setup',
       url: '/members/dinnerList',
       canActivate: [AuthGuardService],
       icon: 'list'

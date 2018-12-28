@@ -13,6 +13,8 @@ export class EventDetailsPage implements OnInit {
     Subject: '',
     Description: '',
     DateOfEvent: null,
+    StartEventTime: null,
+    EndEventTime: null,
     UpdatedAt: 0,
     CreatedAt: 0
   };
@@ -59,5 +61,4 @@ export class EventDetailsPage implements OnInit {
       });
     }
   }
-
 }

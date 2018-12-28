@@ -20,6 +20,9 @@ export class WeddingDayDetailsPage implements OnInit {
     EstimatedNoOfGuests: 0,
     GroomName: '',
     BrideName: '',
+    ReceptionTime: null,
+    DinnerTime: null,
+    CocktailTime: null,
     WeddingInvitesSentOut: false,
     UpdatedAt: 0,
     CreatedAt: 0

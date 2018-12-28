@@ -13,10 +13,7 @@ export class DinnerDetailsPage implements OnInit {
   dinner: Dinner = {
     Name: '',
     Description: '',
-    DinnerType: '',
     DisplayOrder: 0,
-    DinnerTime: null,
-    DinnerDate: null,
     UpdatedAt: 0,
     CreatedAt: 0
   };

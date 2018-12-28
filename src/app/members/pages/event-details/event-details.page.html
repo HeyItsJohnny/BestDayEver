@@ -20,6 +20,14 @@
         <ion-item>
             <ion-label stacked class="bold-label">Event Date:</ion-label>
             <ion-input required type="date" [(ngModel)]="event.DateOfEvent"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked class="bold-label">Start Time:</ion-label>
+            <ion-input required type="time" [(ngModel)]="event.StartEventTime"></ion-input>
+        </ion-item>    
+        <ion-item>
+            <ion-label stacked class="bold-label">End Time:</ion-label>
+            <ion-input required type="time" [(ngModel)]="event.EndEventTime"></ion-input>
         </ion-item>  
     </ion-list>
     <ion-button expand="full" (click)="saveEvent()">Save</ion-button>
