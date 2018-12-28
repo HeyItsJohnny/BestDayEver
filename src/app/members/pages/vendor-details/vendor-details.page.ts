@@ -36,6 +36,7 @@ export class VendorDetailsPage implements OnInit {
     }
   }
 
+
   async loadVendor() {   
     const loading = await this.loadingController.create({
       message: 'Loading Vendors..'

@@ -53,10 +53,12 @@ export class VendorService {
   }
  
   addVendor(vendor: Vendor) {
+    //Add to Profile Document
     return this.vendorsCollection.add(vendor);
   }
  
   removeVendor(id) {
+    //Remove from Profile Document
     return this.vendorsCollection.doc(id).delete();
   }
 
