@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Profile } from 'src/app/services/profile.service';
+import { AngularFireAuth } from "angularfire2/auth";
 
 export interface Rsvp {
   id?: string;
@@ -22,13 +24,18 @@ export interface Rsvp {
   providedIn: 'root'
 })
 
+
 export class RsvpService {
   private rsvpsCollection: AngularFirestoreCollection<Rsvp>;
   private rsvps: Observable<Rsvp[]>;
 
-  constructor(db: AngularFirestore) { 
-    this.rsvpsCollection = db.collection<Rsvp>('rsvps');
- 
+  constructor(
+    db: AngularFirestore,
+    private afAuth: AngularFireAuth) { 
+
+    var authUser = this.afAuth.auth.currentUser;
+    this.rsvpsCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
+
     this.rsvps = this.rsvpsCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {

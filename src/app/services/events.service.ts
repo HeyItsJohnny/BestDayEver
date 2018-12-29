@@ -3,6 +3,8 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Time } from '@angular/common';
+import { Profile } from 'src/app/services/profile.service';
+import { AngularFireAuth } from "angularfire2/auth";
 
 export interface Event {
   id?: string;
@@ -22,9 +24,13 @@ export class EventsService {
   private eventsCollection: AngularFirestoreCollection<Event>;
   private events: Observable<Event[]>;
 
-  constructor(db: AngularFirestore) { 
-    this.eventsCollection = db.collection<Event>('events');
-    
+  constructor(
+    db: AngularFirestore,
+    private afAuth: AngularFireAuth) { 
+
+    var authUser = this.afAuth.auth.currentUser;
+    this.eventsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('events');
+      
     this.events = this.eventsCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Profile, ProfileService } from 'src/app/services/profile.service';
+import { Profile } from 'src/app/services/profile.service';
 import { AngularFireAuth } from "angularfire2/auth";
 
 export interface Vendor {
@@ -32,10 +32,8 @@ export class VendorService {
     db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
     
-    //Profile -
     var authUser = this.afAuth.auth.currentUser;
     this.vendorsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('vendor');
-    //Profile +
  
     this.vendors = this.vendorsCollection.snapshotChanges().pipe(
       map(actions => {
