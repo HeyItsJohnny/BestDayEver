@@ -15,17 +15,20 @@ import { AuthGuardService } from './services/auth-guard.service';
 })
 export class AppComponent {
   
+  public loginPages = [
+    {
+      title: 'Login',
+      url: '/Login',
+      icon: 'home'
+    }
+  ];
+
   public appPages = [
     {
       title: 'Home',
       url: '/members/home',
       canActivate: [AuthGuardService],
       icon: 'home'
-    },
-    {
-      title: 'Login',
-      url: '/Login',
-      icon: 'list'
     },
     {
       title: 'Wedding Details',
