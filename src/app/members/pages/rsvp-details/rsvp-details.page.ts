@@ -21,6 +21,8 @@ export class RsvpDetailsPage implements OnInit {
     AddressPostCode: '',
     DinnerChoice: '',
     UpdatedAt: 0,
+    isGoing: false,
+    NumberOfGuests: 0,
     CreatedAt: 0
   };
 

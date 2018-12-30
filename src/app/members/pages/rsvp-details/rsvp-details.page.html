@@ -42,6 +42,14 @@
             <ion-input required type="text" [(ngModel)]="rsvp.AddressPostCode"></ion-input>
         </ion-item>
         <ion-item>
+            <ion-label stacked class="bold-label">RSVPed:</ion-label>
+            <ion-checkbox [(ngModel)]="rsvp.isGoing"  disabled="true"></ion-checkbox>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked class="bold-label">Number of Guests:</ion-label>
+            <ion-input required type="number" [(ngModel)]="rsvp.NumberOfGuests"></ion-input>
+        </ion-item>
+        <ion-item>
             <ion-label stacked class="bold-label">Dinner Choice:</ion-label>
             <ion-input required type="text" [(ngModel)]="rsvp.DinnerChoice"></ion-input>
         </ion-item>
