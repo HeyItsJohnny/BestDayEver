@@ -19,7 +19,7 @@ export class RsvpDetailsPage implements OnInit {
     AddressCity: '',
     AddressState: '',
     AddressPostCode: '',
-    DinnerChoice: 0,
+    DinnerChoice: '',
     UpdatedAt: 0,
     CreatedAt: 0
   };

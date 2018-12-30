@@ -3,6 +3,8 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Time } from '@angular/common';
+import { Profile } from 'src/app/services/profile.service';
+import { AngularFireAuth } from "angularfire2/auth";
 
 export interface WeddingDayDetails {
   id?: string;
@@ -27,8 +29,13 @@ export class WeddingDayDetailsService {
   private weddingDaysCollection: AngularFirestoreCollection<WeddingDayDetails>;
   private weddingDays: Observable<WeddingDayDetails[]>;
 
-  constructor(db: AngularFirestore) { 
-    this.weddingDaysCollection = db.collection<WeddingDayDetails>('weddingDayDetails');
+  constructor(
+    db: AngularFirestore,
+    private afAuth: AngularFireAuth) { 
+    
+    var authUser = this.afAuth.auth.currentUser;
+    this.weddingDaysCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingDayDetails');
+    //this.weddingDaysCollection = db.collection<WeddingDayDetails>('weddingDayDetails');
  
     this.weddingDays = this.weddingDaysCollection.snapshotChanges().pipe(
       map(actions => {

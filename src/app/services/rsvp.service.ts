@@ -15,7 +15,7 @@ export interface Rsvp {
   AddressCity: string;
   AddressState: string;
   AddressPostCode: string;
-  DinnerChoice: number;
+  DinnerChoice: string;
   UpdatedAt: number;
   CreatedAt: number;
 }

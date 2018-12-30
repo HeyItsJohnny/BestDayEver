@@ -73,7 +73,7 @@ export class WeddingDayDetailsPage implements OnInit {
       });
     } else {
       this.weddingDayDetailsService.addWeddingDay(this.weddingDay).then(docRef => {
-        this.profileService.updateWeddingID(docRef.id);
+        this.profileService.addWeddingID(docRef.id);
       });
       loading.dismiss();
       this.nav.goBack(true);
