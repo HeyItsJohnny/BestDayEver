@@ -10,7 +10,7 @@
 <ion-content padding>
     <ion-list>
         <ion-item>
-            <ion-label stacked class="bold-label">Name:</ion-label>
+            <ion-label stacked class="bold-label">Group Name:</ion-label>
             <ion-input required type="text" [(ngModel)]="rsvp.Name"></ion-input>
         </ion-item>
         <ion-item>
@@ -48,10 +48,6 @@
         <ion-item>
             <ion-label stacked class="bold-label">Number of Guests:</ion-label>
             <ion-input required type="number" [(ngModel)]="rsvp.NumberOfGuests" disabled="true"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label stacked class="bold-label">Dinner Choice:</ion-label>
-            <ion-input required type="text" [(ngModel)]="rsvp.DinnerChoice"></ion-input>
         </ion-item>
       </ion-list>
       <ion-button expand="full" (click)="saveRsvp()">Save</ion-button>

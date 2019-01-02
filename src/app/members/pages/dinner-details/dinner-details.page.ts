@@ -20,7 +20,11 @@ export class DinnerDetailsPage implements OnInit {
 
   dinnerId = null;
 
-  constructor(private route: ActivatedRoute, private nav: NavController, private dinnerService: DinnerService, private loadingController: LoadingController) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private nav: NavController, 
+    private dinnerService: DinnerService, 
+    private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.dinnerId = this.route.snapshot.params['id'];
@@ -42,7 +46,6 @@ export class DinnerDetailsPage implements OnInit {
   }
 
   async saveDinner() {
- 
     const loading = await this.loadingController.create({
       message: 'Saving Dinner..'
     });

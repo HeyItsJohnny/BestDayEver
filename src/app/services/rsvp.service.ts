@@ -15,7 +15,6 @@ export interface Rsvp {
   AddressCity: string;
   AddressState: string;
   AddressPostCode: string;
-  DinnerChoice: string;
   NumberOfGuests: number;
   isGoing: Boolean;
   UpdatedAt: number;

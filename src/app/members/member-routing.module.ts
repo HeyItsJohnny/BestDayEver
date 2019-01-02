@@ -19,7 +19,10 @@ const routes: Routes = [
   { path: 'vendorDetails', loadChildren: './pages/vendor-details/vendor-details.module#VendorDetailsPageModule' },
   { path: 'vendorDetails/:id', loadChildren: './pages/vendor-details/vendor-details.module#VendorDetailsPageModule' },
   { path: 'vendorList', loadChildren: './pages/vendor-list/vendor-list.module#VendorListPageModule' },
-  { path: 'home', loadChildren: './pages/home/home.module#HomePageModule'}
+  { path: 'home', loadChildren: './pages/home/home.module#HomePageModule'},
+  { path: 'guestList', loadChildren: './pages/guest-list/guest-list.module#GuestListPageModule' },
+  { path: 'guestDetails', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' },
+  { path: 'guestDetails/:id', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' }
 ];
 
 @NgModule({
