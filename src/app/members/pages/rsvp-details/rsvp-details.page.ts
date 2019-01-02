@@ -2,6 +2,7 @@ import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rsvp-details',
@@ -27,7 +28,12 @@ export class RsvpDetailsPage implements OnInit {
 
   rsvpId = null;
 
-  constructor(private route: ActivatedRoute, private nav: NavController, private rsvpService: RsvpService, private loadingController: LoadingController) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private nav: NavController, 
+    private rsvpService: RsvpService, 
+    private loadingController: LoadingController,
+    private router: Router) { }
 
   ngOnInit() {
     this.rsvpId = this.route.snapshot.params['id'];
@@ -67,5 +73,7 @@ export class RsvpDetailsPage implements OnInit {
       });
     }
   }
-
+  async goToGroupMembers() {
+    this.router.navigateByUrl('/members/guestList');
+  }
 }

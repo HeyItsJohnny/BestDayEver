@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RsvpGuest, RsvpGuestService } from 'src/app/services/rsvp-guest.service';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController } from '@ionic/angular';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-guest-details',
@@ -24,7 +24,8 @@ export class GuestDetailsPage implements OnInit {
     private route: ActivatedRoute, 
     private nav: NavController, 
     private rsvpGuestService: RsvpGuestService, 
-    private loadingController: LoadingController) { }
+    private loadingController: LoadingController,
+    private router: Router) { }
 
   ngOnInit() {
     this.rsvpGuestID = this.route.snapshot.params['id'];
