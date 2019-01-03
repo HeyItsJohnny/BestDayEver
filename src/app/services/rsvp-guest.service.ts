@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 import { Profile } from 'src/app/services/profile.service';
 import { AngularFireAuth } from "angularfire2/auth";
 import { ActivatedRoute } from '@angular/router';
-//import { Events } from 'ionic-angular';
 
 export interface RsvpGuest {
   id?: string;
