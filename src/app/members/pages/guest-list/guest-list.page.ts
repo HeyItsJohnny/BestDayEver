@@ -14,12 +14,12 @@ export class GuestListPage implements OnInit {
 
   constructor(
     private rsvpGuestService: RsvpGuestService,
-    private route: ActivatedRoute,) { }
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.rsvpId = this.route.snapshot.params['id'];
     if (this.rsvpId)  {
-      this.rsvpGuestService.getRsvpGuests().subscribe(res => {
+      this.rsvpGuestService.getRsvpGuests(this.rsvpId).subscribe(res => {
         this.rsvpGuests = res;
       });
     }

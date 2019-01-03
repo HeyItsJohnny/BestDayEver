@@ -19,16 +19,16 @@ export interface RsvpGuest {
 export class RsvpGuestService {
   private rsvpGuestCollection: AngularFirestoreCollection<RsvpGuest>;
   private rsvpGuest: Observable<RsvpGuest[]>;
+  private currentRSVP: string;
 
   constructor(
     db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
 
       var authUser = this.afAuth.auth.currentUser;
-      var currentRSVP = '';   //Get Current RSVP
 
-      this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests').doc(currentRSVP).collection('guest');
-  
+      this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests').doc('HjGoNwmWh99aWHgsKV4M').collection('guest');
+
       this.rsvpGuest = this.rsvpGuestCollection.snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
@@ -40,7 +40,8 @@ export class RsvpGuestService {
       );
   }
 
-  getRsvpGuests() {
+  getRsvpGuests(rsvpID: string) {
+    this.currentRSVP = rsvpID;
     return this.rsvpGuest;
   }
  
