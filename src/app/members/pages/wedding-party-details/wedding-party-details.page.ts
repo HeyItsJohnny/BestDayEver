@@ -12,8 +12,6 @@ export class WeddingPartyDetailsPage implements OnInit {
 
   weddingParty: WeddingParty = {
     Name: '',
-    Email: '',
-    PhoneNo: '',
     WeddingSide: ''
   };
 

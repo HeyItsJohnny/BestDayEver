@@ -8,8 +8,6 @@ import { AngularFireAuth } from "angularfire2/auth";
 export interface WeddingParty {
   id?: string;
   Name: string;
-  Email: string;
-  PhoneNo: string;
   WeddingSide: string;
 }
 
