@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, EventEmitter } from '@angular/core';
 import { RsvpGuest, RsvpGuestService } from 'src/app/services/rsvp-guest.service';
 import { ActivatedRoute } from '@angular/router';
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'app-guest-list',
@@ -14,13 +15,15 @@ export class GuestListPage implements OnInit {
 
   constructor(
     private rsvpGuestService: RsvpGuestService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    public events: Events) { }
 
   ngOnInit() {
     this.rsvpId = this.route.snapshot.params['id'];
-    if (this.rsvpId)  {
-      this.rsvpGuestService.setAttendanceSet(this.rsvpId);
+    if (this.rsvpId)  {   
+      this.events.publish('set:changed', this.rsvpId);   
       this.rsvpGuestService.getRsvpGuests(this.rsvpId).subscribe(res => {
+        //this.events.publish('set:changed', this.rsvpId);
         this.rsvpGuests = res;
       });
     }

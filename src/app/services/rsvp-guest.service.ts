@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Profile } from 'src/app/services/profile.service';
 import { AngularFireAuth } from "angularfire2/auth";
 import { ActivatedRoute } from '@angular/router';
+import { Events } from 'ionic-angular';
 
 export interface RsvpGuest {
   id?: string;
@@ -26,9 +27,13 @@ export class RsvpGuestService {
   constructor(
     db: AngularFirestore,
     private afAuth: AngularFireAuth,
-    private route: ActivatedRoute) { 
+    private route: ActivatedRoute,
+    public events: Events) { 
 
+    
+    this.events.subscribe('set:changed', set => {
       var authUser = this.afAuth.auth.currentUser;
+      this.rsvpId = set;
       console.log('RSVP ID: ' + this.rsvpId);
 
       this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests').doc(this.rsvpId).collection('guest');
@@ -42,6 +47,7 @@ export class RsvpGuestService {
           });
         })
       );
+    }); 
   }
 
   setAttendanceSet(set: any) {
