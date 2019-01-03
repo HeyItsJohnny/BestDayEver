@@ -73,7 +73,27 @@ export class RsvpDetailsPage implements OnInit {
       });
     }
   }
+
   async goToGroupMembers() {
-    this.router.navigateByUrl('/members/guestList');
+    //First save the RSVP (Save or Update)
+    //Then Pass in the RSVP ID.
+    const loading = await this.loadingController.create({
+      message: 'Saving RSVPs..'
+    });
+    await loading.present();
+
+    if (this.rsvpId) {
+      this.rsvpService.updateRsvp(this.rsvp, this.rsvpId).then(docRef => {
+        loading.dismiss();
+        this.router.navigateByUrl('/members/guestList/' + this.rsvpId);
+      });
+    } else {
+      this.rsvpService.addRsvp(this.rsvp).then(docRef => {
+        this.rsvpId = docRef.id;
+        loading.dismiss();
+        this.router.navigateByUrl('/members/guestList/' + this.rsvpId);
+      });
+    }
+    //this.router.navigateByUrl('/members/guestList/' + this.rsvpId);
   }
 }
