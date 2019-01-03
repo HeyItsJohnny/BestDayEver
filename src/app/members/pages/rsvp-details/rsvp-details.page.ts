@@ -94,6 +94,5 @@ export class RsvpDetailsPage implements OnInit {
         this.router.navigateByUrl('/members/guestList/' + this.rsvpId);
       });
     }
-    //this.router.navigateByUrl('/members/guestList/' + this.rsvpId);
   }
 }
