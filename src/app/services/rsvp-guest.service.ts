@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Profile } from 'src/app/services/profile.service';
 import { AngularFireAuth } from "angularfire2/auth";
+import { ActivatedRoute } from '@angular/router';
+//import { Events } from 'ionic-angular';
 
 export interface RsvpGuest {
   id?: string;
@@ -19,15 +21,18 @@ export interface RsvpGuest {
 export class RsvpGuestService {
   private rsvpGuestCollection: AngularFirestoreCollection<RsvpGuest>;
   private rsvpGuest: Observable<RsvpGuest[]>;
-  private currentRSVP: string;
+  public rsvpId: any;
+
 
   constructor(
     db: AngularFirestore,
-    private afAuth: AngularFireAuth) { 
+    private afAuth: AngularFireAuth,
+    private route: ActivatedRoute) { 
 
       var authUser = this.afAuth.auth.currentUser;
+      console.log('RSVP ID: ' + this.rsvpId);
 
-      this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests').doc('HjGoNwmWh99aWHgsKV4M').collection('guest');
+      this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests').doc(this.rsvpId).collection('guest');
 
       this.rsvpGuest = this.rsvpGuestCollection.snapshotChanges().pipe(
         map(actions => {
@@ -40,8 +45,12 @@ export class RsvpGuestService {
       );
   }
 
+  setAttendanceSet(set: any) {
+    this.rsvpId = set;
+  }
+
   getRsvpGuests(rsvpID: string) {
-    this.currentRSVP = rsvpID;
+    //this.currentRSVP = rsvpID;
     return this.rsvpGuest;
   }
  
