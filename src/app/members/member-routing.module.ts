@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'vendorList', loadChildren: './pages/vendor-list/vendor-list.module#VendorListPageModule' },
   { path: 'home', loadChildren: './pages/home/home.module#HomePageModule'},
   { path: 'guestList', loadChildren: './pages/guest-list/guest-list.module#GuestListPageModule' },
+  { path: 'guestList/:id', loadChildren: './pages/guest-list/guest-list.module#GuestListPageModule' },
   { path: 'guestDetails', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' },
   { path: 'guestDetails/:id', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' }
 ];
