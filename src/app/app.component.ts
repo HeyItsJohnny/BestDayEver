@@ -37,7 +37,7 @@ export class AppComponent {
       icon: 'list'
     },
     {
-      title: 'RSVP Guests',
+      title: 'RSVP Groups',
       url: '/members/rsvpList',
       canActivate: [AuthGuardService],
       icon: 'list'
