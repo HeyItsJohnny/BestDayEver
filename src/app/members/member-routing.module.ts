@@ -27,7 +27,9 @@ const routes: Routes = [
   { path: 'weddingPartyPersonList', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
   { path: 'weddingPartyPersonList/:id', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
   { path: 'weddingPartyPersonDetails', loadChildren: './pages/wedding-party-person-details/wedding-party-person-details.module#WeddingPartyPersonDetailsPageModule' },
-  { path: 'weddingPartyPersonDetails/:id', loadChildren: './pages/wedding-party-person-details/wedding-party-person-details.module#WeddingPartyPersonDetailsPageModule' }
+  { path: 'weddingPartyPersonDetails/:id', loadChildren: './pages/wedding-party-person-details/wedding-party-person-details.module#WeddingPartyPersonDetailsPageModule' },
+  { path: 'dinnerSelectionList', loadChildren: './pages/dinner-selection-list/dinner-selection-list.module#DinnerSelectionListPageModule' },
+  { path: 'dinnerSelectionList/:id', loadChildren: './pages/dinner-selection-list/dinner-selection-list.module#DinnerSelectionListPageModule' }
 ];
 
 @NgModule({

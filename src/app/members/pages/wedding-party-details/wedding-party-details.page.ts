@@ -65,20 +65,13 @@ export class WeddingPartyDetailsPage implements OnInit {
   }
 
   async goToPartyMembers() {
-    const loading = await this.loadingController.create({
-      message: 'Saving RSVPs..'
-    });
-    await loading.present();
-
     if (this.weddingPartyId ) {
       this.weddingPartyService.updateWeddingParty(this.weddingParty, this.weddingPartyId).then(docRef => {
-        loading.dismiss();
         this.router.navigateByUrl('/members/weddingPartyPersonList/' + this.weddingPartyId);
       });
     } else {
       this.weddingPartyService.addWeddingParty(this.weddingParty).then(docRef => {
         this.weddingPartyId = docRef.id;
-        loading.dismiss();
         this.router.navigateByUrl('/members/weddingPartyPersonList/' + this.weddingPartyId);
       });
     }

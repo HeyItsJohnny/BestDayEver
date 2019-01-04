@@ -75,20 +75,13 @@ export class RsvpDetailsPage implements OnInit {
   }
 
   async goToGroupMembers() {
-    const loading = await this.loadingController.create({
-      message: 'Saving RSVPs..'
-    });
-    await loading.present();
-
     if (this.rsvpId) {
       this.rsvpService.updateRsvp(this.rsvp, this.rsvpId).then(docRef => {
-        loading.dismiss();
         this.router.navigateByUrl('/members/guestList/' + this.rsvpId);
       });
     } else {
       this.rsvpService.addRsvp(this.rsvp).then(docRef => {
         this.rsvpId = docRef.id;
-        loading.dismiss();
         this.router.navigateByUrl('/members/guestList/' + this.rsvpId);
       });
     }
