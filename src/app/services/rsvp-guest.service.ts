@@ -29,9 +29,7 @@ export class RsvpGuestService {
     private afAuth: AngularFireAuth,
     private route: ActivatedRoute,
     public events: Events) { 
-
-    
-    this.events.subscribe('set:changed', set => {
+    this.events.subscribe('guest:created', set => {
       var authUser = this.afAuth.auth.currentUser;
       this.rsvpId = set;
       this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests').doc(this.rsvpId).collection('guest');
@@ -48,12 +46,7 @@ export class RsvpGuestService {
     }); 
   }
 
-  setAttendanceSet(set: any) {
-    this.rsvpId = set;
-  }
-
-  getRsvpGuests(rsvpID: string) {
-    //this.currentRSVP = rsvpID;
+  getRsvpGuests() {
     return this.rsvpGuest;
   }
  

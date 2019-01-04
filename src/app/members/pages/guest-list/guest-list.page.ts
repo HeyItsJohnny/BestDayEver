@@ -21,9 +21,8 @@ export class GuestListPage implements OnInit {
   ngOnInit() {
     this.rsvpId = this.route.snapshot.params['id'];
     if (this.rsvpId)  {   
-      this.events.publish('set:changed', this.rsvpId);   
-      this.rsvpGuestService.getRsvpGuests(this.rsvpId).subscribe(res => {
-        //this.events.publish('set:changed', this.rsvpId);
+      this.events.publish('guest:created', this.rsvpId);   
+      this.rsvpGuestService.getRsvpGuests().subscribe(res => {
         this.rsvpGuests = res;
       });
     }

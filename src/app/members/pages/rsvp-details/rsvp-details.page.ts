@@ -75,8 +75,6 @@ export class RsvpDetailsPage implements OnInit {
   }
 
   async goToGroupMembers() {
-    //First save the RSVP (Save or Update)
-    //Then Pass in the RSVP ID.
     const loading = await this.loadingController.create({
       message: 'Saving RSVPs..'
     });
