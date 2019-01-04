@@ -10,7 +10,8 @@ export interface Event {
   id?: string;
   Subject: string;
   Description: string;
-  DateOfEvent: Date;
+  StartDate: Date;
+  EndDate: Date;
   StartEventTime: Time;
   EndEventTime: Time;
   UpdatedAt: number;

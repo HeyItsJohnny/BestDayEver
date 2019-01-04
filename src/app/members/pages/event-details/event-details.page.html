@@ -18,9 +18,13 @@
             <ion-input required type="text" [(ngModel)]="event.Description"></ion-input>
         </ion-item>
         <ion-item>
-            <ion-label stacked class="bold-label">Event Date:</ion-label>
-            <ion-input required type="date" [(ngModel)]="event.DateOfEvent"></ion-input>
+            <ion-label stacked class="bold-label">Start Date:</ion-label>
+            <ion-input required type="date" [(ngModel)]="event.StartDate"></ion-input>
         </ion-item>
+        <ion-item>
+                <ion-label stacked class="bold-label">End Date:</ion-label>
+                <ion-input required type="date" [(ngModel)]="event.EndDate"></ion-input>
+            </ion-item>
         <ion-item>
             <ion-label stacked class="bold-label">Start Time:</ion-label>
             <ion-input required type="time" [(ngModel)]="event.StartEventTime"></ion-input>

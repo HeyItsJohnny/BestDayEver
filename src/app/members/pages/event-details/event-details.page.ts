@@ -12,7 +12,8 @@ export class EventDetailsPage implements OnInit {
   event: Event = {
     Subject: '',
     Description: '',
-    DateOfEvent: null,
+    StartDate: null,
+    EndDate: null,
     StartEventTime: null,
     EndEventTime: null,
     UpdatedAt: 0,
