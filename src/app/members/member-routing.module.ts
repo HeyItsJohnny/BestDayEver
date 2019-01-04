@@ -23,7 +23,11 @@ const routes: Routes = [
   { path: 'guestList', loadChildren: './pages/guest-list/guest-list.module#GuestListPageModule' },
   { path: 'guestList/:id', loadChildren: './pages/guest-list/guest-list.module#GuestListPageModule' },
   { path: 'guestDetails', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' },
-  { path: 'guestDetails/:id', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' }
+  { path: 'guestDetails/:id', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' },
+  { path: 'weddingPartyPersonList', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
+  { path: 'weddingPartyPersonList/:id', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
+  { path: 'weddingPartyPersonDetails', loadChildren: './pages/wedding-party-person-details/wedding-party-person-details.module#WeddingPartyPersonDetailsPageModule' },
+  { path: 'weddingPartyPersonDetails/:id', loadChildren: './pages/wedding-party-person-details/wedding-party-person-details.module#WeddingPartyPersonDetailsPageModule' }
 ];
 
 @NgModule({
