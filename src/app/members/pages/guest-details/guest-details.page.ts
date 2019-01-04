@@ -18,8 +18,10 @@ export class GuestDetailsPage implements OnInit {
     Name: '',
     Email: '',
     PhoneNo: '',
-    DinnerChoice: ''
+    DinnerChoice: '',
+    DinnerChoiceText: ''
   };
+
 
   rsvpGuestID = null;
 
@@ -90,29 +92,48 @@ export class GuestDetailsPage implements OnInit {
         }, {
           text: 'Ok',
           handler: (data: any) => {
-            console.log('Radio data:', data);
+            console.log('Data: ' + data);
+            this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,this.rsvpGuestID).then(function() {
+              console.log("Dinner Choice successfully updated!");
+            });           
           }
         }
       ]
     };
 
     for (let item of this.dinners) {
-      options.inputs.push({ name : item.Name, value: item.id , label: item.Name, type: 'radio'});
+      options.inputs.push({ name : item.Name, value: item.id , label: item.Name, type: 'radio', checked: this.setTheInputCheck(item.id)});
     }
     
     let alert = await this.alertController.create(options);
     await alert.present();
   }
 
+  setTheInputCheck(dinnerID: string){
+    if (dinnerID == this.rsvpGuest.DinnerChoice) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  getDinnerString(dinnerID: string) {
+    for (let item of this.dinners) {
+      if (item.id == this.rsvpGuest.DinnerChoice) {
+        return item.Name;
+      } else {
+        return "";
+      }
+    }
+  }
+
   saveRsvp() {
     if (this.rsvpGuestID ) {
       this.rsvpGuestService.updateRsvpGuest(this.rsvpGuest, this.rsvpGuestID).then(docRef => {
-        //this.router.navigateByUrl('/members/dinnerSelectionList/' + this.rsvpGuestID);
       });
     } else {
       this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
         this.rsvpGuestID = docRef.id;
-        //this.router.navigateByUrl('/members/dinnerSelectionList/' + this.rsvpGuestID);
       });
     }
   }

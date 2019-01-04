@@ -13,6 +13,7 @@ export interface RsvpGuest {
   Email: string;
   PhoneNo: string;
   DinnerChoice: string;
+  DinnerChoiceText: string;
 }
 
 @Injectable({
@@ -56,6 +57,10 @@ export class RsvpGuestService {
  
   updateRsvpGuest(rsvpGuest: RsvpGuest, id: string) {
     return this.rsvpGuestCollection.doc(id).update(rsvpGuest);
+  }
+
+  updateRsvpGuestDinnerChoice(dinnerChoiceID: string, id: string) {
+    return this.rsvpGuestCollection.doc(id).update({"DinnerChoice": dinnerChoiceID});
   }
  
   addRsvpGuest(rsvpGuest: RsvpGuest) {
