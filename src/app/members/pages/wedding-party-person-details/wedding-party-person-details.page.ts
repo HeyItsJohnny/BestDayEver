@@ -13,8 +13,7 @@ export class WeddingPartyPersonDetailsPage implements OnInit {
   weddingPartyPerson: WeddingPartyPerson = {
     Name: '',
     Email: '',
-    PhoneNo: '',
-    DinnerChoice: ''
+    PhoneNo: ''
   };
 
   weddingPartyPersonID = null;

@@ -12,7 +12,6 @@ export interface WeddingPartyPerson {
   Name: string;
   Email: string;
   PhoneNo: string;
-  DinnerChoice: string;
 }
 
 @Injectable({
