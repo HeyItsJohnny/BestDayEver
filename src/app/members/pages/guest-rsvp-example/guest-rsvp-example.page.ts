@@ -16,9 +16,7 @@ export class GuestRsvpExamplePage implements OnInit {
   constructor(
     db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
-      var authUser = this.afAuth.auth.currentUser;
-      //var test = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
-  
+      var authUser = this.afAuth.auth.currentUser;  
       this.rsvpsCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
     }
 
@@ -42,8 +40,19 @@ export class GuestRsvpExamplePage implements OnInit {
 
   findRSVP() {
     console.log("RSVP GUEST NAME: " + this.findRsvp.Name);
-    var query = this.rsvpsCollection.ref.where("Name","==",this.findRsvp.Name).get().then(docRef => {
-      console.log("Query: " + docRef);
+    this.rsvpsCollection.ref.where("Name","==",this.findRsvp.Name)
+    .get()
+    .then(function(querySnapshot) {
+        querySnapshot.forEach(function(doc) {
+            if (doc.id != null) {
+              console.log(doc.id, " => ", doc.data());
+            } else {
+              console.log("There is NO DATA HERE..");
+            }            
+        });
+    })
+    .catch(function(error) {
+        console.log("Error getting documents: ", error);
     });
   }
 
