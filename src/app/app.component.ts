@@ -34,37 +34,43 @@ export class AppComponent {
       title: 'Wedding Details',
       url: '/members/weddingDayDetails',
       canActivate: [AuthGuardService],
-      icon: 'list'
-    },
-    {
-      title: 'RSVP Groups',
-      url: '/members/rsvpList',
-      canActivate: [AuthGuardService],
-      icon: 'list'
+      icon: 'md-checkmark-circle'
     },
     {
       title: 'Wedding Party',
       url: '/members/weddingPartyList',
       canActivate: [AuthGuardService],
-      icon: 'list'
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'RSVP Groups',
+      url: '/members/rsvpList',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
     },
     {
       title: 'Events',
       url: '/members/eventList',
       canActivate: [AuthGuardService],
-      icon: 'list'
+      icon: 'md-checkmark-circle'
     },
     {
       title: 'Dinner Setup',
       url: '/members/dinnerList',
       canActivate: [AuthGuardService],
-      icon: 'list'
+      icon: 'md-checkmark-circle'
     },
     {
       title: 'Vendors',
       url: '/members/vendorList',
       canActivate: [AuthGuardService],
-      icon: 'list'
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Start RSVP',
+      url: '/members/guestRsvpExample',
+      canActivate: [AuthGuardService],
+      icon: 'md-add-circle'
     }
   ];
 
