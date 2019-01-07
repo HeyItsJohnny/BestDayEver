@@ -5,5 +5,11 @@
 </ion-header>
 
 <ion-content padding>
-
+  <ion-list lines="full">
+    <ion-item>
+      <ion-label stacked class="bold-label">Name on Invitation:</ion-label>
+      <ion-input required type="text" [(ngModel)]="findRsvpGuest.Name"></ion-input>
+    </ion-item>
+    <ion-button expand="full" (click)="findGuestRSVP()">Find RSVP</ion-button>
+  </ion-list>
 </ion-content>

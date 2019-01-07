@@ -11,7 +11,19 @@ export class GuestRsvpExamplePage implements OnInit {
 
   constructor() { }
 
+  findRsvpGuest: RsvpGuest = {
+    Name: '',
+    Email: '',
+    PhoneNo: '',
+    DinnerChoice: '',
+    DinnerChoiceText: ''
+  };
+
   ngOnInit() {
+  }
+
+  findGuestRSVP() {
+    console.log("RSVP GUEST NAME: " + this.findRsvpGuest.Name);
   }
 
 }
