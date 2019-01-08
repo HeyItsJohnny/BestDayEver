@@ -81,6 +81,7 @@ export class GuestRsvpExamplePage implements OnInit {
     });
   }
 
+  
   /*async getRSVP2(DocID: string) {
     this.rsvpService.getRsvp(DocID).subscribe(res => {
       this.getRsvp = res;
