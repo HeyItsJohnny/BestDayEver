@@ -69,12 +69,11 @@ export class GuestRsvpExamplePage implements OnInit {
     .get()
     .then(function(querySnapshot) {
         querySnapshot.forEach(function(doc) {
-          console.log("DOC ID: " + doc.id);
-          //console.log(doc.id, " => ", doc.data());
-          this.getRsvp = doc.data();
-          console.log("GET RSVP OBJECT!!!");
-          console.log(this.getRsvp);
-          //return doc.id;
+          var data = doc.data();
+          var GroupName = data.Name;
+          var GroupEmail = data.Email;
+          console.log("Group NAME: " + GroupName + " Group EMAIL: " + GroupEmail);
+          
         });
     })
     .catch(function(error) {
