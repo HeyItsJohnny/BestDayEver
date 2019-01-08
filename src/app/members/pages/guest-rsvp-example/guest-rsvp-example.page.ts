@@ -5,6 +5,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { Profile } from 'src/app/services/profile.service';
 import { NavController, LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
+import { query } from '@angular/core/src/render3';
 
 @Component({
   selector: 'app-guest-rsvp-example',
@@ -59,7 +60,6 @@ export class GuestRsvpExamplePage implements OnInit {
 
   findRSVP() {
     this.getRSVP();
-    //console.log("RSVP!!! " + test);
   }
 
   getRSVP() {
@@ -68,17 +68,64 @@ export class GuestRsvpExamplePage implements OnInit {
     .limit(1)
     .get()
     .then(function(querySnapshot) {
+      if (querySnapshot.empty) {
+        console.log("No Documents Found.");
+      } else {
         querySnapshot.forEach(function(doc) {
           var data = doc.data();
           var GroupName = data.Name;
           var GroupEmail = data.Email;
-          console.log("Group NAME: " + GroupName + " Group EMAIL: " + GroupEmail);
-          
+          var NumberOfRSVPS = data.NumberOfGuests;
+          console.log("Group ID: " + doc.id + " Group NAME: " + GroupName + " Group EMAIL: " + GroupEmail + " Number of Guests: " + NumberOfRSVPS);
+
         });
+      }
     })
     .catch(function(error) {
         //console.log("RETURN NOTHING..");
     });
+  }
+
+  async createRSVPGuest(DocumentID: string, RSVPNum: number)
+  {
+    console.log("Document ID: " + DocumentID + " RSVP Number: " + RSVPNum);
+    /*const alert = this.alertController.create({
+      header: 'Prompt!',
+      inputs: [
+        {
+          name: 'RSVPName',
+          type: 'text',
+          placeholder: 'Name'
+        },
+        {
+          name: 'RSVPEmail',
+          type: 'text',
+          placeholder: 'Email'
+        },
+        {
+          name: 'RSVPPhoneNo',
+          type: 'text',
+          placeholder: 'Phone No.'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            console.log('Confirm Ok');
+          }
+        }
+      ]
+    });
+
+    await alert.present(); */
   }
 
   
