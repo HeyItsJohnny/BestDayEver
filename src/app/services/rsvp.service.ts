@@ -25,15 +25,13 @@ export interface Rsvp {
   providedIn: 'root'
 })
 
-
 export class RsvpService {
   private rsvpsCollection: AngularFirestoreCollection<Rsvp>;
   private rsvps: Observable<Rsvp[]>;
 
   constructor(
-    db: AngularFirestore,
+    public db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
-
     var authUser = this.afAuth.auth.currentUser;
     this.rsvpsCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
 
@@ -62,6 +60,11 @@ export class RsvpService {
  
   addRsvp(rsvp: Rsvp) {
     return this.rsvpsCollection.add(rsvp);
+  }
+
+  getRsvpFromSearch(NameToSearch: string) {
+    var authUser = this.afAuth.auth.currentUser;
+    return this.db.collection<Profile>('profile').doc(authUser.uid).collection<Rsvp>('weddingguests', ref => ref.where('Name', '==', NameToSearch).limit(1)).snapshotChanges();
   }
  
   removeRsvp(id) {

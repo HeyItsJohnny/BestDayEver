@@ -5,7 +5,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { Profile } from 'src/app/services/profile.service';
 import { NavController, LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { query } from '@angular/core/src/render3';
+import { Events } from 'ionic-angular';
 
 @Component({
   selector: 'app-guest-rsvp-example',
@@ -14,13 +14,15 @@ import { query } from '@angular/core/src/render3';
 })
 export class GuestRsvpExamplePage implements OnInit {
   private rsvpsCollection: AngularFirestoreCollection<Rsvp>;
+  rsvps: Rsvp[];
 
   constructor(
     db: AngularFirestore,
     private afAuth: AngularFireAuth,
     private loadingController: LoadingController,
     public alertController: AlertController,
-    private rsvpService: RsvpService) { 
+    private rsvpService: RsvpService,
+    public events: Events) { 
       var authUser = this.afAuth.auth.currentUser;  
       this.rsvpsCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
     }
@@ -58,81 +60,46 @@ export class GuestRsvpExamplePage implements OnInit {
   ngOnInit() {
   }
 
-  findRSVP() {
-    this.getRSVP();
+  findRSVPRecord() {
+    console.log("BEFORE SUBSCIRPTION..");
+    if (this.findRsvp.Name == "") {
+      this.presentAlert("Error","Please enter in the Name on the RSVP.");
+    } else {
+      this.getRSVPrecord();
+    }
   }
 
-  getRSVP() {
-    console.log("RSVP NAME TO FIND:: " + this.findRsvp.Name);
-    this.rsvpsCollection.ref.where("Name","==",this.findRsvp.Name)
-    .limit(1)
-    .get()
-    .then(function(querySnapshot) {
-      if (querySnapshot.empty) {
-        console.log("No Documents Found.");
+  getRSVPrecord() {
+    this.rsvpService.getRsvpFromSearch(this.findRsvp.Name).subscribe(res => {
+      if (res.length == 0) {
+        this.presentAlert("Error","RSVP was not found. Please try another name.");
       } else {
-        querySnapshot.forEach(function(doc) {
-          var data = doc.data();
-          var GroupName = data.Name;
-          var GroupEmail = data.Email;
-          var NumberOfRSVPS = data.NumberOfGuests;
-          console.log("Group ID: " + doc.id + " Group NAME: " + GroupName + " Group EMAIL: " + GroupEmail + " Number of Guests: " + NumberOfRSVPS);
-
+        this.rsvps = res.map(a => {
+          const rsvp: Rsvp = a.payload.doc.data() as Rsvp;
+          rsvp.id = a.payload.doc.id;
+          this.getRsvp.id = rsvp.id;
+          this.getRsvp.Name = rsvp.Name;
+          this.getRsvp.Email = rsvp.Email;
+          this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;
+          console.log("1. GET RSVP ID: " + this.getRsvp.id + " GET RSVP NAME: " + this.getRsvp.Name + " Number of Guests: " + this.getRsvp.NumberOfGuests);
+          return rsvp;          
         });
-      }
-    })
-    .catch(function(error) {
-        //console.log("RETURN NOTHING..");
+      }      
     });
   }
 
-  async createRSVPGuest(DocumentID: string, RSVPNum: number)
+  createRSVPGuest(DocSetID: string)
   {
-    console.log("Document ID: " + DocumentID + " RSVP Number: " + RSVPNum);
-    /*const alert = this.alertController.create({
-      header: 'Prompt!',
-      inputs: [
-        {
-          name: 'RSVPName',
-          type: 'text',
-          placeholder: 'Name'
-        },
-        {
-          name: 'RSVPEmail',
-          type: 'text',
-          placeholder: 'Email'
-        },
-        {
-          name: 'RSVPPhoneNo',
-          type: 'text',
-          placeholder: 'Phone No.'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: () => {
-            console.log('Confirm Ok');
-          }
-        }
-      ]
-    });
-
-    await alert.present(); */
+    console.log("DOC SET: " + DocSetID);
   }
 
-  
-  /*async getRSVP2(DocID: string) {
-    this.rsvpService.getRsvp(DocID).subscribe(res => {
-      this.getRsvp = res;
-      console.log("FOUND RSVP NAME!!!! " + this.getRsvp.Name);
+  async presentAlert(headerStr: string, messageStr: string) {
+    const alert = await this.alertController.create({
+      header: headerStr,
+      message: messageStr,
+      buttons: ['OK']
     });
-  }*/
+    await alert.present();
+  }
+
 }
