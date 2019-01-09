@@ -81,6 +81,7 @@ export class GuestRsvpExamplePage implements OnInit {
           this.getRsvp.Name = rsvp.Name;
           this.getRsvp.Email = rsvp.Email;
           this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;
+          this.startCreateRSVPGuest(rsvp.id,rsvp.NumberOfGuests);
           console.log("1. GET RSVP ID: " + this.getRsvp.id + " GET RSVP NAME: " + this.getRsvp.Name + " Number of Guests: " + this.getRsvp.NumberOfGuests);
           return rsvp;          
         });
@@ -88,9 +89,11 @@ export class GuestRsvpExamplePage implements OnInit {
     });
   }
 
-  createRSVPGuest(DocSetID: string)
-  {
-    console.log("DOC SET: " + DocSetID);
+  startCreateRSVPGuest(DocSetID: string, NumOfGuests: number)
+  {    
+    for(var i = 1; i <= NumOfGuests; i++) {
+      console.log("Num: " + i +" DOC SET: " + DocSetID);
+    }
   }
 
   async presentAlert(headerStr: string, messageStr: string) {
