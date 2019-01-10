@@ -66,6 +66,10 @@ export class RsvpService {
     var authUser = this.afAuth.auth.currentUser;
     return this.db.collection<Profile>('profile').doc(authUser.uid).collection<Rsvp>('weddingguests', ref => ref.where('Name', '==', NameToSearch).limit(1)).snapshotChanges();
   }
+
+  setRsvpAttendance(id: string, isGoingBool: boolean){
+    return this.rsvpsCollection.doc(id).update({"isGoing": isGoingBool});
+  }
  
   removeRsvp(id) {
     return this.rsvpsCollection.doc(id).delete();

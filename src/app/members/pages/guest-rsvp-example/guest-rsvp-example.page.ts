@@ -89,12 +89,35 @@ export class GuestRsvpExamplePage implements OnInit {
     });
   }
 
-  startCreateRSVPGuest(DocSetID: string, NumOfGuests: number)
+  async startCreateRSVPGuest(DocSetID: string, NumOfGuests: number)
   {    
-    //this.createRSVPGuest("");
-    for(var i = 1; i <= NumOfGuests; i++) {
-      console.log("Num: " + i +" DOC SET: " + DocSetID);
-    }
+    const alert = await this.alertController.create({
+      header: "We found you!",
+      message: "Will you be attending?",
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.startRSVPGuestInput(DocSetID, NumOfGuests);
+          }
+        }, {
+          text: 'No',
+          handler: () => {
+            this.rsvpService.setRsvpAttendance(DocSetID,false);
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  async startRSVPGuestInput(DocSetID: string, NumOfGuests: number) {
+    this.delay(1000).then(any=>{
+      for(var i = 1; i <= NumOfGuests; i++) {
+        console.log("Num: " + i +" DOC SET: " + DocSetID);
+      }
+    });
+    this.rsvpService.setRsvpAttendance(DocSetID,true);
   }
 
   async createRSVPGuest(DocSetID: string) {
@@ -144,5 +167,9 @@ export class GuestRsvpExamplePage implements OnInit {
     });
     await alert.present();
   }
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+}
 
 }
