@@ -82,7 +82,6 @@ export class GuestRsvpExamplePage implements OnInit {
           this.getRsvp.Email = rsvp.Email;
           this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;
           this.startCreateRSVPGuest(rsvp.id,rsvp.NumberOfGuests);
-          console.log("1. GET RSVP ID: " + this.getRsvp.id + " GET RSVP NAME: " + this.getRsvp.Name + " Number of Guests: " + this.getRsvp.NumberOfGuests);
           return rsvp;          
         });
       }      
@@ -99,30 +98,33 @@ export class GuestRsvpExamplePage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.startRSVPGuestInput(DocSetID, NumOfGuests);
+            alert.dismiss();
           }
         }, {
           text: 'No',
           handler: () => {
             this.rsvpService.setRsvpAttendance(DocSetID,false);
+            alert.dismiss();
           }
         }
       ]
     });
-    await alert.present();
+    alert.present();
   }
 
   async startRSVPGuestInput(DocSetID: string, NumOfGuests: number) {
     this.delay(1000).then(any=>{
       for(var i = 1; i <= NumOfGuests; i++) {
-        console.log("Num: " + i +" DOC SET: " + DocSetID);
+        //console.log("Num: " + i +" DOC SET: " + DocSetID);
+        this.createRSVPGuest(DocSetID, i);
       }
     });
     this.rsvpService.setRsvpAttendance(DocSetID,true);
   }
 
-  async createRSVPGuest(DocSetID: string) {
+  async createRSVPGuest(DocSetID: string, GuestNo: number) {
     const alert = await this.alertController.create({
-      header: 'Enter Guest Information',
+      header: "Enter Guest " + GuestNo + " Information",
       inputs: [
         {
           name: 'guestName',
