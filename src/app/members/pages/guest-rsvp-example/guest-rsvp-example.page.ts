@@ -91,9 +91,49 @@ export class GuestRsvpExamplePage implements OnInit {
 
   startCreateRSVPGuest(DocSetID: string, NumOfGuests: number)
   {    
+    //this.createRSVPGuest("");
     for(var i = 1; i <= NumOfGuests; i++) {
       console.log("Num: " + i +" DOC SET: " + DocSetID);
     }
+  }
+
+  async createRSVPGuest(DocSetID: string) {
+    const alert = await this.alertController.create({
+      header: 'Enter Guest Information',
+      inputs: [
+        {
+          name: 'guestName',
+          type: 'text',
+          placeholder: 'Name'
+        },
+        {
+          name: 'guestEmail',
+          type: 'text',
+          placeholder: 'Email'
+        },
+        {
+          name: 'guestPhoneNo',
+          type: 'text',
+          placeholder: 'Phone No.'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: () => {
+            console.log('Confirm Ok');
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   async presentAlert(headerStr: string, messageStr: string) {
