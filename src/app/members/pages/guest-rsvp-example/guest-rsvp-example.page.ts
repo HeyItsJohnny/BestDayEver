@@ -6,6 +6,7 @@ import { Profile } from 'src/app/services/profile.service';
 import { NavController, LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Events } from 'ionic-angular';
+import { resolve } from 'q';
 
 @Component({
   selector: 'app-guest-rsvp-example',
@@ -81,35 +82,58 @@ export class GuestRsvpExamplePage implements OnInit {
           this.getRsvp.Name = rsvp.Name;
           this.getRsvp.Email = rsvp.Email;
           this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;
-          this.startCreateRSVPGuest(rsvp.id,rsvp.NumberOfGuests);
+          this.showAttendingAlert(rsvp.id,rsvp.NumberOfGuests, rsvp.Name);
           return rsvp;          
         });
       }      
     });
   }
 
-  async startCreateRSVPGuest(DocSetID: string, NumOfGuests: number)
+  showAttendingAlert(DocSetID: string, NumOfGuests: number, RSVPName: string)
   {    
-    const alert = await this.alertController.create({
-      header: "We found you!",
+    this.attendingConfirm(DocSetID,NumOfGuests,RSVPName).then((result) => {
+      if(result){
+        this.rsvpService.setRsvpAttendance(DocSetID,true);
+      } else {
+        this.rsvpService.setRsvpAttendance(DocSetID,false);
+      }
+    })
+    /*this.alertController.create({
+      header: "Hello " + RSVPName + "!",
       message: "Will you be attending?",
       buttons: [
         {
           text: 'Yes',
           handler: () => {
-            this.startRSVPGuestInput(DocSetID, NumOfGuests);
-            alert.dismiss();
+            this.rsvpService.setRsvpAttendance(DocSetID,true);
           }
         }, {
           text: 'No',
           handler: () => {
             this.rsvpService.setRsvpAttendance(DocSetID,false);
-            alert.dismiss();
           }
         }
       ]
-    });
-    alert.present();
+    }).then(alert => alert.present())*/
+  }
+
+  attendingConfirm(DocSetID: string, NumOfGuests: number, RSVPName: string) {
+    return new Promise((resolve, reject) =>{
+      const confirm = this.alertController.create({
+        header : "Hello " + RSVPName + "!",
+        message: "Will you be attending?",
+        buttons: [
+          {
+            text: 'Yes',
+            handler:_=> resolve(true)
+          },
+          {
+            text: 'No',
+            handler:_=> resolve(false)
+          }
+        ]
+      }).then(alert => alert.present())
+    })
   }
 
   async startRSVPGuestInput(DocSetID: string, NumOfGuests: number) {
