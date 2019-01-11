@@ -81,7 +81,7 @@ export class GuestRsvpExamplePage implements OnInit {
           this.getRsvp.id = rsvp.id;
           this.getRsvp.Name = rsvp.Name;
           this.getRsvp.Email = rsvp.Email;
-          this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;
+          this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;          
           this.showAttendingAlert(rsvp.id,rsvp.NumberOfGuests, rsvp.Name);
           return rsvp;          
         });
@@ -93,7 +93,7 @@ export class GuestRsvpExamplePage implements OnInit {
   {    
     this.attendingConfirm(DocSetID,NumOfGuests,RSVPName).then((result) => {
       if(result){
-        this.rsvpService.setRsvpAttendance(DocSetID,true);
+        this.rsvpService.setRsvpAttendance(DocSetID,true);        
       } else {
         this.rsvpService.setRsvpAttendance(DocSetID,false);
       }
