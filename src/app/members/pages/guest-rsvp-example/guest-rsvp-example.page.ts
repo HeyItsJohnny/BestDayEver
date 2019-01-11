@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
+import { RsvpGuest, RsvpGuestService } from 'src/app/services/rsvp-guest.service';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { AngularFireAuth } from "angularfire2/auth";
 import { Profile } from 'src/app/services/profile.service';
@@ -23,6 +24,7 @@ export class GuestRsvpExamplePage implements OnInit {
     private loadingController: LoadingController,
     public alertController: AlertController,
     private rsvpService: RsvpService,
+    private rsvpGuestService: RsvpGuestService,
     public events: Events) { 
       var authUser = this.afAuth.auth.currentUser;  
       this.rsvpsCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
@@ -57,6 +59,15 @@ export class GuestRsvpExamplePage implements OnInit {
     NumberOfGuests: 0,
     CreatedAt: 0
   };
+
+  rsvpGuest: RsvpGuest = {
+    Name: '',
+    Email: '',
+    PhoneNo: '',
+    DinnerChoice: '',
+    DinnerChoiceText: ''
+  };
+
 
   ngOnInit() {
   }
@@ -114,7 +125,6 @@ export class GuestRsvpExamplePage implements OnInit {
 
   async startRSVPGuestInput(DocSetID: string, NumOfGuests: number) {
     for(var i = 1; i <= NumOfGuests; i++) {
-      //console.log("Num: " + i +" DOC SET: " + DocSetID);
       this.createRSVPGuest(DocSetID, i);
     }
   }
@@ -149,8 +159,14 @@ export class GuestRsvpExamplePage implements OnInit {
           }
         }, {
           text: 'Ok',
-          handler: () => {
-            console.log('Confirm Ok');
+          handler: (data: any) => {
+            this.rsvpGuest.Email = data.guestEmail;
+            this.rsvpGuest.Name = data.guestName;
+            this.rsvpGuest.PhoneNo = data.guestPhoneNo;
+            this.events.publish('guest:created', this.getRsvp.id);
+            this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
+              this.rsvpGuest.id = docRef.id;
+            });
           }
         }
       ]
