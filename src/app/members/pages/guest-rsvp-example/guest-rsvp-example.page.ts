@@ -8,6 +8,7 @@ import { NavController, LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Events } from 'ionic-angular';
 import { resolve } from 'q';
+import { Dinner, DinnerService } from 'src/app/services/dinner.service';
 
 @Component({
   selector: 'app-guest-rsvp-example',
@@ -17,6 +18,7 @@ import { resolve } from 'q';
 export class GuestRsvpExamplePage implements OnInit {
   private rsvpsCollection: AngularFirestoreCollection<Rsvp>;
   rsvps: Rsvp[];
+  dinners: Dinner[];
 
   constructor(
     db: AngularFirestore,
@@ -25,6 +27,7 @@ export class GuestRsvpExamplePage implements OnInit {
     public alertController: AlertController,
     private rsvpService: RsvpService,
     private rsvpGuestService: RsvpGuestService,
+    private dinnerService: DinnerService,
     public events: Events) { 
       var authUser = this.afAuth.auth.currentUser;  
       this.rsvpsCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
@@ -70,6 +73,9 @@ export class GuestRsvpExamplePage implements OnInit {
 
 
   ngOnInit() {
+    this.dinnerService.getDinners().subscribe(res => {
+      this.dinners = res;
+    });
   }
 
   findRSVPRecord() {
@@ -125,11 +131,99 @@ export class GuestRsvpExamplePage implements OnInit {
 
   async startRSVPGuestInput(DocSetID: string, NumOfGuests: number) {
     for(var i = 1; i <= NumOfGuests; i++) {
-      this.createRSVPGuest(DocSetID, i);
+      this.createRSVPGuest(i);      
     }
   }
 
-  async createRSVPGuest(DocSetID: string, GuestNo: number) {
+  createRSVPGuest(GuestNo: number) {
+    this.alertController.create({
+      header: "Enter Guest " + GuestNo + " Information",
+      inputs: [
+        {
+          name: 'guestName',
+          type: 'text',
+          placeholder: 'Name'
+        },
+        {
+          name: 'guestEmail',
+          type: 'text',
+          placeholder: 'Email'
+        },
+        {
+          name: 'guestPhoneNo',
+          type: 'text',
+          placeholder: 'Phone No.'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data: any) => {
+            this.rsvpGuest.Email = data.guestEmail;
+            this.rsvpGuest.Name = data.guestName;
+            this.rsvpGuest.PhoneNo = data.guestPhoneNo;
+            this.events.publish('guest:created', this.getRsvp.id);
+            this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
+              this.rsvpGuest.id = docRef.id;
+              this.setDinnerSelection();
+            });
+          }
+        }
+      ]
+    }).then(alert => alert.present())
+  }
+
+  async setDinnerSelection() {
+    var options = {
+      header: "Dinner Selection",
+      subHeader: "Please select a dinner",
+      inputs: [],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data: any) => {
+            console.log('Data: ' + data);
+            this.rsvpGuestService.updateRsvpGuestDinnerChoiceText(this.getDinnerString(data),this.rsvpGuest.id);
+            this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,this.rsvpGuest.id).then(function() {
+              console.log("Dinner Choice successfully updated!");
+            });           
+          }
+        }
+      ]
+    };
+
+    for (let item of this.dinners) {
+      options.inputs.push({ name : item.Name, value: item.id , label: item.Name, type: 'radio'});
+    }
+    
+    let alert = await this.alertController.create(options);
+    await alert.present();
+  }
+
+  getDinnerString(dinnerID: string) {
+    for (let item of this.dinners) {
+      if (item.id == dinnerID) {
+        return item.Name;
+      }
+    }
+    return "";
+  }
+
+  /*async createRSVPGuest(GuestNo: number) {
     const alert = await this.alertController.create({
       header: "Enter Guest " + GuestNo + " Information",
       inputs: [
@@ -172,7 +266,7 @@ export class GuestRsvpExamplePage implements OnInit {
       ]
     });
     await alert.present();
-  }
+  }*/
 
   async presentAlert(headerStr: string, messageStr: string) {
     const alert = await this.alertController.create({
