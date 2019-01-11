@@ -71,7 +71,7 @@ export class GuestRsvpExamplePage implements OnInit {
   }
 
   getRSVPrecord() {
-    this.rsvpService.getRsvpFromSearch(this.findRsvp.Name).subscribe(res => {
+    var test = this.rsvpService.getRsvpFromSearch(this.findRsvp.Name).subscribe(res => {
       if (res.length == 0) {
         this.presentAlert("Error","RSVP was not found. Please try another name.");
       } else {
@@ -83,6 +83,7 @@ export class GuestRsvpExamplePage implements OnInit {
           this.getRsvp.Email = rsvp.Email;
           this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;          
           this.showAttendingAlert(rsvp.id,rsvp.NumberOfGuests, rsvp.Name);
+          test.unsubscribe();   //You need to unsubscribe!!!
           return rsvp;          
         });
       }      
@@ -91,14 +92,7 @@ export class GuestRsvpExamplePage implements OnInit {
 
   showAttendingAlert(DocSetID: string, NumOfGuests: number, RSVPName: string)
   {    
-    this.attendingConfirm(DocSetID,NumOfGuests,RSVPName).then((result) => {
-      if(result){
-        this.rsvpService.setRsvpAttendance(DocSetID,true);        
-      } else {
-        this.rsvpService.setRsvpAttendance(DocSetID,false);
-      }
-    })
-    /*this.alertController.create({
+    this.alertController.create({
       header: "Hello " + RSVPName + "!",
       message: "Will you be attending?",
       buttons: [
@@ -106,6 +100,7 @@ export class GuestRsvpExamplePage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.rsvpService.setRsvpAttendance(DocSetID,true);
+            this.startRSVPGuestInput(DocSetID,NumOfGuests);
           }
         }, {
           text: 'No',
@@ -114,36 +109,14 @@ export class GuestRsvpExamplePage implements OnInit {
           }
         }
       ]
-    }).then(alert => alert.present())*/
-  }
-
-  attendingConfirm(DocSetID: string, NumOfGuests: number, RSVPName: string) {
-    return new Promise((resolve, reject) =>{
-      const confirm = this.alertController.create({
-        header : "Hello " + RSVPName + "!",
-        message: "Will you be attending?",
-        buttons: [
-          {
-            text: 'Yes',
-            handler:_=> resolve(true)
-          },
-          {
-            text: 'No',
-            handler:_=> resolve(false)
-          }
-        ]
-      }).then(alert => alert.present())
-    })
+    }).then(alert => alert.present())
   }
 
   async startRSVPGuestInput(DocSetID: string, NumOfGuests: number) {
-    this.delay(1000).then(any=>{
-      for(var i = 1; i <= NumOfGuests; i++) {
-        //console.log("Num: " + i +" DOC SET: " + DocSetID);
-        this.createRSVPGuest(DocSetID, i);
-      }
-    });
-    this.rsvpService.setRsvpAttendance(DocSetID,true);
+    for(var i = 1; i <= NumOfGuests; i++) {
+      //console.log("Num: " + i +" DOC SET: " + DocSetID);
+      this.createRSVPGuest(DocSetID, i);
+    }
   }
 
   async createRSVPGuest(DocSetID: string, GuestNo: number) {
@@ -193,9 +166,5 @@ export class GuestRsvpExamplePage implements OnInit {
     });
     await alert.present();
   }
-
-  async delay(ms: number) {
-    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
-}
 
 }
