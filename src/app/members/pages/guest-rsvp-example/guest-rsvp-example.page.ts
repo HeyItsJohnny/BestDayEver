@@ -131,13 +131,13 @@ export class GuestRsvpExamplePage implements OnInit {
 
   async startRSVPGuestInput(DocSetID: string, NumOfGuests: number) {
     for(var i = 1; i <= NumOfGuests; i++) {
-      this.createRSVPGuest(i);      
+      this.createRSVPGuest();      
     }
   }
 
-  createRSVPGuest(GuestNo: number) {
+  createRSVPGuest() {
     this.alertController.create({
-      header: "Enter Guest " + GuestNo + " Information",
+      header: "Enter Guest Information",
       inputs: [
         {
           name: 'guestName',
