@@ -64,16 +64,12 @@ export class RsvpDetailsPage implements OnInit {
     if (this.rsvpId) {
       this.rsvpService.updateRsvp(this.rsvp, this.rsvpId).then(() => {
         loading.dismiss();
-        this.router.navigate(['members', 'rsvpList']);
-        //this.router.navigateByUrl('/members/rsvpList/');
-        //this.nav.goBack(true);
+        this.nav.goBack(true);
       });
     } else {
       this.rsvpService.addRsvp(this.rsvp).then(() => {
         loading.dismiss();
-        //this.nav.goBack(true);
-        this.router.navigate(['members', 'rsvpList']);
-        //this.router.navigateByUrl('/members/rsvpList/');
+        this.nav.goBack(true);
       });
     }
   }
