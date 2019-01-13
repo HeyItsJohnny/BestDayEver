@@ -19,6 +19,8 @@ export class GuestRsvpExamplePage implements OnInit {
   private rsvpsCollection: AngularFirestoreCollection<Rsvp>;
   rsvps: Rsvp[];
   dinners: Dinner[];
+  deleteRsvpGuests: RsvpGuest[];
+  addRsvpGuests: RsvpGuest[];
 
   constructor(
     db: AngularFirestore,
@@ -79,7 +81,6 @@ export class GuestRsvpExamplePage implements OnInit {
   }
 
   findRSVPRecord() {
-    console.log("BEFORE SUBSCIRPTION..");
     if (this.findRsvp.Name == "") {
       this.presentAlert("Error","Please enter in the Name on the RSVP.");
     } else {
@@ -88,7 +89,7 @@ export class GuestRsvpExamplePage implements OnInit {
   }
 
   getRSVPrecord() {
-    var test = this.rsvpService.getRsvpFromSearch(this.findRsvp.Name).subscribe(res => {
+    var rservice = this.rsvpService.getRsvpFromSearch(this.findRsvp.Name).subscribe(res => {
       if (res.length == 0) {
         this.presentAlert("Error","RSVP was not found. Please try another name.");
       } else {
@@ -100,7 +101,7 @@ export class GuestRsvpExamplePage implements OnInit {
           this.getRsvp.Email = rsvp.Email;
           this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;          
           this.showAttendingAlert(rsvp.id,rsvp.NumberOfGuests, rsvp.Name);
-          test.unsubscribe();   //You need to unsubscribe!!!
+          rservice.unsubscribe();   //You need to unsubscribe!!!
           return rsvp;          
         });
       }      
@@ -116,24 +117,102 @@ export class GuestRsvpExamplePage implements OnInit {
         {
           text: 'Yes',
           handler: () => {
-            this.rsvpService.setRsvpAttendance(DocSetID,true);
-            this.startRSVPGuestInput(DocSetID,NumOfGuests);
+            this.rsvpService.updateRsvpAttendance(DocSetID,true);
+            this.enterGuestInformation(DocSetID, NumOfGuests);
           }
         }, {
           text: 'No',
           handler: () => {
-            this.rsvpService.setRsvpAttendance(DocSetID,false);
+            this.rsvpService.updateRsvpAttendance(DocSetID,false);
           }
         }
       ]
     }).then(alert => alert.present())
   }
 
-  async startRSVPGuestInput(DocSetID: string, NumOfGuests: number) {
-    for(var i = 1; i <= NumOfGuests; i++) {
-      this.createRSVPGuest();      
-    }
+  enterGuestInformation(DocSetID: string, NumOfGuests: number) {
+    this.alertController.create({
+      header: "Please enter Guest Information",
+      inputs: [
+        {
+          name: 'guestEmail',
+          type: 'text',
+          placeholder: 'Email'
+        },
+        {
+          name: 'guestPhoneNo',
+          type: 'text',
+          placeholder: 'Phone No.'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data: any) => {
+            this.rsvpService.updateRsvpInformation(DocSetID,data.guestEmail,data.guestPhoneNo);
+            //Automatically Create X Guests Here
+            //Delete All Guests Here
+            //this.deleteGuests(DocSetID);
+            //this.createGuests(DocSetID, NumOfGuests);
+            this.enterAllGuests(DocSetID, NumOfGuests);
+          }
+        }
+      ]
+    }).then(alert => alert.present())
   }
+
+  /*deleteGuests(DocSetID: string) {
+    if (DocSetID)  {   
+      this.events.publish('guest:created', DocSetID);   
+      var rservice = this.rsvpGuestService.getRsvpGuests().subscribe(res => {
+        this.deleteRsvpGuests = res;
+        for (let item of this.deleteRsvpGuests) {
+          //console.log("ITEM ID: " + item.id);
+          this.events.publish('guest:created', DocSetID);
+          this.rsvpGuestService.removeRsvpGuest(item.id);
+        }
+      });
+      rservice.unsubscribe();
+    }
+  }*/
+
+  createGuests(DocSetID: string, NumOfGuests: number) {
+    for(var i = 1; i <= NumOfGuests; i++) {
+      this.events.publish('guest:created', DocSetID);
+      this.rsvpGuest.Name = "GUEST" + i;
+      this.rsvpGuestService.addRsvpGuest(this.rsvpGuest);
+    }
+    var rservice = this.rsvpGuestService.getRsvpGuests().subscribe(res => {
+      this.addRsvpGuests = res;
+    });
+    rservice.unsubscribe();
+
+  }
+
+  enterAllGuests(DocSetID: string, NumOfGuests: number) {
+    var options = {
+      header: "Please enter your guests",
+      subHeader: "Max Number of guests: " + NumOfGuests,
+      inputs: [],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data: any) => {
+            for (var k in data) {
+              console.log("DATA VALUE: " + data[k]);
+            } 
+          }
+        }
+      ]
+    };
+
+    for (var i = 1; i <= 3; i++) {
+      options.inputs.push({ name: "guest" + i,  type: 'text', placeholder: "Guest Name"});
+    }
+    this.alertController.create(options).then(alert => alert.present());
+  }
+
+  /*
 
   createRSVPGuest() {
     this.alertController.create({
@@ -221,52 +300,7 @@ export class GuestRsvpExamplePage implements OnInit {
       }
     }
     return "";
-  }
-
-  /*async createRSVPGuest(GuestNo: number) {
-    const alert = await this.alertController.create({
-      header: "Enter Guest " + GuestNo + " Information",
-      inputs: [
-        {
-          name: 'guestName',
-          type: 'text',
-          placeholder: 'Name'
-        },
-        {
-          name: 'guestEmail',
-          type: 'text',
-          placeholder: 'Email'
-        },
-        {
-          name: 'guestPhoneNo',
-          type: 'text',
-          placeholder: 'Phone No.'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (data: any) => {
-            this.rsvpGuest.Email = data.guestEmail;
-            this.rsvpGuest.Name = data.guestName;
-            this.rsvpGuest.PhoneNo = data.guestPhoneNo;
-            this.events.publish('guest:created', this.getRsvp.id);
-            this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
-              this.rsvpGuest.id = docRef.id;
-            });
-          }
-        }
-      ]
-    });
-    await alert.present();
-  }*/
+  } */
 
   async presentAlert(headerStr: string, messageStr: string) {
     const alert = await this.alertController.create({

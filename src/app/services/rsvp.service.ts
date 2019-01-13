@@ -67,8 +67,13 @@ export class RsvpService {
     return this.db.collection<Profile>('profile').doc(authUser.uid).collection<Rsvp>('weddingguests', ref => ref.where('Name', '==', NameToSearch).limit(1)).snapshotChanges();
   }
 
-  setRsvpAttendance(id: string, isGoingBool: boolean){
-    return this.rsvpsCollection.doc(id).update({"isGoing": isGoingBool});
+  updateRsvpAttendance(id: string, isGoingBool: boolean){
+    this.rsvpsCollection.doc(id).update({"isGoing": isGoingBool});
+  }
+
+  updateRsvpInformation(id: string, rsvpEmail: string, rsvpPhoneNo: string){
+    this.rsvpsCollection.doc(id).update({"Email": rsvpEmail});
+    this.rsvpsCollection.doc(id).update({"PhoneNo": rsvpPhoneNo});
   }
  
   removeRsvp(id) {
