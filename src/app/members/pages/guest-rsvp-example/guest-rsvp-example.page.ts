@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
 import { RsvpGuest, RsvpGuestService } from 'src/app/services/rsvp-guest.service';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { AngularFirestore } from 'angularfire2/firestore';
 import { AngularFireAuth } from "angularfire2/auth";
-import { Profile } from 'src/app/services/profile.service';
-import { NavController, LoadingController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
 import { Events } from 'ionic-angular';
-import { resolve } from 'q';
 import { Dinner, DinnerService } from 'src/app/services/dinner.service';
 
 @Component({
@@ -16,24 +13,17 @@ import { Dinner, DinnerService } from 'src/app/services/dinner.service';
   styleUrls: ['./guest-rsvp-example.page.scss'],
 })
 export class GuestRsvpExamplePage implements OnInit {
-  private rsvpsCollection: AngularFirestoreCollection<Rsvp>;
   rsvps: Rsvp[];
   dinners: Dinner[];
   deleteRsvpGuests: RsvpGuest[];
   addRsvpGuests: RsvpGuest[];
 
   constructor(
-    db: AngularFirestore,
-    private afAuth: AngularFireAuth,
-    private loadingController: LoadingController,
     public alertController: AlertController,
     private rsvpService: RsvpService,
     private rsvpGuestService: RsvpGuestService,
     private dinnerService: DinnerService,
-    public events: Events) { 
-      var authUser = this.afAuth.auth.currentUser;  
-      this.rsvpsCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
-    }
+    public events: Events) { }
 
   findRsvp: Rsvp = {
     Name: '',
@@ -101,7 +91,7 @@ export class GuestRsvpExamplePage implements OnInit {
           this.getRsvp.Email = rsvp.Email;
           this.getRsvp.NumberOfGuests = rsvp.NumberOfGuests;          
           this.showAttendingAlert(rsvp.id,rsvp.NumberOfGuests, rsvp.Name);
-          rservice.unsubscribe();   //You need to unsubscribe!!!
+          rservice.unsubscribe();
           return rsvp;          
         });
       }      
@@ -192,8 +182,6 @@ export class GuestRsvpExamplePage implements OnInit {
     this.events.publish('guest:created', this.getRsvp.id);
     var rsvpServ = this.rsvpGuestService.getRsvpGuests().subscribe(res => {
       this.addRsvpGuests = res;
-      //console.log("RES: " + res);
-      //console.log("Add RSVP: " + this.addRsvpGuests);
       for(var item of this.addRsvpGuests) {
         this.setDinnerSelection(item.id, item.Name);
       }
