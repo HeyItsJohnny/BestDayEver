@@ -161,22 +161,7 @@ export class GuestRsvpExamplePage implements OnInit {
     }).then(alert => alert.present())
   }
 
-  /*deleteGuests(DocSetID: string) {
-    if (DocSetID)  {   
-      this.events.publish('guest:created', DocSetID);   
-      var rservice = this.rsvpGuestService.getRsvpGuests().subscribe(res => {
-        this.deleteRsvpGuests = res;
-        for (let item of this.deleteRsvpGuests) {
-          //console.log("ITEM ID: " + item.id);
-          this.events.publish('guest:created', DocSetID);
-          this.rsvpGuestService.removeRsvpGuest(item.id);
-        }
-      });
-      rservice.unsubscribe();
-    }
-  }*/
-
-  createGuests(DocSetID: string, NumOfGuests: number) {
+  /*createGuests(DocSetID: string, NumOfGuests: number) {
     for(var i = 1; i <= NumOfGuests; i++) {
       this.events.publish('guest:created', DocSetID);
       this.rsvpGuest.Name = "GUEST" + i;
@@ -186,8 +171,7 @@ export class GuestRsvpExamplePage implements OnInit {
       this.addRsvpGuests = res;
     });
     rservice.unsubscribe();
-
-  }
+  }*/
 
   enterAllGuests(DocSetID: string, NumOfGuests: number) {
     var options = {
@@ -200,6 +184,12 @@ export class GuestRsvpExamplePage implements OnInit {
           handler: (data: any) => {
             for (var k in data) {
               console.log("DATA VALUE: " + data[k]);
+              this.events.publish('guest:created', this.getRsvp.id);
+              this.rsvpGuest.Name = data[k];
+              this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
+                this.rsvpGuest.id = docRef.id;
+                this.addRsvpGuests.push(this.rsvpGuest);
+              });
             } 
           }
         }
