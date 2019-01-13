@@ -150,10 +150,6 @@ export class GuestRsvpExamplePage implements OnInit {
           text: 'Ok',
           handler: (data: any) => {
             this.rsvpService.updateRsvpInformation(DocSetID,data.guestEmail,data.guestPhoneNo);
-            //Automatically Create X Guests Here
-            //Delete All Guests Here
-            //this.deleteGuests(DocSetID);
-            //this.createGuests(DocSetID, NumOfGuests);
             this.enterAllGuests(DocSetID, NumOfGuests);
           }
         }
@@ -161,113 +157,64 @@ export class GuestRsvpExamplePage implements OnInit {
     }).then(alert => alert.present())
   }
 
-  /*createGuests(DocSetID: string, NumOfGuests: number) {
-    for(var i = 1; i <= NumOfGuests; i++) {
-      this.events.publish('guest:created', DocSetID);
-      this.rsvpGuest.Name = "GUEST" + i;
-      this.rsvpGuestService.addRsvpGuest(this.rsvpGuest);
-    }
-    var rservice = this.rsvpGuestService.getRsvpGuests().subscribe(res => {
-      this.addRsvpGuests = res;
-    });
-    rservice.unsubscribe();
-  }*/
-
   enterAllGuests(DocSetID: string, NumOfGuests: number) {
     var options = {
       header: "Please enter your guests",
       subHeader: "Max Number of guests: " + NumOfGuests,
+      message: "Please include yourself below",
       inputs: [],
       buttons: [
         {
           text: 'Ok',
           handler: (data: any) => {
             for (var k in data) {
-              console.log("DATA VALUE: " + data[k]);
-              this.events.publish('guest:created', this.getRsvp.id);
-              this.rsvpGuest.Name = data[k];
-              this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
-                this.rsvpGuest.id = docRef.id;
-                this.addRsvpGuests.push(this.rsvpGuest);
-              });
+              if (data[k] != "") {
+                this.events.publish('guest:created', this.getRsvp.id);
+                this.rsvpGuest.Name = data[k];
+                this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
+                  this.rsvpGuest.id = docRef.id;
+                });
+              }
             } 
+            this.startDinnerSelection();
           }
         }
       ]
     };
 
-    for (var i = 1; i <= 3; i++) {
+    for (var i = 1; i <= NumOfGuests; i++) {
       options.inputs.push({ name: "guest" + i,  type: 'text', placeholder: "Guest Name"});
     }
     this.alertController.create(options).then(alert => alert.present());
   }
 
-  /*
-
-  createRSVPGuest() {
-    this.alertController.create({
-      header: "Enter Guest Information",
-      inputs: [
-        {
-          name: 'guestName',
-          type: 'text',
-          placeholder: 'Name'
-        },
-        {
-          name: 'guestEmail',
-          type: 'text',
-          placeholder: 'Email'
-        },
-        {
-          name: 'guestPhoneNo',
-          type: 'text',
-          placeholder: 'Phone No.'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (data: any) => {
-            this.rsvpGuest.Email = data.guestEmail;
-            this.rsvpGuest.Name = data.guestName;
-            this.rsvpGuest.PhoneNo = data.guestPhoneNo;
-            this.events.publish('guest:created', this.getRsvp.id);
-            this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
-              this.rsvpGuest.id = docRef.id;
-              this.setDinnerSelection();
-            });
-          }
-        }
-      ]
-    }).then(alert => alert.present())
+  startDinnerSelection() {
+    this.events.publish('guest:created', this.getRsvp.id);
+    var rsvpServ = this.rsvpGuestService.getRsvpGuests().subscribe(res => {
+      this.addRsvpGuests = res;
+      //console.log("RES: " + res);
+      //console.log("Add RSVP: " + this.addRsvpGuests);
+      for(var item of this.addRsvpGuests) {
+        this.setDinnerSelection(item.id, item.Name);
+      }
+      rsvpServ.unsubscribe();
+    });
   }
 
-  async setDinnerSelection() {
+  
+  async setDinnerSelection(rsvpGuestID: string, rsvpGuestName: string) {
     var options = {
-      header: "Dinner Selection",
+      header: rsvpGuestName + " Dinner Selection",
       subHeader: "Please select a dinner",
       inputs: [],
       buttons: [
         {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
           text: 'Ok',
           handler: (data: any) => {
             console.log('Data: ' + data);
-            this.rsvpGuestService.updateRsvpGuestDinnerChoiceText(this.getDinnerString(data),this.rsvpGuest.id);
-            this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,this.rsvpGuest.id).then(function() {
+            this.events.publish('guest:created', this.getRsvp.id);
+            this.rsvpGuestService.updateRsvpGuestDinnerChoiceText(this.getDinnerString(data),rsvpGuestID);
+            this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,rsvpGuestID).then(function() {
               console.log("Dinner Choice successfully updated!");
             });           
           }
@@ -290,7 +237,7 @@ export class GuestRsvpExamplePage implements OnInit {
       }
     }
     return "";
-  } */
+  } 
 
   async presentAlert(headerStr: string, messageStr: string) {
     const alert = await this.alertController.create({
