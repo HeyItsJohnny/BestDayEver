@@ -235,5 +235,4 @@ export class GuestRsvpExamplePage implements OnInit {
     });
     await alert.present();
   }
-
 }
