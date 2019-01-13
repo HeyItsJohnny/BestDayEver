@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
 import { RsvpGuest, RsvpGuestService } from 'src/app/services/rsvp-guest.service';
-import { AngularFirestore } from 'angularfire2/firestore';
-import { AngularFireAuth } from "angularfire2/auth";
 import { AlertController } from '@ionic/angular';
 import { Events } from 'ionic-angular';
 import { Dinner, DinnerService } from 'src/app/services/dinner.service';
@@ -149,8 +147,8 @@ export class GuestRsvpExamplePage implements OnInit {
 
   enterAllGuests(DocSetID: string, NumOfGuests: number) {
     var options = {
-      header: "Please enter your guests",
-      subHeader: "Max Number of guests: " + NumOfGuests,
+      header: "List all attendees",
+      subHeader: "Max Number of attendees: " + NumOfGuests,
       message: "Please include yourself below",
       inputs: [],
       buttons: [
