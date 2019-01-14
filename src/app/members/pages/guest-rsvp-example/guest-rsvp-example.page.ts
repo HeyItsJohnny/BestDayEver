@@ -202,7 +202,8 @@ export class GuestRsvpExamplePage implements OnInit {
             this.rsvpGuestService.updateRsvpGuestDinnerChoiceText(this.getDinnerString(data),rsvpGuestID);
             this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,rsvpGuestID).then(function() {
               console.log("Dinner Choice successfully updated!");
-            });           
+            });
+            this.askDietaryRestrictions();           
           }
         }
       ]
@@ -224,6 +225,30 @@ export class GuestRsvpExamplePage implements OnInit {
     }
     return "";
   } 
+
+ askDietaryRestrictions() {
+    this.alertController.create({
+      header: "Dietary Restrictions",
+      message: "Does your group require any dietary restrictions?",
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            //this.setDietaryRestrictions();
+          }
+        }, {
+          text: 'No',
+          handler: () => {
+            
+          }
+        }
+      ]
+    }).then(alert => alert.present());
+  }
+
+  setDietaryRestrictions() {
+    
+  }
 
   async presentAlert(headerStr: string, messageStr: string) {
     const alert = await this.alertController.create({

@@ -94,10 +94,9 @@ export class GuestDetailsPage implements OnInit {
           handler: (data: any) => {
             this.rsvpGuestService.updateRsvpGuestDinnerChoiceText(this.getDinnerString(data),this.rsvpGuestID);
             this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,this.rsvpGuestID).then(function() {
-              this.askDietaryRestrictions();
               //this.nav.goBack(true);
             });     
-            this.askDietaryRestrictions();      
+            //this.askDietaryRestrictions();      
           }
         }
       ]
@@ -132,23 +131,34 @@ export class GuestDetailsPage implements OnInit {
   }
 
   async setDietaryRestrictions() {
-    this.alertController.create({
-      header: "Please note the dietary restrictions.",
-      inputs: [
-        { name: "DietaryRestrictions",  
-          type: 'text', 
-          placeholder: "....."
-        }
-      ],
+    /*var options = {
+      header: "List all attendees",
+      subHeader: "Max Number of attendees: " + NumOfGuests,
+      message: "Please include yourself below",
+      inputs: [],
       buttons: [
         {
-          text: 'OK',
+          text: 'Ok',
           handler: (data: any) => {
-            this.rsvpGuestService.updateRsvpGuestDietaryRestrictions(data.DietaryRestrictions,this.rsvpGuestID);
+            for (var k in data) {
+              if (data[k] != "") {
+                this.events.publish('guest:created', this.getRsvp.id);
+                this.rsvpGuest.Name = data[k];
+                this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
+                  this.rsvpGuest.id = docRef.id;
+                });
+              }
+            } 
+            this.startDinnerSelection();
           }
         }
       ]
-    }).then(alert => alert.present());
+    };
+
+    for (var i = 1; i <= NumOfGuests; i++) {
+      options.inputs.push({ name: "guest" + i,  type: 'text', placeholder: "Guest Name"});
+    }
+    this.alertController.create(options).then(alert => alert.present());*/
   }
 
   setTheInputCheck(dinnerID: string){
