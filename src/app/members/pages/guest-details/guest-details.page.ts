@@ -75,6 +75,46 @@ export class GuestDetailsPage implements OnInit {
     }
   }
 
+  /*async goToDinnerSelection() {
+    this.saveRsvp();
+    var options = {
+      header: "Dinner Selection",
+      subHeader: "Please select a dinner",
+      inputs: [
+        {
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data: any) => {
+            console.log("DATA: " + data);
+            this.rsvpGuestService.updateRsvpGuestDinnerChoiceText(this.getDinnerString(data),this.rsvpGuestID);
+            this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,this.rsvpGuestID).then(function() {
+              this.nav.goBack(true);
+            });          
+          }
+        }
+      ]
+    };
+
+    for (let item of this.dinners) {
+      options.inputs.push({ name : item.Name, value: item.id , label: item.Name, type: 'radio', checked: this.setTheInputCheck(item.id)});
+    }
+
+    //options.inputs.push({ name: "DinnerMessage",  type: 'text', label: "Diet Restrictons.", placeholder: "Dietary Restrictions?"});
+    
+    let alert = await this.alertController.create(options);
+    await alert.present();
+  }  */
+
   async goToDinnerSelection() {
     this.saveRsvp();
     var options = {
