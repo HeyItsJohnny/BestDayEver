@@ -92,10 +92,9 @@ export class GuestDetailsPage implements OnInit {
         }, {
           text: 'Ok',
           handler: (data: any) => {
-            console.log('Data: ' + data);
             this.rsvpGuestService.updateRsvpGuestDinnerChoiceText(this.getDinnerString(data),this.rsvpGuestID);
             this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,this.rsvpGuestID).then(function() {
-              console.log("Dinner Choice successfully updated!");
+              this.nav.goBack(true);
             });           
           }
         }
