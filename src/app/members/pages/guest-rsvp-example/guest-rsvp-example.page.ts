@@ -35,6 +35,7 @@ export class GuestRsvpExamplePage implements OnInit {
     CoupleNotes: '',
     UpdatedAt: 0,
     isGoing: false,
+    ThankYouLetterSent: false,
     NumberOfGuests: 0,
     CreatedAt: 0
   };
@@ -51,6 +52,7 @@ export class GuestRsvpExamplePage implements OnInit {
     CoupleNotes: '',
     UpdatedAt: 0,
     isGoing: false,
+    ThankYouLetterSent: false,
     NumberOfGuests: 0,
     CreatedAt: 0
   };

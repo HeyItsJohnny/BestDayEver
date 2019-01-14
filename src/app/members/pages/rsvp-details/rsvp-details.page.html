@@ -48,10 +48,14 @@
         <ion-item>
             <ion-label stacked class="bold-label">RSVPed:</ion-label>
             <ion-checkbox [(ngModel)]="rsvp.isGoing" ></ion-checkbox>
-        </ion-item>
+        </ion-item>        
         <ion-item>
             <ion-label stacked class="bold-label">Notes to the Couple:</ion-label>
             <ion-input required type="text" [(ngModel)]="rsvp.CoupleNotes" disabled="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked class="bold-label">Thank You Letter Sent:</ion-label>
+            <ion-checkbox [(ngModel)]="rsvp.ThankYouLetterSent" ></ion-checkbox>
         </ion-item>
       </ion-list>
       <ion-button expand="full" (click)="saveRsvp()">Save</ion-button>

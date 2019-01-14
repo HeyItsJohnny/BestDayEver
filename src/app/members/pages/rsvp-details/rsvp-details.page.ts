@@ -23,6 +23,7 @@ export class RsvpDetailsPage implements OnInit {
     CoupleNotes: '',
     UpdatedAt: 0,
     isGoing: false,
+    ThankYouLetterSent: false,
     NumberOfGuests: 0,
     CreatedAt: 0
   };

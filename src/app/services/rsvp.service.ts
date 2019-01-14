@@ -17,6 +17,7 @@ export interface Rsvp {
   AddressPostCode: string;
   NumberOfGuests: number;
   CoupleNotes: string;
+  ThankYouLetterSent: boolean
   isGoing: Boolean;
   UpdatedAt: number;
   CreatedAt: number;
