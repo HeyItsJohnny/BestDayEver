@@ -65,6 +65,10 @@ export class RsvpGuestService {
   updateRsvpGuestDinnerChoiceText(dinnerChoiceText: string, id: string) {
     return this.rsvpGuestCollection.doc(id).update({"DinnerChoiceText": dinnerChoiceText});
   }
+
+  updateRsvpGuestDietaryRestrictions(dinnerNotes: string, id: string) {
+    return this.rsvpGuestCollection.doc(id).update({"DinnerNotes": dinnerNotes});
+  }
  
   addRsvpGuest(rsvpGuest: RsvpGuest) {
     return this.rsvpGuestCollection.add(rsvpGuest);
