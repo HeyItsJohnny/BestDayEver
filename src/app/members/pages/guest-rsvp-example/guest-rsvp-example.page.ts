@@ -164,7 +164,8 @@ export class GuestRsvpExamplePage implements OnInit {
                 });
               }
             } 
-            this.startDinnerSelection();
+            this.askDietaryRestrictions();  
+            this.startDinnerSelection(); 
           }
         }
       ]
@@ -183,7 +184,6 @@ export class GuestRsvpExamplePage implements OnInit {
       for(var item of this.addRsvpGuests) {
         this.setDinnerSelection(item.id, item.Name);
       }
-      this.askDietaryRestrictions();
       rsvpServ.unsubscribe();
     });
   }
