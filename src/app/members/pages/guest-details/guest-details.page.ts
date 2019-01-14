@@ -16,8 +16,7 @@ export class GuestDetailsPage implements OnInit {
 
   rsvpGuest: RsvpGuest = {
     Name: '',
-    Email: '',
-    PhoneNo: '',
+    DinnerNotes: '',
     DinnerChoice: '',
     DinnerChoiceText: ''
   };
@@ -39,8 +38,9 @@ export class GuestDetailsPage implements OnInit {
     if (this.rsvpGuestID)  {
       this.loadRsvpGuest();
     }
-    this.dinnerService.getDinners().subscribe(res => {
+    var dinnerservice = this.dinnerService.getDinners().subscribe(res => {
       this.dinners = res;
+      dinnerservice.unsubscribe();
     });
   }
 

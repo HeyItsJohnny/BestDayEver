@@ -10,10 +10,9 @@ import { Events } from 'ionic-angular';
 export interface RsvpGuest {
   id?: string;
   Name: string;
-  Email: string;
-  PhoneNo: string;
   DinnerChoice: string;
   DinnerChoiceText: string;
+  DinnerNotes: string;
 }
 
 @Injectable({

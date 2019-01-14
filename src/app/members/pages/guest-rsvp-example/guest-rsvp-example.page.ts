@@ -55,8 +55,7 @@ export class GuestRsvpExamplePage implements OnInit {
 
   rsvpGuest: RsvpGuest = {
     Name: '',
-    Email: '',
-    PhoneNo: '',
+    DinnerNotes: '',
     DinnerChoice: '',
     DinnerChoiceText: ''
   };

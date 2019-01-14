@@ -14,17 +14,13 @@
       <ion-input required type="text" [(ngModel)]="rsvpGuest.Name"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label stacked class="bold-label">Email:</ion-label>
-      <ion-input required type="text" [(ngModel)]="rsvpGuest.Email"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label stacked class="bold-label">Phone No:</ion-label>
-      <ion-input required type="text" [(ngModel)]="rsvpGuest.PhoneNo"></ion-input>
-    </ion-item>
-    <ion-item>
       <ion-label stacked class="bold-label">Dinner Choice:</ion-label>
       <ion-input required type="text" [(ngModel)]="rsvpGuest.DinnerChoiceText" disabled="true"></ion-input>
-    </ion-item>-
+    </ion-item>
+    <ion-item>
+      <ion-label stacked class="bold-label">Dinner Notes:</ion-label>
+      <ion-input required type="text" [(ngModel)]="rsvpGuest.DinnerNotes" disabled="true"></ion-input>
+    </ion-item>
   </ion-list>
   <ion-button expand="full" (click)="saveRsvpGuest()">Save</ion-button>
   <ion-button expand="full" (click)="goToDinnerSelection()">Select Dinner</ion-button>
