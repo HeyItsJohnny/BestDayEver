@@ -204,7 +204,6 @@ export class GuestRsvpExamplePage implements OnInit {
             this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,rsvpGuestID).then(function() {
               console.log("Dinner Choice successfully updated!");
             });
-            //this.askDietaryRestrictions();           
           }
         }
       ]
