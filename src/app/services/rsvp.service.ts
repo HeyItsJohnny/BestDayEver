@@ -16,6 +16,7 @@ export interface Rsvp {
   AddressState: string;
   AddressPostCode: string;
   NumberOfGuests: number;
+  CoupleNotes: string;
   isGoing: Boolean;
   UpdatedAt: number;
   CreatedAt: number;
@@ -74,6 +75,10 @@ export class RsvpService {
   updateRsvpInformation(id: string, rsvpEmail: string, rsvpPhoneNo: string){
     this.rsvpsCollection.doc(id).update({"Email": rsvpEmail});
     this.rsvpsCollection.doc(id).update({"PhoneNo": rsvpPhoneNo});
+  }
+
+  updateRsvpCoupleNote(id: string, CoupleNotes: String){
+    this.rsvpsCollection.doc(id).update({"CoupleNotes": CoupleNotes});
   }
  
   removeRsvp(id) {

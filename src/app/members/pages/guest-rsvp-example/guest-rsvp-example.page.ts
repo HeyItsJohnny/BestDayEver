@@ -32,6 +32,7 @@ export class GuestRsvpExamplePage implements OnInit {
     AddressCity: '',
     AddressState: '',
     AddressPostCode: '',
+    CoupleNotes: '',
     UpdatedAt: 0,
     isGoing: false,
     NumberOfGuests: 0,
@@ -47,6 +48,7 @@ export class GuestRsvpExamplePage implements OnInit {
     AddressCity: '',
     AddressState: '',
     AddressPostCode: '',
+    CoupleNotes: '',
     UpdatedAt: 0,
     isGoing: false,
     NumberOfGuests: 0,
@@ -106,16 +108,41 @@ export class GuestRsvpExamplePage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.rsvpService.updateRsvpAttendance(DocSetID,true);
+            this.rsvpService.updateRsvpCoupleNote(DocSetID,"");
             this.enterGuestInformation(DocSetID, NumOfGuests);
           }
         }, {
           text: 'No',
           handler: () => {
             this.rsvpService.updateRsvpAttendance(DocSetID,false);
+            this.setNotAttendingNote(DocSetID);
           }
         }
       ]
     }).then(alert => alert.present())
+  }
+
+  setNotAttendingNote(DocSetID: string) {
+    this.alertController.create({
+      header: "Send the couple a note.",
+      message: "Please leave the couple a small note.",
+      inputs: [        
+        {
+          name: 'SmallNote',
+          type: 'text',
+          placeholder: 'Couple Note'
+        }        
+      ],
+      buttons: [
+        {
+          text: 'OK',
+          handler: (data) => {
+            console.log(data.SmallNote);
+            this.rsvpService.updateRsvpCoupleNote(DocSetID,data.SmallNote);
+          }
+        }
+      ]
+    }).then(alert => alert.present());
   }
 
   enterGuestInformation(DocSetID: string, NumOfGuests: number) {
