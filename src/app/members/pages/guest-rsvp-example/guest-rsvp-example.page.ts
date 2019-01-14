@@ -62,8 +62,9 @@ export class GuestRsvpExamplePage implements OnInit {
 
 
   ngOnInit() {
-    this.dinnerService.getDinners().subscribe(res => {
+    var dinnerserv = this.dinnerService.getDinners().subscribe(res => {
       this.dinners = res;
+      dinnerserv.unsubscribe();
     });
   }
 
