@@ -183,6 +183,7 @@ export class GuestRsvpExamplePage implements OnInit {
       for(var item of this.addRsvpGuests) {
         this.setDinnerSelection(item.id, item.Name);
       }
+      this.askDietaryRestrictions();
       rsvpServ.unsubscribe();
     });
   }
@@ -203,7 +204,7 @@ export class GuestRsvpExamplePage implements OnInit {
             this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,rsvpGuestID).then(function() {
               console.log("Dinner Choice successfully updated!");
             });
-            this.askDietaryRestrictions();           
+            //this.askDietaryRestrictions();           
           }
         }
       ]
@@ -228,18 +229,18 @@ export class GuestRsvpExamplePage implements OnInit {
 
  askDietaryRestrictions() {
     this.alertController.create({
-      header: "Dietary Restrictions",
-      message: "Does your group require any dietary restrictions?",
+      header: "Allergies/Dietary Restrictions",
+      message: "Does your group have food allergies or require any dietary restrictions?",
       buttons: [
         {
           text: 'Yes',
           handler: () => {
-            //this.setDietaryRestrictions();
+            this.setDietaryRestrictions();
           }
         }, {
           text: 'No',
           handler: () => {
-            
+            console.log("No Dietary restrictions.");
           }
         }
       ]
@@ -247,7 +248,28 @@ export class GuestRsvpExamplePage implements OnInit {
   }
 
   setDietaryRestrictions() {
-    
+    var options = {
+      header: "Allergies/Dietary Restrictions",
+      message: "Please note all dietary restrictions & Food Allergies within your group.",
+      inputs: [],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data: any) => {
+            for (var k in data) {
+              if (data[k] != "") {
+                this.events.publish('guest:created', this.getRsvp.id);
+                this.rsvpGuestService.updateRsvpGuestDietaryRestrictions(data[k],k);
+              }
+            } 
+          }
+        }
+      ]
+    };
+    for(var item of this.addRsvpGuests) {
+      options.inputs.push({ name: item.id,  type: 'text', placeholder: item.Name + " Diet Notes"});
+    }
+    this.alertController.create(options).then(alert => alert.present());
   }
 
   async presentAlert(headerStr: string, messageStr: string) {
