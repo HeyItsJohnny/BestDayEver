@@ -9,6 +9,7 @@
 
 <ion-content padding>
     <ion-list lines="full">
+        <h1>Event Details</h1>
         <ion-item>
             <ion-label stacked class="bold-label">Name of Event:</ion-label>
             <ion-input required type="text" [(ngModel)]="event.Subject"></ion-input>
@@ -17,6 +18,7 @@
             <ion-label stacked class="bold-label">Description:</ion-label>
             <ion-input required type="text" [(ngModel)]="event.Description"></ion-input>
         </ion-item>
+        <h1>Date/Time</h1>
         <ion-item>
             <ion-label stacked class="bold-label">Start Date:</ion-label>
             <ion-input required type="date" [(ngModel)]="event.StartDate"></ion-input>

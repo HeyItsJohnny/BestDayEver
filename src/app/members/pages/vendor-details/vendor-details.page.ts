@@ -21,6 +21,11 @@ export class VendorDetailsPage implements OnInit {
     AddressCity: '',
     AddressState: '',
     AddressPostCode: '',
+    DateOfArrival: null,
+    TimeOfArrival: null,
+    Deposit: 0,
+    LiabilityInsurance: '',
+    MethodOfPayment: '',
     IsBooked: false,
     UpdatedAt: 0,
     CreatedAt: 0

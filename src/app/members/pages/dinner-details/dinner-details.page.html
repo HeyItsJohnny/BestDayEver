@@ -17,10 +17,6 @@
           <ion-label stacked class="bold-label">Description:</ion-label>
           <ion-input required type="text" [(ngModel)]="dinner.Description"></ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label stacked class="bold-label">Display Order:</ion-label>
-          <ion-input required type="number" placeholder="Display Order" [(ngModel)]="dinner.DisplayOrder"></ion-input>
-        </ion-item>
     </ion-list>
     <ion-button expand="full" (click)="saveDinner()">Save</ion-button>
 </ion-content>

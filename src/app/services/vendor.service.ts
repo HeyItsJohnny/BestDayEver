@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Profile } from 'src/app/services/profile.service';
 import { AngularFireAuth } from "angularfire2/auth";
+import { Time } from '@angular/common';
 
 export interface Vendor {
   id?: string;
@@ -16,6 +17,11 @@ export interface Vendor {
   AddressCity: string;
   AddressState: string;
   AddressPostCode: string;
+  DateOfArrival: Date;
+  TimeOfArrival: Time;
+  Deposit: number;
+  LiabilityInsurance: string;
+  MethodOfPayment: string;
   IsBooked: Boolean;
   UpdatedAt: number;
   CreatedAt: number;

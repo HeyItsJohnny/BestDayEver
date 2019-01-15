@@ -9,6 +9,7 @@
 
 <ion-content padding>
   <ion-list lines="full">
+      <h1>Vendor</h1>
       <ion-item>
           <ion-label stacked class="bold-label">Vendor Name:</ion-label>
           <ion-input required type="text" [(ngModel)]="vendor.Name"></ion-input>
@@ -17,6 +18,7 @@
           <ion-label stacked class="bold-label">Vendor Description:</ion-label>
           <ion-input required type="text" [(ngModel)]="vendor.Description"></ion-input>
       </ion-item>
+      <h1>Communication</h1>
       <ion-item>
           <ion-label stacked class="bold-label">Email:</ion-label>
           <ion-input required type="text" [(ngModel)]="vendor.Email"></ion-input>
@@ -25,6 +27,34 @@
           <ion-label stacked class="bold-label">Phone Number:</ion-label>
           <ion-input required type="text" [(ngModel)]="vendor.PhoneNo"></ion-input>
       </ion-item>
+      <h1>Wedding Notes</h1>      
+      <ion-item>
+        <ion-label stacked class="bold-label">Booked:</ion-label>
+        <ion-checkbox [(ngModel)]="vendor.IsBooked"  disabled="false"></ion-checkbox>
+      </ion-item> 
+      <ion-item>
+        <ion-label stacked class="bold-label">Liability:</ion-label>
+        <ion-input required type="text" [(ngModel)]="vendor.LiabilityInsurance"></ion-input>
+      </ion-item>
+      <h1>Date/Time of Arrival:</h1>
+      <ion-item>
+        <ion-label stacked class="bold-label">Date of Arrival:</ion-label>
+        <ion-input required type="date" [(ngModel)]="vendor.DateOfArrival"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="bold-label">Time of Arrival:</ion-label>
+        <ion-input required type="time" [(ngModel)]="vendor.TimeOfArrival"></ion-input>
+      </ion-item>
+      <h1>Payment Information</h1>
+      <ion-item>
+        <ion-label stacked class="bold-label">Method Of Payment:</ion-label>
+        <ion-input required type="text" [(ngModel)]="vendor.MethodOfPayment"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="bold-label">Deposit:</ion-label>
+        <ion-input required type="text" [(ngModel)]="vendor.Deposit"></ion-input>
+      </ion-item>      
+      <h1>Address</h1>
       <ion-item>
           <ion-label stacked class="bold-label">Address 1:</ion-label>
           <ion-input required type="text" [(ngModel)]="vendor.Address1"></ion-input>
@@ -44,11 +74,7 @@
       <ion-item>
           <ion-label stacked class="bold-label">Zip Code:</ion-label>
           <ion-input required type="text" [(ngModel)]="vendor.AddressPostCode"></ion-input>
-      </ion-item>
-      <ion-item>
-          <ion-label stacked class="bold-label">Booked:</ion-label>
-          <ion-checkbox [(ngModel)]="vendor.IsBooked"  disabled="false"></ion-checkbox>
-      </ion-item>  
+      </ion-item>       
   </ion-list>
   <ion-button expand="full" (click)="saveVendor()">Save</ion-button>
 </ion-content>
