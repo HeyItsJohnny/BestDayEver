@@ -16,6 +16,12 @@ export interface WeddingDayDetails {
   ReceptionTime: Time;
   DinnerTime: Time;
   CocktailTime: Time;
+  VenueName: string;
+  VenueAddress1: string;
+  VenueAddress2: string;
+  VenueCity: string;
+  VenueState: string;
+  VenueZipCode: string;
   WeddingInvitesSentOut: boolean;
   UpdatedAt: number;
   CreatedAt: number;
@@ -35,7 +41,6 @@ export class WeddingDayDetailsService {
     
     var authUser = this.afAuth.auth.currentUser;
     this.weddingDaysCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingDayDetails');
-    //this.weddingDaysCollection = db.collection<WeddingDayDetails>('weddingDayDetails');
  
     this.weddingDays = this.weddingDaysCollection.snapshotChanges().pipe(
       map(actions => {

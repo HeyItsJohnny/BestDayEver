@@ -9,6 +9,7 @@
 
 <ion-content padding>
     <ion-list lines="full"> 
+        <h1></h1>
         <ion-item>
             <ion-label stacked class="bold-label">Bride Name:</ion-label>
             <ion-input required type="text" [(ngModel)]="weddingDay.BrideName"></ion-input>
@@ -21,6 +22,13 @@
             <ion-label stacked class="bold-label">Est. Number of Guests:</ion-label>
             <ion-input required type="number" [(ngModel)]="weddingDay.EstimatedNoOfGuests"></ion-input>
         </ion-item>   
+        
+        <ion-item>
+            <ion-label stacked class="bold-label">Wedding Invites Sent Out:</ion-label>
+            <ion-checkbox [(ngModel)]="weddingDay.WeddingInvitesSentOut" disabled="true"></ion-checkbox>
+        </ion-item>  
+        <br>
+        <h1>Wedding Date & Time</h1>
         <ion-item>
             <ion-label stacked class="bold-label">Wedding Date:</ion-label>
             <ion-input required type="date" [(ngModel)]="weddingDay.WeddingDate"></ion-input>
@@ -37,10 +45,32 @@
             <ion-label stacked class="bold-label">Dinner Time:</ion-label>
             <ion-input required type="time" [(ngModel)]="weddingDay.DinnerTime"></ion-input>
         </ion-item> 
+        <br>
+        <h1>Venue Address</h1> 
         <ion-item>
-            <ion-label stacked class="bold-label">Wedding Invites Sent Out:</ion-label>
-            <ion-checkbox [(ngModel)]="weddingDay.WeddingInvitesSentOut" disabled="true"></ion-checkbox>
-        </ion-item>   
+            <ion-label stacked class="bold-label">Venue:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueName"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked class="bold-label">Address 1:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueAddress1"></ion-input>
+        </ion-item>  
+        <ion-item>
+            <ion-label stacked class="bold-label">Address 2:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueAddress2"></ion-input>
+        </ion-item>  
+        <ion-item>
+            <ion-label stacked class="bold-label">City:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueCity"></ion-input>
+        </ion-item>  
+        <ion-item>
+            <ion-label stacked class="bold-label">State:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueState"></ion-input>
+        </ion-item>  
+        <ion-item>
+            <ion-label stacked class="bold-label">Zip Code:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueZipCode"></ion-input>
+        </ion-item>  
     </ion-list>
     <ion-button expand="full" (click)="saveWeddingDay()">Save</ion-button>
 </ion-content>
