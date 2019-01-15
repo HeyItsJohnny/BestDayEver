@@ -96,7 +96,7 @@ export class GuestDetailsPage implements OnInit {
             this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,this.rsvpGuestID).then(function() {
               //this.nav.goBack(true);
             });     
-            //this.askDietaryRestrictions();      
+            this.askDietaryRestrictions();      
           }
         }
       ]
