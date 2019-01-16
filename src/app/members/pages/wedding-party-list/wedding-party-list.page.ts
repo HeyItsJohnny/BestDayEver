@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeddingParty, WeddingPartyService} from 'src/app/services/wedding-party.service'
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-wedding-party-list',
@@ -10,7 +11,9 @@ export class WeddingPartyListPage implements OnInit {
 
   weddingPartys: WeddingParty[];
 
-  constructor(private weddingPartyService: WeddingPartyService) { }
+  constructor(
+    private weddingPartyService: WeddingPartyService,
+    public alertController: AlertController) { }
 
   ngOnInit() {
     this.weddingPartyService.getWeddingPartys().subscribe (res => {
@@ -20,6 +23,42 @@ export class WeddingPartyListPage implements OnInit {
 
   remove(item) {
     this.weddingPartyService.removeWeddingParty(item.id);
+  }
+
+  addWeddingParty() {
+    this.displayAddPrompt();
+  }
+
+  displayAddPrompt() {
+    this.alertController.create({
+      header: "Add your or your Fiance's Name",
+      inputs: [
+        {
+          name: 'Name',
+          type: 'text',
+          placeholder: 'Name'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            var weddingPartytObj: WeddingParty = {
+              Name: data.Name,
+              WeddingSide: ''
+            };       
+            this.weddingPartyService.addWeddingParty(weddingPartytObj);
+          }
+        }
+      ]
+    }).then(alert => alert.present());
   }
 
 }
