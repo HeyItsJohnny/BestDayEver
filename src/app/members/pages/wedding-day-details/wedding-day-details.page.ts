@@ -18,8 +18,8 @@ export class WeddingDayDetailsPage implements OnInit {
     WeddingPartyGroupdID: '',
     WeddingDate: null,
     EstimatedNoOfGuests: 0,
-    GroomName: '',
-    BrideName: '',
+    YourName: '',
+    FianceName: '',
     ReceptionTime: null,
     DinnerTime: null,
     CocktailTime: null,
@@ -79,7 +79,7 @@ export class WeddingDayDetailsPage implements OnInit {
       });
     } else {
       this.weddingDayDetailsService.addWeddingDay(this.weddingDay).then(docRef => {
-        this.profileService.addWeddingID(docRef.id);
+        this.profileService.addWeddingID(docRef.id);        
       });
       loading.dismiss();
       this.nav.goBack(true);

@@ -11,8 +11,8 @@ export interface WeddingDayDetails {
   WeddingPartyGroupdID: string;
   WeddingDate: Date;
   EstimatedNoOfGuests: number;
-  GroomName: string;
-  BrideName: string;
+  YourName: string;
+  FianceName: string;
   ReceptionTime: Time;
   DinnerTime: Time;
   CocktailTime: Time;
