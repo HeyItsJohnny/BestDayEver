@@ -24,8 +24,6 @@ const routes: Routes = [
   { path: 'guestDetails/:id', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' },
   { path: 'weddingPartyPersonList', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
   { path: 'weddingPartyPersonList/:id', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
-  { path: 'weddingPartyPersonDetails', loadChildren: './pages/wedding-party-person-details/wedding-party-person-details.module#WeddingPartyPersonDetailsPageModule' },
-  { path: 'weddingPartyPersonDetails/:id', loadChildren: './pages/wedding-party-person-details/wedding-party-person-details.module#WeddingPartyPersonDetailsPageModule' },
   { path: 'guestRsvpExample', loadChildren: './pages/guest-rsvp-example/guest-rsvp-example.module#GuestRsvpExamplePageModule' }
 ];
 
