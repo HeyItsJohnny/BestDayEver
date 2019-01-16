@@ -25,25 +25,26 @@ export class DinnerListPage implements OnInit {
   }
 
   addItem() {
-    console.log("ADDING DINNER..");
+    console.log("Start ADD..");
+    this.displayAddPrompt();
   }
 
   updateItem(item: Dinner) {
-    console.log("Updating Item: " + item.id);
+    this.displayUpdatePrompt(item.id, item);
   }
 
-  displayPrompt(dinnerID: string, dinnerObj: Dinner) {
+  displayUpdatePrompt(dinnerID: string, dinnerObj: Dinner) {
     this.alertController.create({
-      header: 'Prompt!',
+      header: 'Dinner Setup',
       inputs: [
         {
-          name: 'Dinner',
+          name: 'DinnerName',
           type: 'text',
           value: dinnerObj.Name,
           placeholder: 'Dinner'
         },
         {
-          name: 'Description',
+          name: 'DinnerDescription',
           type: 'text',
           value: dinnerObj.Description,
           placeholder: 'Description'
@@ -60,11 +61,49 @@ export class DinnerListPage implements OnInit {
         }, {
           text: 'Ok',
           handler: (data) => {
-            if (dinnerID == "") {
-              this.dinnerService.addDinner(dinnerObj);
-            } else {
-              this.dinnerService.updateDinner(dinnerObj, dinnerID);
-            }
+            dinnerObj.Name = data.DinnerName;
+            dinnerObj.Description = data.DinnerDescription;            
+            this.dinnerService.updateDinner(dinnerObj, dinnerID);            
+          }
+        }
+      ]
+    }).then(alert => alert.present());
+  }
+
+  displayAddPrompt() {
+    this.alertController.create({
+      header: 'Dinner Setup',
+      inputs: [
+        {
+          name: 'DinnerName',
+          type: 'text',
+          placeholder: 'Dinner'
+        },
+        {
+          name: 'DinnerDescription',
+          type: 'text',
+          placeholder: 'Description'
+        }
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            var dinnerObj: Dinner = {
+              Name: data.DinnerName,
+              Description: data.DinnerDescription,
+              DisplayOrder: 0,
+              UpdatedAt: 0,
+              CreatedAt: 0
+            };       
+            this.dinnerService.addDinner(dinnerObj);         
           }
         }
       ]
