@@ -58,6 +58,16 @@ export class EventsService {
   addEvent(event: Event) {
     return this.eventsCollection.add(event);
   }
+
+  updateEventStartDateTime(startDate: Date, startTime: Time, id: string) {
+    this.eventsCollection.doc(id).update({"StartDate": startDate});
+    this.eventsCollection.doc(id).update({"StartEventTime": startTime});
+  }
+
+  updateEventEndDateTime(endDate: Date, endTime: Time, id: string) {
+    this.eventsCollection.doc(id).update({"EndDate": endDate});
+    this.eventsCollection.doc(id).update({"EndEventTime": endTime});
+  }
  
   removeEvent(id) {
     return this.eventsCollection.doc(id).delete();

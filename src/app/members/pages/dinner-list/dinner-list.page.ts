@@ -7,6 +7,7 @@ import { AlertController } from '@ionic/angular';
   templateUrl: './dinner-list.page.html',
   styleUrls: ['./dinner-list.page.scss'],
 })
+
 export class DinnerListPage implements OnInit {
 
   dinners: Dinner[];
@@ -25,7 +26,6 @@ export class DinnerListPage implements OnInit {
   }
 
   addItem() {
-    console.log("Start ADD..");
     this.displayAddPrompt();
   }
 
@@ -35,7 +35,7 @@ export class DinnerListPage implements OnInit {
 
   displayUpdatePrompt(dinnerID: string, dinnerObj: Dinner) {
     this.alertController.create({
-      header: 'Dinner Setup',
+      header: 'Update Dinner',
       inputs: [
         {
           name: 'DinnerName',
@@ -72,7 +72,7 @@ export class DinnerListPage implements OnInit {
 
   displayAddPrompt() {
     this.alertController.create({
-      header: 'Dinner Setup',
+      header: 'New Dinner',
       inputs: [
         {
           name: 'DinnerName',

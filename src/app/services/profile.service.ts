@@ -54,16 +54,4 @@ export class ProfileService {
     var authUser = this.afAuth.auth.currentUser;
     this.profilesCollection.doc(authUser.uid).update({WeddingID: WeddingIDStr});
   }
-
-  /*addToProfile(DocumentString: string,IDString: string){
-    var authUser = this.afAuth.auth.currentUser;
-    this.profilesCollection.doc(authUser.uid).collection(DocumentString).doc(IDString).set({
-      IDValue: IDString
-    });
-  }
-
-  removeFromProfile(DocumentString: string,IDString: string){
-    var authUser = this.afAuth.auth.currentUser;
-    this.profilesCollection.doc(authUser.uid).collection(DocumentString).doc(IDString).delete();
-  }*/
 }
