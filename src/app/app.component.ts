@@ -23,6 +23,123 @@ export class AppComponent {
     }
   ];
 
+  public homePages = [
+    {
+      title: 'Home',
+      url: '/members/home',
+      canActivate: [AuthGuardService],
+      icon: 'home'
+    }
+  ]
+
+  public weddingDetailsPages = [
+    {
+      title: 'Basic Information',
+      url: '/members/weddingDayDetails',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Day of Timeline',
+      url: '',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Wedding Party',
+      url: '/members/weddingPartyList',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    }
+  ]
+
+  public planningToolsPages = [
+    {
+      title: 'Budget',
+      url: '',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Events',
+      url: '/members/eventList',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Tasks',
+      url: '',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Vendors',
+      url: '/members/vendorList',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+  ]
+
+  public guestListPages = [
+    {
+      title: 'Guest List',
+      url: '/members/rsvpList',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    }    
+  ]
+
+  public registryPages = [
+    {
+      title: 'Registry',
+      url: '',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    }    
+  ]
+
+  public websiteSetupPages = [
+    {
+      title: 'Basic Setup',
+      url: '',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Dinner Setup',
+      url: '/members/dinnerList',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Images',
+      url: '',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Start RSVP',
+      url: '/members/guestRsvpExample',
+      canActivate: [AuthGuardService],
+      icon: 'md-add-circle'
+    }
+  ]
+
+  public venueSetupPages = [
+    {
+      title: 'Details',
+      url: '/members/weddingDayDetails',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
+      title: 'Sleeping Arrangements',
+      url: '',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    }
+  ]
+
   public appPages = [
     {
       title: 'Home',
