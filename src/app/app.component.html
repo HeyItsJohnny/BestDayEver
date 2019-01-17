@@ -20,6 +20,23 @@
             </ion-item>
           </ion-menu-toggle>
         </ion-list>
+        <div id="container">
+        <div id="accordion">
+            <div class="item">
+            <ion-list text-wrap id>
+                <a href="#"> Venue Setup </a>
+              <ion-menu-toggle auto-hide="false" *ngFor="let p of venueSetupPages ">
+                <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
+                  <ion-icon slot="start" [name]="p.icon"></ion-icon>
+                  <ion-label>>
+                    {{p.title}}
+                  </ion-label>
+                </ion-item>  
+              </ion-menu-toggle>
+            </ion-list>
+            </div>
+            </div>
+          </div>
         <ion-list text-wrap>
           Home
           <ion-menu-toggle auto-hide="false" *ngFor="let p of homePages">
@@ -84,7 +101,8 @@
             </ion-item>  
           </ion-menu-toggle>
         </ion-list>
-        <ion-list text-wrap>
+        
+        <!--<ion-list text-wrap>
           Venue Setup
           <ion-menu-toggle auto-hide="false" *ngFor="let p of venueSetupPages ">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
@@ -94,7 +112,7 @@
               </ion-label>
             </ion-item>  
           </ion-menu-toggle>
-        </ion-list>
+        </ion-list> -->
         <!--<ion-list>
           <ion-menu-toggle auto-hide="false" *ngFor="let p of appPages">
             <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
