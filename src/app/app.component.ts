@@ -14,6 +14,9 @@ import { AuthGuardService } from './services/auth-guard.service';
   templateUrl: 'app.component.html'
 })
 export class AppComponent {
+
+  showLevel1 = null;    //Used for accordian list
+  showLevel2 = null;    //Used for accordian list
   
   public loginPages = [
     {
