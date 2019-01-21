@@ -25,15 +25,8 @@ export interface Vendor {
   Category: string;
   Notes: string;
   Website: string;
-  FlightDepartingDate: Date;
-  FlightDepartingTime: Time;
   FlightDepartingAirline: string;
-  FlightDepartingNumber: string;
-  FlightReturningDate: Date;
-  FlightReturningTime: Time;
-  FlightReturningAirline: string;
-  FlightReturningNumber: string;
-  HotelName: string;
+  FlightNumber: string;
   HotelWebsite: string;
   HotelRate: string;
   HotelConfirmationNumber: string;

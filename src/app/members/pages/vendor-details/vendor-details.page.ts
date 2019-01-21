@@ -2,7 +2,7 @@ import { Vendor, VendorService } from 'src/app/services/vendor.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController } from '@ionic/angular';
-import { Profile, ProfileService } from 'src/app/services/profile.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-vendor-details',
@@ -30,15 +30,8 @@ export class VendorDetailsPage implements OnInit {
     LiabilityInsurance: '',
     MethodOfPayment: '',
     IsBooked: false,
-    FlightDepartingDate: null,
-    FlightDepartingTime: null,
     FlightDepartingAirline: '',
-    FlightDepartingNumber: '',
-    FlightReturningDate: null,
-    FlightReturningTime: null,
-    FlightReturningAirline: '',
-    FlightReturningNumber: '',
-    HotelName: '',
+    FlightNumber: '',
     HotelWebsite: '',
     HotelRate: '',
     HotelConfirmationNumber: '',
@@ -68,7 +61,7 @@ export class VendorDetailsPage implements OnInit {
 
   async loadVendor() {   
     const loading = await this.loadingController.create({
-      message: 'Loading Vendors..'
+      message: 'Loading Vendors Contact..'
     });
     await loading.present();
  
@@ -79,9 +72,8 @@ export class VendorDetailsPage implements OnInit {
   }
 
   async saveVendor() {
- 
     const loading = await this.loadingController.create({
-      message: 'Saving Vendor..'
+      message: 'Saving Vendor Contact..'
     });
     await loading.present();
  

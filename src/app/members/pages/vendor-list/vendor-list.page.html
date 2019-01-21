@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Vendor Contacts</ion-title>
+    <ion-title>Contacts</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,7 +16,7 @@
       </ng-container>
      
       <ion-item-sliding *ngFor="let item of vendors">
-        <ion-item lines="inset" button [routerLink]="['/members/vendorDetails', item.id]">
+        <ion-item lines="inset" button (click)="routeToVendorPage(item)">  
           <ion-label>
             {{ item.Name }}
           </ion-label>

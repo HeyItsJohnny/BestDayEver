@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
         <ion-back-button defaultHref="/members/vendorList"></ion-back-button>
     </ion-buttons>
-    <ion-title>Vendor Contact</ion-title>
+    <ion-title>Contact</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -16,7 +16,7 @@
       </ion-item>
       <ion-item>
           <ion-label stacked class="bold-label">Vendor Category</ion-label>
-          <ion-input required type="text" [(ngModel)]="vendor.Category"></ion-input>
+          <ion-input required type="text" [(ngModel)]="vendor.Category" disabled="true"></ion-input>
       </ion-item>
       <h1>Communication</h1>
       <ion-item>

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Vendor, VendorService } from 'src/app/services/vendor.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-vendor-list',
@@ -11,8 +12,40 @@ export class VendorListPage implements OnInit {
 
   vendors: Vendor[];
 
+  vendor: Vendor = {
+    Name: '',
+    ContactCategory: '',
+    Category: '',
+    Email: '',
+    PhoneNo: '',
+    Address1: '',
+    Address2: '',
+    AddressCity: '',
+    AddressState: '',
+    AddressPostCode: '',
+    Notes: '',
+    Website: '',
+    DateOfArrival: null,
+    TimeOfArrival: null,
+    Deposit: 0,
+    LiabilityInsurance: '',
+    MethodOfPayment: '',
+    IsBooked: false,
+    FlightDepartingAirline: '',
+    FlightNumber: '',
+    HotelWebsite: '',
+    HotelRate: '',
+    HotelConfirmationNumber: '',
+    HotelPhoneNo: '',
+    DateOfDeparture: null,
+    TimeOfDeparture: null,
+    UpdatedAt: 0,
+    CreatedAt: 0
+  };
+
   constructor(
     private vendorService: VendorService,
+    private router: Router,
     public alertController: AlertController) { }
 
   ngOnInit() {
@@ -20,6 +53,7 @@ export class VendorListPage implements OnInit {
       this.vendors = res;
     });
   }
+
   remove(item) {
     this.vendorService.removeVendor(item.id);
   }
@@ -54,9 +88,9 @@ export class VendorListPage implements OnInit {
           value: 'Wedding Planner'
         },
         {
-          name: 'Hotel Accommodations',
+          name: 'Hotel',
           type: 'radio',
-          label: 'Hotel Accommodations',
+          label: 'Hotel',
           value: 'Hotel'
         },
         {
@@ -83,18 +117,32 @@ export class VendorListPage implements OnInit {
         }, {
           text: 'Ok',
           handler: (data) => {
-            if (data == 'Flight') {
-
-            } else if (data == 'Hotel Accomidations') {
-
-            } else {
-              
-            }
+            this.vendor.Category = data;
+            this.vendorService.addVendor(this.vendor).then(docRef => {              
+              if (data == 'Flight') {
+                this.router.navigateByUrl('/members/vendorFlightDetails/' + docRef.id);
+              } else if (data == 'Hotel') {
+                this.router.navigateByUrl('/members/vendorHotelDetails/' + docRef.id);
+              } else {
+                this.router.navigateByUrl('/members/vendorDetails/' + docRef.id);
+              }       
+            });
+            
           }
         }
       ]
     });
     await alert.present();
+  }
+
+  routeToVendorPage(item) {
+    if (item.Category == 'Flight') {
+      this.router.navigateByUrl('/members/vendorFlightDetails/' + item.id);
+    } else if (item.Category == 'Hotel') {
+      this.router.navigateByUrl('/members/vendorHotelDetails/' + item.id);
+    } else {
+      this.router.navigateByUrl('/members/vendorDetails/' + item.id);
+    }   
   }
 
 }
