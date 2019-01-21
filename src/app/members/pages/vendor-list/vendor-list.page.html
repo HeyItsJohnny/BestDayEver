@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Vendors</ion-title>
+    <ion-title>Vendor Contacts</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -31,7 +31,7 @@
       </ion-item-sliding>
     </ion-list>
   <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-    <ion-fab-button routerLink="/members/vendorDetails" routerDirection="forward">
+    <ion-fab-button (click)="selectVendorCategory()">
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
   </ion-fab>
