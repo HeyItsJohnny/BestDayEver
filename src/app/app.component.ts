@@ -131,7 +131,7 @@ export class AppComponent {
     }
   ]
 
-  public venueSetupPages = [
+  /*public venueSetupPages = [
     {
       title: 'Details',
       url: '/members/venueSetup',
@@ -144,7 +144,7 @@ export class AppComponent {
       canActivate: [AuthGuardService],
       icon: 'md-checkmark-circle'
     }
-  ]
+  ]*/
 
   constructor(
     private platform: Platform,

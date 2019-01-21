@@ -16,12 +16,6 @@ export interface WeddingDayDetails {
   ReceptionTime: Time;
   DinnerTime: Time;
   CocktailTime: Time;
-  VenueName: string;
-  VenueAddress1: string;
-  VenueAddress2: string;
-  VenueCity: string;
-  VenueState: string;
-  VenueZipCode: string;
   WeddingInvitesSentOut: boolean;
   UpdatedAt: number;
   CreatedAt: number;
