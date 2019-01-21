@@ -25,7 +25,11 @@ const routes: Routes = [
   { path: 'weddingPartyPersonList', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
   { path: 'weddingPartyPersonList/:id', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
   { path: 'guestRsvpExample', loadChildren: './pages/guest-rsvp-example/guest-rsvp-example.module#GuestRsvpExamplePageModule' },
-  { path: 'venueSetup', loadChildren: './pages/venue-setup/venue-setup.module#VenueSetupPageModule' }
+  { path: 'venueSetup', loadChildren: './pages/venue-setup/venue-setup.module#VenueSetupPageModule' },
+  { path: 'vendorFlightDetails', loadChildren: './pages/vendor-flight-details/vendor-flight-details.module#VendorFlightDetailsPageModule' },
+  { path: 'vendorFlightDetails/:id', loadChildren: './pages/vendor-flight-details/vendor-flight-details.module#VendorFlightDetailsPageModule' },
+  { path: 'vendorHotelDetails', loadChildren: './pages/vendor-hotel-details/vendor-hotel-details.module#VendorHotelDetailsPageModule' },
+  { path: 'vendorHotelDetails/:id', loadChildren: './pages/vendor-hotel-details/vendor-hotel-details.module#VendorHotelDetailsPageModule' }
 ];
 
 @NgModule({
