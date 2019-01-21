@@ -9,7 +9,6 @@ import { Time } from '@angular/common';
 export interface Vendor {
   id?: string;
   Name: string;
-  Description: string;
   Email: string;
   PhoneNo: string;
   Address1: string;
@@ -22,6 +21,10 @@ export interface Vendor {
   Deposit: number;
   LiabilityInsurance: string;
   MethodOfPayment: string;
+  ContactCategory: string;
+  Category: string;
+  Notes: string;
+  Website: string;
   IsBooked: Boolean;
   UpdatedAt: number;
   CreatedAt: number;

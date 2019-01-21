@@ -13,7 +13,8 @@ export class VendorDetailsPage implements OnInit {
 
   vendor: Vendor = {
     Name: '',
-    Description: '',
+    ContactCategory: '',
+    Category: '',
     Email: '',
     PhoneNo: '',
     Address1: '',
@@ -21,6 +22,8 @@ export class VendorDetailsPage implements OnInit {
     AddressCity: '',
     AddressState: '',
     AddressPostCode: '',
+    Notes: '',
+    Website: '',
     DateOfArrival: null,
     TimeOfArrival: null,
     Deposit: 0,

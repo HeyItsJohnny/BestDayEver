@@ -79,6 +79,12 @@ export class AppComponent {
       icon: 'md-checkmark-circle'
     },
     {
+      title: 'Contacts',
+      url: '/members/vendorList',
+      canActivate: [AuthGuardService],
+      icon: 'md-checkmark-circle'
+    },
+    {
       title: 'Events',
       url: '/members/eventList',
       canActivate: [AuthGuardService],
@@ -95,13 +101,7 @@ export class AppComponent {
       url: '',
       canActivate: [AuthGuardService],
       icon: 'md-checkmark-circle'
-    },
-    {
-      title: 'Vendors',
-      url: '/members/vendorList',
-      canActivate: [AuthGuardService],
-      icon: 'md-checkmark-circle'
-    },
+    }
   ]
 
   public websiteSetupPages = [

@@ -11,12 +11,12 @@
   <ion-list lines="full">
       <h1>Vendor</h1>
       <ion-item>
-          <ion-label stacked class="bold-label">Vendor Name:</ion-label>
-          <ion-input required type="text" [(ngModel)]="vendor.Name"></ion-input>
+        <ion-label stacked class="bold-label">Vendor Name:</ion-label>
+        <ion-input required type="text" [(ngModel)]="vendor.Name"></ion-input>
       </ion-item>
       <ion-item>
-          <ion-label stacked class="bold-label">Vendor Description:</ion-label>
-          <ion-input required type="text" [(ngModel)]="vendor.Description"></ion-input>
+          <ion-label stacked class="bold-label">Vendor Category</ion-label>
+          <ion-input required type="text" [(ngModel)]="vendor.Category"></ion-input>
       </ion-item>
       <h1>Communication</h1>
       <ion-item>
@@ -35,6 +35,10 @@
       <ion-item>
         <ion-label stacked class="bold-label">Liability:</ion-label>
         <ion-input required type="text" [(ngModel)]="vendor.LiabilityInsurance"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label stacked class="bold-label">Additional Notes:</ion-label>
+        <ion-input required type="text" [(ngModel)]="vendor.Notes"></ion-input>
       </ion-item>
       <h1>Date/Time of Arrival:</h1>
       <ion-item>
