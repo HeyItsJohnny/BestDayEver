@@ -64,10 +64,64 @@ export class VendorListPage implements OnInit {
       message: 'Please select a vendor category',
       inputs: [
         {
+          name: 'Wedding Planner',
+          type: 'radio',
+          label: 'Wedding Planner',
+          value: 'Wedding Planner'
+        },
+        {
+          name: 'Officiant',
+          type: 'radio',
+          label: 'Officiant',
+          value: 'Officiant'
+        },        
+        {
           name: 'Venue',
           type: 'radio',
           label: 'Venue',
           value: 'Venue'
+        },
+        {
+          name: 'Caterer',
+          type: 'radio',
+          label: 'Caterer',
+          value: 'Caterer'
+        },
+        {
+          name: 'Florists',
+          type: 'radio',
+          label: 'Florists',
+          value: 'Florists'
+        },
+        {
+          name: 'Rental Company',
+          type: 'radio',
+          label: 'Rental Company',
+          value: 'Rental Company'
+        },
+        {
+          name: 'Hairstylist',
+          type: 'radio',
+          label: 'Hairstylist',
+          value: 'Hairstylist'
+        },
+        {
+          name: 'Makeup Artist',
+          type: 'radio',
+          label: 'Makeup Artist',
+          value: 'Makeup Artist'
+        },
+        {
+          name: 'Dressmaker/Tailor',
+          type: 'radio',
+          label: 'Dressmaker/Tailor',
+          value: 'Dressmaker/Tailor'
+        },        
+        {
+          name: 'Invitations',
+          type: 'radio',
+          label: 'Invitations',
+          value: 'Invitations'
         },
         {
           name: 'Photographer',
@@ -82,16 +136,34 @@ export class VendorListPage implements OnInit {
           value: 'Videographer'
         },
         {
-          name: 'Wedding Planner',
+          name: 'Cakemaker',
           type: 'radio',
-          label: 'Wedding Planner',
-          value: 'Wedding Planner'
+          label: 'Cakemaker',
+          value: 'Cakemaker'
         },
         {
-          name: 'Hotel',
+          name: 'Liquor Supplier',
           type: 'radio',
-          label: 'Hotel',
-          value: 'Hotel'
+          label: 'Liquor Supplier',
+          value: 'Liquor Supplier'
+        },
+        {
+          name: 'Transportation Company',
+          type: 'radio',
+          label: 'Transportation Company',
+          value: 'Transportation Company'
+        },
+        {
+          name: 'Personal Hotel',
+          type: 'radio',
+          label: 'Personal Hotel',
+          value: 'Personal Hotel'
+        },
+        {
+          name: 'Guest Hotel',
+          type: 'radio',
+          label: 'Guest Hotel',
+          value: 'Guest Hotel'
         },
         {
           name: 'Flight',
@@ -121,8 +193,10 @@ export class VendorListPage implements OnInit {
             this.vendorService.addVendor(this.vendor).then(docRef => {              
               if (data == 'Flight') {
                 this.router.navigateByUrl('/members/vendorFlightDetails/' + docRef.id);
-              } else if (data == 'Hotel') {
+              } else if (data == 'Personal Hotel') {
                 this.router.navigateByUrl('/members/vendorHotelDetails/' + docRef.id);
+              } else if (data == 'Guest Hotel') {
+                this.router.navigateByUrl('/members/vendorGuestHotelDetails/' + docRef.id);
               } else {
                 this.router.navigateByUrl('/members/vendorDetails/' + docRef.id);
               }       
@@ -138,8 +212,10 @@ export class VendorListPage implements OnInit {
   routeToVendorPage(item) {
     if (item.Category == 'Flight') {
       this.router.navigateByUrl('/members/vendorFlightDetails/' + item.id);
-    } else if (item.Category == 'Hotel') {
+    } else if (item.Category == 'Personal Hotel') {
       this.router.navigateByUrl('/members/vendorHotelDetails/' + item.id);
+    } else if (item.Category == 'Guest Hotel') {
+      this.router.navigateByUrl('/members/vendorGuestHotelDetails/' + item.id);
     } else {
       this.router.navigateByUrl('/members/vendorDetails/' + item.id);
     }   

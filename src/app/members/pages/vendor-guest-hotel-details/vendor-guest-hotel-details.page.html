@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
         <ion-back-button defaultHref="/members/vendorList"></ion-back-button>
     </ion-buttons>
-    <ion-title>Personal Hotel Information</ion-title>
+    <ion-title>Guest Hotel Information</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,11 +17,7 @@
       <ion-item>
         <ion-label stacked class="bold-label">Website:</ion-label>
         <ion-input required type="text" [(ngModel)]="vendor.HotelWebsite"></ion-input>
-      </ion-item>     
-      <ion-item>
-        <ion-label stacked class="bold-label">Confirmation Number:</ion-label>
-        <ion-input required type="text" [(ngModel)]="vendor.HotelConfirmationNumber"></ion-input>
-      </ion-item>     
+      </ion-item>       
       <ion-item>
         <ion-label stacked class="bold-label">Phone No.:</ion-label>
         <ion-input required type="text" [(ngModel)]="vendor.HotelPhoneNo"></ion-input>
@@ -33,24 +29,6 @@
       <ion-item>
         <ion-label stacked class="bold-label">Additional Notes:</ion-label>
         <ion-input required type="text" [(ngModel)]="vendor.Notes"></ion-input>
-      </ion-item>
-      <h1>Checkin:</h1>
-      <ion-item>
-        <ion-label stacked class="bold-label">Checkin Date:</ion-label>
-        <ion-input required type="date" [(ngModel)]="vendor.DateOfArrival"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked class="bold-label">Checkin Time:</ion-label>
-        <ion-input required type="time" [(ngModel)]="vendor.TimeOfArrival"></ion-input>
-      </ion-item>
-      <h1>Checkout:</h1>
-      <ion-item>
-        <ion-label stacked class="bold-label">Checkout Date:</ion-label>
-        <ion-input required type="date" [(ngModel)]="vendor.DateOfDeparture"></ion-input>
-      </ion-item>
-      <ion-item>
-        <ion-label stacked class="bold-label">Checkout Time:</ion-label>
-        <ion-input required type="time" [(ngModel)]="vendor.TimeOfDeparture"></ion-input>
       </ion-item>
       <h1>Hotel Address:</h1>
       <ion-item>
@@ -76,4 +54,5 @@
   </ion-list>
   <ion-button expand="full" (click)="saveVendor()">Save</ion-button>
 </ion-content>
+
 

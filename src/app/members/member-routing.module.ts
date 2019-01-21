@@ -29,7 +29,9 @@ const routes: Routes = [
   { path: 'vendorFlightDetails', loadChildren: './pages/vendor-flight-details/vendor-flight-details.module#VendorFlightDetailsPageModule' },
   { path: 'vendorFlightDetails/:id', loadChildren: './pages/vendor-flight-details/vendor-flight-details.module#VendorFlightDetailsPageModule' },
   { path: 'vendorHotelDetails', loadChildren: './pages/vendor-hotel-details/vendor-hotel-details.module#VendorHotelDetailsPageModule' },
-  { path: 'vendorHotelDetails/:id', loadChildren: './pages/vendor-hotel-details/vendor-hotel-details.module#VendorHotelDetailsPageModule' }
+  { path: 'vendorHotelDetails/:id', loadChildren: './pages/vendor-hotel-details/vendor-hotel-details.module#VendorHotelDetailsPageModule' },
+  { path: 'vendorGuestHotelDetails', loadChildren: './pages/vendor-guest-hotel-details/vendor-guest-hotel-details.module#VendorGuestHotelDetailsPageModule' },
+  { path: 'vendorGuestHotelDetails/:id', loadChildren: './pages/vendor-guest-hotel-details/vendor-guest-hotel-details.module#VendorGuestHotelDetailsPageModule' }
 ];
 
 @NgModule({
