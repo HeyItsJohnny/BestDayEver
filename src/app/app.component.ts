@@ -134,7 +134,7 @@ export class AppComponent {
   public venueSetupPages = [
     {
       title: 'Details',
-      url: '/members/weddingDayDetails',
+      url: '/members/venueSetup',
       canActivate: [AuthGuardService],
       icon: 'md-checkmark-circle'
     },

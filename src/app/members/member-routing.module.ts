@@ -24,7 +24,8 @@ const routes: Routes = [
   { path: 'guestDetails/:id', loadChildren: './pages/guest-details/guest-details.module#GuestDetailsPageModule' },
   { path: 'weddingPartyPersonList', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
   { path: 'weddingPartyPersonList/:id', loadChildren: './pages/wedding-party-person-list/wedding-party-person-list.module#WeddingPartyPersonListPageModule' },
-  { path: 'guestRsvpExample', loadChildren: './pages/guest-rsvp-example/guest-rsvp-example.module#GuestRsvpExamplePageModule' }
+  { path: 'guestRsvpExample', loadChildren: './pages/guest-rsvp-example/guest-rsvp-example.module#GuestRsvpExamplePageModule' },
+  { path: 'venueSetup', loadChildren: './pages/venue-setup/venue-setup.module#VenueSetupPageModule' }
 ];
 
 @NgModule({

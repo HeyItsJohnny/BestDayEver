@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/members/home"></ion-back-button>
+        </ion-buttons>
+      <ion-title>Venue Setup</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content padding>
+      <ion-list lines="full"> 
+          <h1>Address</h1>
+          <ion-item>
+              <ion-label stacked class="bold-label">Name:</ion-label>
+              <ion-input required type="text" [(ngModel)]="weddingDay.VenueName"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked class="bold-label">Address 1:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueAddress1"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked class="bold-label">Address 2:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueAddress2"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked class="bold-label">City:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueCity"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked class="bold-label">State: </ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueState"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label stacked class="bold-label">Zip Code:</ion-label>
+            <ion-input required type="text" [(ngModel)]="weddingDay.VenueZipCode"></ion-input>
+          </ion-item>
+      </ion-list>
+      <ion-button expand="full" (click)="saveVenueSetup()">Save</ion-button>
+  </ion-content>
+  
