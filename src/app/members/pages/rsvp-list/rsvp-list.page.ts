@@ -15,6 +15,7 @@ export class RsvpListPage implements OnInit {
   rsvps: Rsvp[];
   searchTerm: string = '';
   searchControl: FormControl;
+  searching: any = false;
 
   constructor(
     private rsvpService: RsvpService,
@@ -27,7 +28,13 @@ export class RsvpListPage implements OnInit {
     this.searchControl.valueChanges.pipe(
       debounceTime(700)
     ).subscribe(search => {
+      console.log("SEARCH: " + search);
       this.setFilteredRSVPGuests();
+      /*if (search == "") {
+        this.rsvps = this.rsvpService.getRsvps();
+      } else {
+        this.setFilteredRSVPGuests();
+      }*/
     });
   }
 
@@ -38,6 +45,10 @@ export class RsvpListPage implements OnInit {
   }
 
   //Filtering Items
+  onSearchInput(){
+    this.searching = true;
+  }
+
   setFilteredRSVPGuests() {
     this.rsvps = this.filterRSVPGuests(this.searchTerm);
   }
