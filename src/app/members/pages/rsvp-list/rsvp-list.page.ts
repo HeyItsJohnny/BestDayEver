@@ -32,13 +32,7 @@ export class RsvpListPage implements OnInit {
   }
 
   async getRSVPData() {
-    /*const loading = await this.loadingController.create({
-      message: 'Loading RSVP Groups..'
-    });
-    await loading.present();*/
-
     this.rsvpService.getRsvps().subscribe(res => {
-      //loading.dismiss();
       this.rsvps = res;
     });
   }
