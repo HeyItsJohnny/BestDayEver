@@ -1,23 +1,31 @@
 import { Component, OnInit } from '@angular/core';
 import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
 import { NavController, LoadingController } from '@ionic/angular';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-rsvp-list',
-  templateUrl: './rsvp-list.page.html',
+  templateUrl: './rsvp-list.page.html', 
   styleUrls: ['./rsvp-list.page.scss'],
 })
 
 export class RsvpListPage implements OnInit {
 
   rsvps: Rsvp[];
+  searchTerm: string = '';
+  searchControl: FormControl;
 
   constructor(
     private rsvpService: RsvpService,
-    private loadingController: LoadingController) { }
+    private loadingController: LoadingController) { 
+      this.searchControl = new FormControl();
+    }
 
   ngOnInit() {
     this.getRSVPData();
+    this.searchControl.valueChanges.subscribe(search => {
+      this.setFilteredRSVPGuests();
+    });
   }
 
   async getRSVPData() {
@@ -30,6 +38,17 @@ export class RsvpListPage implements OnInit {
       //loading.dismiss();
       this.rsvps = res;
     });
+  }
+
+  //Filtering Items
+  setFilteredRSVPGuests() {
+    this.rsvps = this.filterRSVPGuests(this.searchTerm);
+  }
+
+  filterRSVPGuests(searchTerm) {
+    return this.rsvps.filter((item) => {
+      return item.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
+    });  
   }
 
   remove(item) {

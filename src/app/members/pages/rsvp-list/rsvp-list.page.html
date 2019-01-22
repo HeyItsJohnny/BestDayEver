@@ -5,6 +5,8 @@
 </ion-header>
 
 <ion-content padding>
+  <!--<ion-searchbar [(ngModel)]="searchTerm" [formControl]="searchControl"></ion-searchbar> -->
+  <ion-searchbar animated [(ngModel)]="searchTerm"></ion-searchbar>
   <ion-list>
     <ng-container *ngIf="!rsvps || rsvps.length == 0">
       <div *ngFor="let n of [0,1,2]" padding>
