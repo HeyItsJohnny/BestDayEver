@@ -64,22 +64,10 @@ export class VendorListPage implements OnInit {
       message: 'Please select a vendor category',
       inputs: [
         {
-          name: 'Wedding Planner',
+          name: 'Cakemaker',
           type: 'radio',
-          label: 'Wedding Planner',
-          value: 'Wedding Planner'
-        },
-        {
-          name: 'Officiant',
-          type: 'radio',
-          label: 'Officiant',
-          value: 'Officiant'
-        },        
-        {
-          name: 'Venue',
-          type: 'radio',
-          label: 'Venue',
-          value: 'Venue'
+          label: 'Cakemaker',
+          value: 'Cakemaker'
         },
         {
           name: 'Caterer',
@@ -88,58 +76,52 @@ export class VendorListPage implements OnInit {
           value: 'Caterer'
         },
         {
+          name: 'DJ/Music',
+          type: 'radio',
+          label: 'DJ/Music',
+          value: 'DJ/Music'
+        },
+        {
+          name: 'Dressmaker',
+          type: 'radio',
+          label: 'Dressmaker',
+          value: 'Dressmaker'
+        }, 
+        {
+          name: 'Flight',
+          type: 'radio',
+          label: 'Flight',
+          value: 'Flight'
+        }, 
+        {
           name: 'Florists',
           type: 'radio',
           label: 'Florists',
           value: 'Florists'
         },
         {
-          name: 'Rental Company',
-          type: 'radio',
-          label: 'Rental Company',
-          value: 'Rental Company'
-        },
-        {
           name: 'Hairstylist',
           type: 'radio',
           label: 'Hairstylist',
           value: 'Hairstylist'
+        }, 
+        {
+          name: 'Hotel - Guest',
+          type: 'radio',
+          label: 'Hotel - Guest',
+          value: 'Hotel - Guest'
         },
         {
-          name: 'Makeup Artist',
+          name: 'Hotel - Personal',
           type: 'radio',
-          label: 'Makeup Artist',
-          value: 'Makeup Artist'
+          label: 'Hotel - Personal',
+          value: 'Hotel - Personal'
         },
-        {
-          name: 'Dressmaker/Tailor',
-          type: 'radio',
-          label: 'Dressmaker/Tailor',
-          value: 'Dressmaker/Tailor'
-        },        
         {
           name: 'Invitations',
           type: 'radio',
           label: 'Invitations',
           value: 'Invitations'
-        },
-        {
-          name: 'Photographer',
-          type: 'radio',
-          label: 'Photographer',
-          value: 'Photographer'
-        },
-        {
-          name: 'Videographer',
-          type: 'radio',
-          label: 'Videographer',
-          value: 'Videographer'
-        },
-        {
-          name: 'Cakemaker',
-          type: 'radio',
-          label: 'Cakemaker',
-          value: 'Cakemaker'
         },
         {
           name: 'Liquor Supplier',
@@ -148,29 +130,59 @@ export class VendorListPage implements OnInit {
           value: 'Liquor Supplier'
         },
         {
+          name: 'Makeup Artist',
+          type: 'radio',
+          label: 'Makeup Artist',
+          value: 'Makeup Artist'
+        },
+        {
+          name: 'Officiant',
+          type: 'radio',
+          label: 'Officiant',
+          value: 'Officiant'
+        },    
+        {
+          name: 'Photographer',
+          type: 'radio',
+          label: 'Photographer',
+          value: 'Photographer'
+        },
+        {
+          name: 'Rental Company',
+          type: 'radio',
+          label: 'Rental Company',
+          value: 'Rental Company'
+        },
+        {
+          name: 'Tailor',
+          type: 'radio',
+          label: 'Tailor',
+          value: 'Tailor'
+        },  
+        {
           name: 'Transportation Company',
           type: 'radio',
           label: 'Transportation Company',
           value: 'Transportation Company'
+        }, 
+        {
+          name: 'Venue',
+          type: 'radio',
+          label: 'Venue',
+          value: 'Venue'
         },
         {
-          name: 'Personal Hotel',
+          name: 'Videographer',
           type: 'radio',
-          label: 'Personal Hotel',
-          value: 'Personal Hotel'
+          label: 'Videographer',
+          value: 'Videographer'
         },
         {
-          name: 'Guest Hotel',
+          name: 'Wedding Planner',
           type: 'radio',
-          label: 'Guest Hotel',
-          value: 'Guest Hotel'
-        },
-        {
-          name: 'Flight',
-          type: 'radio',
-          label: 'Flight',
-          value: 'Flight'
-        },
+          label: 'Wedding Planner',
+          value: 'Wedding Planner'
+        },       
         {
           name: 'Other',
           type: 'radio',
@@ -193,9 +205,9 @@ export class VendorListPage implements OnInit {
             this.vendorService.addVendor(this.vendor).then(docRef => {              
               if (data == 'Flight') {
                 this.router.navigateByUrl('/members/vendorFlightDetails/' + docRef.id);
-              } else if (data == 'Personal Hotel') {
+              } else if (data == 'Hotel - Personal') {
                 this.router.navigateByUrl('/members/vendorHotelDetails/' + docRef.id);
-              } else if (data == 'Guest Hotel') {
+              } else if (data == 'Hotel - Guest') {
                 this.router.navigateByUrl('/members/vendorGuestHotelDetails/' + docRef.id);
               } else {
                 this.router.navigateByUrl('/members/vendorDetails/' + docRef.id);
@@ -212,9 +224,9 @@ export class VendorListPage implements OnInit {
   routeToVendorPage(item) {
     if (item.Category == 'Flight') {
       this.router.navigateByUrl('/members/vendorFlightDetails/' + item.id);
-    } else if (item.Category == 'Personal Hotel') {
+    } else if (item.Category == 'Hotel - Personal') {
       this.router.navigateByUrl('/members/vendorHotelDetails/' + item.id);
-    } else if (item.Category == 'Guest Hotel') {
+    } else if (item.Category == 'Hotel - Guest') {
       this.router.navigateByUrl('/members/vendorGuestHotelDetails/' + item.id);
     } else {
       this.router.navigateByUrl('/members/vendorDetails/' + item.id);
