@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
 import { NavController, LoadingController } from '@ionic/angular';
 import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs/operators/debounceTime';
 
 @Component({
   selector: 'app-rsvp-list',
@@ -23,7 +24,9 @@ export class RsvpListPage implements OnInit {
 
   ngOnInit() {
     this.getRSVPData();
-    this.searchControl.valueChanges.subscribe(search => {
+    this.searchControl.valueChanges.pipe(
+      debounceTime(700)
+    ).subscribe(search => {
       this.setFilteredRSVPGuests();
     });
   }

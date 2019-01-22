@@ -25,7 +25,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';   //Guessing
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
-    FormsModule,      //Guessing
+    FormsModule,              //Guessing
     ReactiveFormsModule,      //Guessing
     AngularFirestoreModule
   ],
