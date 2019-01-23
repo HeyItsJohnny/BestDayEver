@@ -13,23 +13,35 @@ export class EventListPage implements OnInit, OnDestroy {
 
   events: Event[];
   subscriber: Subscription;
+  isSubscribed: boolean;
 
   constructor(
     private eventsService: EventsService,
     public alertController: AlertController) { }
 
   ngOnInit() {
+    console.log("BEFORE INIT");
+    this.isSubscribed = false;    
     this.subscriber = this.eventsService.getEvents().subscribe(res => {
-      this.events = res;
+      if (!this.isSubscribed) {
+        this.events = [];
+        this.events = res;
+        this.isSubscribed = true;
+        console.log("SUBSCIBED");
+        this.subscriber.unsubscribe();
+      }      
     });
   }
 
-  ngOnDestroy() {
+  ngOnDestroy() {    
     this.subscriber.unsubscribe();
+    console.log("UNSUBSCIRBED.");
   }
 
   remove(item) {
+    this.isSubscribed = false; 
     this.eventsService.removeEvent(item.id);
+    console.log("REMOVING ITEM..");
   }
 
   addEvent() {
