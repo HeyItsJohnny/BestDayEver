@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Event, EventsService} from 'src/app/services/events.service';
 import { AlertController } from '@ionic/angular';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-event-list',
@@ -8,18 +9,23 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./event-list.page.scss'],
 })
 
-export class EventListPage implements OnInit {
+export class EventListPage implements OnInit, OnDestroy {
 
   events: Event[];
+  subscriber: Subscription;
 
   constructor(
     private eventsService: EventsService,
     public alertController: AlertController) { }
 
   ngOnInit() {
-    this.eventsService.getEvents().subscribe(res => {
+    this.subscriber = this.eventsService.getEvents().subscribe(res => {
       this.events = res;
     });
+  }
+
+  ngOnDestroy() {
+    this.subscriber.unsubscribe();
   }
 
   remove(item) {
