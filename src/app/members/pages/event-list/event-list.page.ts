@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Event, EventsService} from 'src/app/services/events.service';
 import { AlertController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -17,7 +17,8 @@ export class EventListPage implements OnInit, OnDestroy {
 
   constructor(
     private eventsService: EventsService,
-    public alertController: AlertController) { }
+    public alertController: AlertController,
+    private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
     
@@ -27,6 +28,7 @@ export class EventListPage implements OnInit, OnDestroy {
     console.log("BEFORE INIT");
     this.subscriber = this.eventsService.getEvents().subscribe(res => {
       this.events = res;
+      //this.cd.markForCheck();
       console.log("SUBSCIBED");
     });
   }
