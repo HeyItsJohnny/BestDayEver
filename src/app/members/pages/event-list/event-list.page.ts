@@ -21,25 +21,24 @@ export class EventListPage implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    
-  }
-  
-  ionViewWillEnter() {
     console.log("BEFORE INIT");
     this.subscriber = this.eventsService.getEvents().subscribe(res => {
       this.events = res;
-      //this.cd.markForCheck();
       console.log("SUBSCIBED");
     });
   }
+  
+  ionViewWillEnter() {
+    
+  }
 
   ionViewWillLeave() {
-    this.subscriber.unsubscribe();
-    console.log("UNSUBSCIRBED.");
+    
   }
 
   ngOnDestroy() {    
-    
+    this.subscriber.unsubscribe();
+    console.log("UNSUBSCIRBED.");
   }
 
   remove(item) {
