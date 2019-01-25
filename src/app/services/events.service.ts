@@ -46,6 +46,10 @@ export class EventsService {
   getEvents() {
     return this.events;
   }
+
+  getEvents2() {
+    return this.events;
+  }
  
   getEvent(id) {
     return this.eventsCollection.doc<Event>(id).valueChanges();

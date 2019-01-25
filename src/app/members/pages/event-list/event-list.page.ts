@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Event, EventsService} from 'src/app/services/events.service';
 import { AlertController } from '@ionic/angular';
-import { Subscription } from 'rxjs';
+import { Subscription, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-event-list',
@@ -12,7 +12,7 @@ import { Subscription } from 'rxjs';
 export class EventListPage implements OnInit, OnDestroy {
 
   events: Event[];
-  subscriber: Subscription;
+  private subscription: Subscription;
   isSubscribed: boolean;
 
   constructor(
@@ -22,7 +22,7 @@ export class EventListPage implements OnInit, OnDestroy {
 
   ngOnInit() {
     console.log("BEFORE INIT");
-    this.subscriber = this.eventsService.getEvents().subscribe(res => {
+    this.subscription = this.eventsService.getEvents().subscribe(res => {
       this.events = res;
       console.log("SUBSCIBED");
     });
@@ -37,7 +37,7 @@ export class EventListPage implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {    
-    this.subscriber.unsubscribe();
+    this.subscription.unsubscribe();
     console.log("UNSUBSCIRBED.");
   }
 
