@@ -1,7 +1,7 @@
 import { Event, EventsService} from 'src/app/services/events.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-event-details',
@@ -22,7 +22,12 @@ export class EventDetailsPage implements OnInit {
 
   eventId = null;
 
-  constructor(private route: ActivatedRoute, private nav: NavController, private eventsService: EventsService, private loadingController: LoadingController) { }
+  constructor(
+    private route: ActivatedRoute, 
+    private nav: NavController, 
+    private eventsService: EventsService, 
+    public alertController: AlertController,
+    private loadingController: LoadingController) { }
 
   ngOnInit() {
     this.eventId = this.route.snapshot.params['id'];
@@ -44,7 +49,6 @@ export class EventDetailsPage implements OnInit {
   }
 
   async saveEvent() {
- 
     const loading = await this.loadingController.create({
       message: 'Saving Event..'
     });
@@ -55,11 +59,28 @@ export class EventDetailsPage implements OnInit {
         loading.dismiss();
         this.nav.goBack(true);
       });
-    } else {
-      this.eventsService.addEvent(this.event).then(() => {
-        loading.dismiss();
-        this.nav.goBack(true);
-      });
-    }
+    } 
+  }
+
+  async deleteEvent() {
+    this.alertController.create({
+      header: "Are you sure you want to delete this event?",
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.eventsService.removeEvent(this.eventId).then(() => {
+              this.nav.goBack(true);
+            });
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => { }
+        }
+      ]
+    }).then(alert => alert.present());
   }
 }

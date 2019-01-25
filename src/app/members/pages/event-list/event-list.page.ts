@@ -1,7 +1,7 @@
-import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { Event, EventsService} from 'src/app/services/events.service';
-import { AlertController } from '@ionic/angular';
-import { Subscription, Subject } from 'rxjs';
+import { AlertController, NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-event-list',
@@ -9,42 +9,27 @@ import { Subscription, Subject } from 'rxjs';
   styleUrls: ['./event-list.page.scss'],
 })
 
-export class EventListPage implements OnInit, OnDestroy {
-
-  events: Event[];
-  private subscription: Subscription;
-  isSubscribed: boolean;
+export class EventListPage {
+  events: Array<any>;
 
   constructor(
     private eventsService: EventsService,
     public alertController: AlertController,
-    private cd: ChangeDetectorRef) { }
-
-  ngOnInit() {
-    this.events = [];
-    console.log("CLEARING EVENTS");
-    this.subscription = this.eventsService.getEvents().subscribe(res => {
-      this.events = res;
-      this.cd.detectChanges();
-      console.log("RE-ADDING EVENTS");
-    });
-  }
-  
+    private router: Router) { }
+ 
   ionViewWillEnter() {
-    
+     this.getEventData();
   }
 
-  ionViewWillLeave() {
-    
+  getEventData() {
+    this.eventsService.getEvents()
+    .then(events => {
+      this.events = events;
+    })
   }
 
-  ngOnDestroy() {    
-    this.subscription.unsubscribe();
-    console.log("UNSUBSCIRBING.");
-  }
-
-  remove(item) {
-    this.eventsService.removeEvent(item.id);
+  viewDetails(item){
+    this.router.navigateByUrl('/members/eventDetails/' + item.payload.doc.id);
   }
 
   addEvent() {
@@ -73,6 +58,7 @@ export class EventListPage implements OnInit, OnDestroy {
           cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel');
+            this.getEventData();
           }
         }, {
           text: 'Ok',
@@ -89,6 +75,7 @@ export class EventListPage implements OnInit, OnDestroy {
             };       
             this.eventsService.addEvent(eventObj).then(docRef => {
               this.askAllDayEvent(docRef.id);
+              this.getEventData();
             });    
           }
         }
@@ -112,7 +99,8 @@ export class EventListPage implements OnInit, OnDestroy {
           role: 'cancel',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Confirm Cancel');
+            this.getEventData();
+            console.log('Confirm Cancel');            
           }
         }
       ]
@@ -134,17 +122,10 @@ export class EventListPage implements OnInit, OnDestroy {
       ],
       buttons: [
         {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
           text: 'Ok',
           handler: (data) => {
             this.eventsService.updateEventStartDateTime(data.EventStartDate, data.EventStartTime, DocumentID);
-            this.setEndDateTime(DocumentID);
+            this.setEndDateTime(DocumentID);            
           }
         }
       ]
@@ -166,20 +147,13 @@ export class EventListPage implements OnInit, OnDestroy {
       ],
       buttons: [
         {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
           text: 'Ok',
           handler: (data) => {
             this.eventsService.updateEventEndDateTime(data.EventEndDate, data.EventEndTime, DocumentID);
+            this.getEventData();
           }
         }
       ]
     }).then(alert => alert.present());
   }
-
 }

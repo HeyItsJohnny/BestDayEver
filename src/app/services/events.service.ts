@@ -22,14 +22,14 @@ export interface Event {
   providedIn: 'root'
 })
 export class EventsService {
-  private eventsCollection: AngularFirestoreCollection<Event>;
+  //private eventsCollection: AngularFirestoreCollection<Event>;
   private events: Observable<Event[]>;
 
   constructor(
-    db: AngularFirestore,
+    public db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
 
-    var authUser = this.afAuth.auth.currentUser;
+    /*var authUser = this.afAuth.auth.currentUser;
     this.eventsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('events');
       
     this.events = this.eventsCollection.snapshotChanges().pipe(
@@ -40,40 +40,59 @@ export class EventsService {
           return { id, ...data };
         });
       })
-    );
+    );*/
   }
+
+  /*getEvents() {
+    return this.events;
+  }*/
 
   getEvents() {
-    return this.events;
-  }
+    var authUser = this.afAuth.auth.currentUser;
 
-  getEvents2() {
-    return this.events;
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('events').snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots)
+      })
+    })
   }
  
   getEvent(id) {
-    return this.eventsCollection.doc<Event>(id).valueChanges();
+    var authUser = this.afAuth.auth.currentUser;
+    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
+    return eventsCollection.doc<Event>(id).valueChanges();
   }
  
   updateEvent(event: Event, id: string) {
-    return this.eventsCollection.doc(id).update(event);
+    var authUser = this.afAuth.auth.currentUser;
+    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
+    return eventsCollection.doc(id).update(event);
   }
  
   addEvent(event: Event) {
-    return this.eventsCollection.add(event);
+    var authUser = this.afAuth.auth.currentUser;
+    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
+    return eventsCollection.add(event);
   }
 
   updateEventStartDateTime(startDate: Date, startTime: Time, id: string) {
-    this.eventsCollection.doc(id).update({"StartDate": startDate});
-    this.eventsCollection.doc(id).update({"StartEventTime": startTime});
+    var authUser = this.afAuth.auth.currentUser;
+    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
+    eventsCollection.doc(id).update({"StartDate": startDate});
+    eventsCollection.doc(id).update({"StartEventTime": startTime});
   }
 
   updateEventEndDateTime(endDate: Date, endTime: Time, id: string) {
-    this.eventsCollection.doc(id).update({"EndDate": endDate});
-    this.eventsCollection.doc(id).update({"EndEventTime": endTime});
+    var authUser = this.afAuth.auth.currentUser;
+    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
+    eventsCollection.doc(id).update({"EndDate": endDate});
+    eventsCollection.doc(id).update({"EndEventTime": endTime});
   }
  
   removeEvent(id) {
-    return this.eventsCollection.doc(id).delete();
+    var authUser = this.afAuth.auth.currentUser;
+    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
+    return eventsCollection.doc(id).delete();
   }
 }
