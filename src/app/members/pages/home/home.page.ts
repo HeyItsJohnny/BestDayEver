@@ -13,7 +13,6 @@ export class HomePage implements OnInit{
 
   ngOnInit() {
     var user = this.afAuth.auth.currentUser;
-    console.log(user);
     /*if (user == null) {
       console.log('THERE IS NO USER..');
       this.router.navigateByUrl('/Login');
