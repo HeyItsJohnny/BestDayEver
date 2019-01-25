@@ -21,10 +21,12 @@ export class EventListPage implements OnInit, OnDestroy {
     private cd: ChangeDetectorRef) { }
 
   ngOnInit() {
-    console.log("BEFORE INIT");
+    this.events = [];
+    console.log("CLEARING EVENTS");
     this.subscription = this.eventsService.getEvents().subscribe(res => {
       this.events = res;
-      console.log("SUBSCIBED");
+      this.cd.detectChanges();
+      console.log("RE-ADDING EVENTS");
     });
   }
   
@@ -38,13 +40,11 @@ export class EventListPage implements OnInit, OnDestroy {
 
   ngOnDestroy() {    
     this.subscription.unsubscribe();
-    console.log("UNSUBSCIRBED.");
+    console.log("UNSUBSCIRBING.");
   }
 
   remove(item) {
-    this.isSubscribed = false; 
     this.eventsService.removeEvent(item.id);
-    console.log("REMOVING ITEM..");
   }
 
   addEvent() {
