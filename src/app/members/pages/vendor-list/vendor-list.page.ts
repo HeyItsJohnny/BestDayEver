@@ -224,13 +224,13 @@ export class VendorListPage {
 
   routeToVendorPage(item) {
     if (item.Category == 'Flight') {
-      this.router.navigateByUrl('/members/vendorFlightDetails/' + item.id);
+      this.router.navigateByUrl('/members/vendorFlightDetails/' + item.payload.doc.id);
     } else if (item.Category == 'Hotel - Personal') {
-      this.router.navigateByUrl('/members/vendorHotelDetails/' + item.id);
+      this.router.navigateByUrl('/members/vendorHotelDetails/' + item.payload.doc.id);
     } else if (item.Category == 'Hotel - Guest') {
-      this.router.navigateByUrl('/members/vendorGuestHotelDetails/' + item.id);
+      this.router.navigateByUrl('/members/vendorGuestHotelDetails/' + item.payload.doc.id);
     } else {
-      this.router.navigateByUrl('/members/vendorDetails/' + item.id);
+      this.router.navigateByUrl('/members/vendorDetails/' + item.payload.doc.id);
     }   
   }
 
