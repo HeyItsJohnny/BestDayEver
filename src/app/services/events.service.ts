@@ -22,30 +22,10 @@ export interface Event {
   providedIn: 'root'
 })
 export class EventsService {
-  //private eventsCollection: AngularFirestoreCollection<Event>;
-  private events: Observable<Event[]>;
 
   constructor(
     public db: AngularFirestore,
-    private afAuth: AngularFireAuth) { 
-
-    /*var authUser = this.afAuth.auth.currentUser;
-    this.eventsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('events');
-      
-    this.events = this.eventsCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );*/
-  }
-
-  /*getEvents() {
-    return this.events;
-  }*/
+    private afAuth: AngularFireAuth) { }
 
   getEvents() {
     var authUser = this.afAuth.auth.currentUser;
