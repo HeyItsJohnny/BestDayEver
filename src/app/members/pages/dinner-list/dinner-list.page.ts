@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Dinner, DinnerService } from 'src/app/services/dinner.service';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dinner-list',
@@ -8,66 +9,32 @@ import { AlertController } from '@ionic/angular';
   styleUrls: ['./dinner-list.page.scss'],
 })
 
-export class DinnerListPage implements OnInit {
+export class DinnerListPage {
 
   dinners: Dinner[];
 
   constructor(
     private dinnerService: DinnerService,
+    private router: Router,
     public alertController: AlertController) { }
 
-  ngOnInit() {
-    this.dinnerService.getDinners().subscribe(res => {
-      this.dinners = res;
-    });
-  }
-  remove(item) {
-    this.dinnerService.removeDinner(item.id);
+  ionViewWillEnter() {
+    this.getDinnerData();
+   }
+
+  getDinnerData() {
+    this.dinnerService.getDinners()
+    .then(events => {
+      this.dinners = events;
+    })
   }
 
   addItem() {
     this.displayAddPrompt();
   }
 
-  updateItem(item: Dinner) {
-    this.displayUpdatePrompt(item.id, item);
-  }
-
-  displayUpdatePrompt(dinnerID: string, dinnerObj: Dinner) {
-    this.alertController.create({
-      header: 'Update Dinner',
-      inputs: [
-        {
-          name: 'DinnerName',
-          type: 'text',
-          value: dinnerObj.Name,
-          placeholder: 'Dinner'
-        },
-        {
-          name: 'DinnerDescription',
-          type: 'text',
-          value: dinnerObj.Description,
-          placeholder: 'Description'
-        }
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          cssClass: 'secondary',
-          handler: () => {
-            console.log('Confirm Cancel');
-          }
-        }, {
-          text: 'Ok',
-          handler: (data) => {
-            dinnerObj.Name = data.DinnerName;
-            dinnerObj.Description = data.DinnerDescription;            
-            this.dinnerService.updateDinner(dinnerObj, dinnerID);            
-          }
-        }
-      ]
-    }).then(alert => alert.present());
+  viewDetails(item){
+    this.router.navigateByUrl('/members/dinnerDetails/' + item.payload.doc.id);
   }
 
   displayAddPrompt() {
@@ -103,7 +70,8 @@ export class DinnerListPage implements OnInit {
               UpdatedAt: 0,
               CreatedAt: 0
             };       
-            this.dinnerService.addDinner(dinnerObj);         
+            this.dinnerService.addDinner(dinnerObj);   
+            this.getDinnerData();      
           }
         }
       ]

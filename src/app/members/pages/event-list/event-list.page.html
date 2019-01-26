@@ -18,7 +18,6 @@
         <ion-item-sliding *ngFor="let item of events">
             <ion-item lines="inset" button (click)="viewDetails(item)">
             <ion-label>
-              <!--{{ item.Subject }} -->
               {{item.payload.doc.data().Subject}}
             </ion-label>
           </ion-item>

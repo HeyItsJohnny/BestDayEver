@@ -38,10 +38,7 @@ export class GuestDetailsPage implements OnInit {
     if (this.rsvpGuestID)  {
       this.loadRsvpGuest();
     }
-    var dinnerservice = this.dinnerService.getDinners().subscribe(res => {
-      this.dinners = res;
-      dinnerservice.unsubscribe();
-    });
+    this.getDinnerData();
   }
 
   async loadRsvpGuest() {   
@@ -54,6 +51,13 @@ export class GuestDetailsPage implements OnInit {
       loading.dismiss();
       this.rsvpGuest = res;
     });
+  }
+
+  getDinnerData() {
+    this.dinnerService.getDinners()
+    .then(events => {
+      this.dinners = events;
+    })
   }
 
   async saveRsvpGuest() {

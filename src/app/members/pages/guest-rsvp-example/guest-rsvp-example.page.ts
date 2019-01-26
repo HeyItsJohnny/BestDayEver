@@ -66,10 +66,14 @@ export class GuestRsvpExamplePage implements OnInit {
 
 
   ngOnInit() {
-    var dinnerserv = this.dinnerService.getDinners().subscribe(res => {
-      this.dinners = res;
-      dinnerserv.unsubscribe();
-    });
+    this.getDinnerData(); 
+  }
+
+  getDinnerData() {
+    this.dinnerService.getDinners()
+    .then(events => {
+      this.dinners = events;
+    })
   }
 
   findRSVPRecord() {
