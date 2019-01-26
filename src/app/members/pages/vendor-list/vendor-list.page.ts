@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './vendor-list.page.html',
   styleUrls: ['./vendor-list.page.scss'],
 })
-export class VendorListPage implements OnInit {
+export class VendorListPage {
 
   vendors: Vendor[];
 
@@ -48,14 +48,15 @@ export class VendorListPage implements OnInit {
     private router: Router,
     public alertController: AlertController) { }
 
-  ngOnInit() {
-    this.vendorService.getVendors().subscribe(res => {
-      this.vendors = res;
-    });
-  }
+  ionViewWillEnter() {
+    this.getVendorData();
+   }
 
-  remove(item) {
-    this.vendorService.removeVendor(item.id);
+   getVendorData() {
+    this.vendorService.getVendors()
+    .then(data => {
+      this.vendors = data;
+    })
   }
 
   async selectVendorCategory() {

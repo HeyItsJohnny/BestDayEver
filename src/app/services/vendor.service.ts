@@ -42,44 +42,43 @@ export interface Vendor {
   providedIn: 'root'
 })
 export class VendorService {
-  private vendorsCollection: AngularFirestoreCollection<Vendor>;
-  private vendors: Observable<Vendor[]>;
 
   constructor(
-    db: AngularFirestore,
-    private afAuth: AngularFireAuth) { 
-    
-    var authUser = this.afAuth.auth.currentUser;
-    this.vendorsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('vendor');
- 
-    this.vendors = this.vendorsCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );
-  }
+    public db: AngularFirestore,
+    private afAuth: AngularFireAuth) { }
 
   getVendors() {
-    return this.vendors;
+    var authUser = this.afAuth.auth.currentUser;
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors').snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots)
+      })
+    })
   }
  
   getVendor(id) {
-    return this.vendorsCollection.doc<Vendor>(id).valueChanges();
+    var authUser = this.afAuth.auth.currentUser;
+    let vendorsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors');
+    return vendorsCollection.doc<Vendor>(id).valueChanges();
   }
 
   addVendor(vendor: Vendor) {
-    return this.vendorsCollection.add(vendor);
+    var authUser = this.afAuth.auth.currentUser;
+    let vendorsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors');
+    return vendorsCollection.add(vendor);
   }
 
   updateVendor(vendor: Vendor, id: string) {
-    return this.vendorsCollection.doc(id).update(vendor);
+    var authUser = this.afAuth.auth.currentUser;
+    let vendorsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors');
+    return vendorsCollection.doc(id).update(vendor);
   }
 
   removeVendor(id) {
-    return this.vendorsCollection.doc(id).delete();
+    var authUser = this.afAuth.auth.currentUser;
+    let vendorsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors');
+    return vendorsCollection.doc(id).delete();
   }
 }

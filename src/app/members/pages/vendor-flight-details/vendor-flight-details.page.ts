@@ -1,7 +1,7 @@
 import { Vendor, VendorService } from 'src/app/services/vendor.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
@@ -49,6 +49,7 @@ export class VendorFlightDetailsPage implements OnInit {
     private nav: NavController, 
     private vendorService: VendorService, 
     private profileService: ProfileService, 
+    public alertController: AlertController,
     private loadingController: LoadingController) { }
 
   ngOnInit() {
@@ -87,6 +88,28 @@ export class VendorFlightDetailsPage implements OnInit {
         this.nav.goBack(true);
       });
     }
+  }
+
+  async deleteVendor() {
+    this.alertController.create({
+      header: "Are you sure you want to delete this vendor?",
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.vendorService.removeVendor(this.vendorId).then(() => {
+              this.nav.goBack(true);
+            });
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => { }
+        }
+      ]
+    }).then(alert => alert.present());
   }
 
 }
