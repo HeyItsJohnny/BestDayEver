@@ -1,32 +1,39 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>Events</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content padding>
-    <ion-list>
-        <ng-container *ngIf="!events || events.length == 0">
-          <div *ngFor="let n of [0,1,2]" padding>
-            <ion-skeleton-text></ion-skeleton-text>
-            <p>
-              <ion-skeleton-text class="fake-skeleton"></ion-skeleton-text>
-            </p>
-          </div>
-        </ng-container>
-      
-        <ion-item-sliding *ngFor="let item of events">
-            <ion-item lines="inset" button (click)="viewDetails(item)">
-            <ion-label>
-              {{item.payload.doc.data().Subject}}
-            </ion-label>
+    <ion-toolbar>
+      <ion-title>
+        Events
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content class="schedule-content">
+      <ion-list class="schedule-list">
+          <ion-item class="schedule-item" *ngFor="let item of events">
+            <ion-row button (click)="viewDetails(item)">
+              <ion-col width-20 class="schedule-date">
+                <h2 class="schedule-day">{{item.payload.doc.data().StartDate}}</h2>
+              </ion-col>
+              <ion-col width-80 class="schedule-data">
+                <div class="data-item">
+                  <div class="item-content">
+                    <h2 class="item-title one-line">{{item.payload.doc.data().Subject}}</h2>
+                    <p class="description-text">{{item.payload.doc.data().Description}}</p>
+                    <div class="item-description">
+                      <ion-icon class="description-icon" name="clock"></ion-icon>
+                      <p class="description-text">{{item.payload.doc.data().StartEventTime}}</p>
+                    </div>
+                  </div>
+                  <ion-icon class="item-icon" name="arrow-forward"></ion-icon>
+                </div>
+              </ion-col>
+            </ion-row>
           </ion-item>
-        </ion-item-sliding>
-    </ion-list>
-
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="addEvent()">
-          <ion-icon name="add"></ion-icon>
-        </ion-fab-button>
-      </ion-fab>
-</ion-content>
+        </ion-list>
+  
+        <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+          <ion-fab-button (click)="addEvent()">
+            <ion-icon name="add"></ion-icon>
+          </ion-fab-button>
+        </ion-fab>
+  </ion-content>
+  
