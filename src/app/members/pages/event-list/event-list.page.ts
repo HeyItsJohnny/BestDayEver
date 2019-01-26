@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Event, EventsService} from 'src/app/services/events.service';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, SegmentButton } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -11,14 +11,25 @@ import { Router } from '@angular/router';
 
 export class EventListPage {
   events: Array<any>;
+  segment: string;
 
   constructor(
     private eventsService: EventsService,
     public alertController: AlertController,
-    private router: Router) { }
+    private router: Router) { 
+      this.segment = "today";
+    }
  
   ionViewWillEnter() {
      this.getEventData();
+  }
+
+  onSegmentChanged(segmentButton: SegmentButton) {
+    // console.log('Segment changed to', segmentButton.value);
+  }
+
+  onSegmentSelected(segmentButton: SegmentButton) {
+    // console.log('Segment selected', segmentButton.value);
   }
 
   getEventData() {
