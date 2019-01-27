@@ -79,6 +79,28 @@ export class GuestDetailsPage implements OnInit {
     }
   }
 
+  async deleteGuest() {
+    this.alertController.create({
+      header: "Are you sure you want to delete this guest?",
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.rsvpGuestService.removeRsvpGuest(this.rsvpGuestID).then(() => {
+              this.nav.goBack(true);
+            });
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => { }
+        }
+      ]
+    }).then(alert => alert.present());
+  }
+
   async goToDinnerSelection() {
     this.saveRsvp();
     var options = {
@@ -98,9 +120,8 @@ export class GuestDetailsPage implements OnInit {
           handler: (data: any) => {
             this.rsvpGuestService.updateRsvpGuestDinnerChoiceText(this.getDinnerString(data),this.rsvpGuestID);
             this.rsvpGuestService.updateRsvpGuestDinnerChoice(data,this.rsvpGuestID).then(function() {
-              //this.nav.goBack(true);
+              this.nav.goBack(true);
             });     
-            this.askDietaryRestrictions();      
           }
         }
       ]
@@ -112,57 +133,6 @@ export class GuestDetailsPage implements OnInit {
     
     let alert = await this.alertController.create(options);
     await alert.present();
-  }
-
-  async askDietaryRestrictions() {
-    this.alertController.create({
-      header: "Dietary Restrictions",
-      message: "Are there any dietary restrictions for " + this.rsvpGuest.Name + "?",
-      buttons: [
-        {
-          text: 'Yes',
-          handler: () => {
-            this.setDietaryRestrictions();
-          }
-        }, {
-          text: 'No',
-          handler: () => {
-            this.rsvpGuestService.updateRsvpGuestDietaryRestrictions("",this.rsvpGuestID);
-          }
-        }
-      ]
-    }).then(alert => alert.present());
-  }
-
-  async setDietaryRestrictions() {
-    /*var options = {
-      header: "List all attendees",
-      subHeader: "Max Number of attendees: " + NumOfGuests,
-      message: "Please include yourself below",
-      inputs: [],
-      buttons: [
-        {
-          text: 'Ok',
-          handler: (data: any) => {
-            for (var k in data) {
-              if (data[k] != "") {
-                this.events.publish('guest:created', this.getRsvp.id);
-                this.rsvpGuest.Name = data[k];
-                this.rsvpGuestService.addRsvpGuest(this.rsvpGuest).then(docRef => {
-                  this.rsvpGuest.id = docRef.id;
-                });
-              }
-            } 
-            this.startDinnerSelection();
-          }
-        }
-      ]
-    };
-
-    for (var i = 1; i <= NumOfGuests; i++) {
-      options.inputs.push({ name: "guest" + i,  type: 'text', placeholder: "Guest Name"});
-    }
-    this.alertController.create(options).then(alert => alert.present());*/
   }
 
   setTheInputCheck(dinnerID: string){

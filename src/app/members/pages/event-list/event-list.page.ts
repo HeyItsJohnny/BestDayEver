@@ -26,8 +26,8 @@ export class EventListPage {
 
   getEventData() {
     this.eventsService.getEvents()
-    .then(events => {
-      this.events = events;
+    .then(data => {
+      this.events = data;
     })
   }
 

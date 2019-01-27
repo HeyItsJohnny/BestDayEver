@@ -212,13 +212,13 @@ export class GuestRsvpExamplePage implements OnInit {
 
   startDinnerSelection() {
     this.events.publish('guest:created', this.getRsvp.id);
-    var rsvpServ = this.rsvpGuestService.getRsvpGuests().subscribe(res => {
-      this.addRsvpGuests = res;
-      for(var item of this.addRsvpGuests) {
-        this.setDinnerSelection(item.id, item.Name);
-      }
-      rsvpServ.unsubscribe();
-    });
+    this.rsvpGuestService.getRsvpGuests()
+      .then(data => {
+        this.addRsvpGuests  = data;
+        for(var item of this.addRsvpGuests) {
+          this.setDinnerSelection(item.id, item.Name);
+        }
+      })
   }
 
   

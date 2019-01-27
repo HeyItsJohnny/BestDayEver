@@ -57,7 +57,7 @@ export class DinnerDetailsPage implements OnInit {
     if (this.dinnerId) {
       this.dinnerService.updateDinner(this.dinner, this.dinnerId).then(() => {
         loading.dismiss();
-        this.router.navigateByUrl('/members/dinnerList/');
+        this.nav.goBack(true);
       });
     } 
   }
@@ -70,7 +70,7 @@ export class DinnerDetailsPage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.dinnerService.removeDinner(this.dinnerId).then(() => {
-              this.router.navigateByUrl('/members/dinnerList/');
+              this.nav.goBack(true);
             });
           }
         },

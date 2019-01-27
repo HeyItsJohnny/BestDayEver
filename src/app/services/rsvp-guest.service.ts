@@ -19,62 +19,69 @@ export interface RsvpGuest {
   providedIn: 'root'
 })
 export class RsvpGuestService {
-  private rsvpGuestCollection: AngularFirestoreCollection<RsvpGuest>;
-  private rsvpGuest: Observable<RsvpGuest[]>;
   public rsvpId: any;
 
 
   constructor(
-    db: AngularFirestore,
+    public db: AngularFirestore,
     private afAuth: AngularFireAuth,
     private route: ActivatedRoute,
     public events: Events) { 
     this.events.subscribe('guest:created', set => {
-      var authUser = this.afAuth.auth.currentUser;
       this.rsvpId = set;
-      this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guest');
-
-      this.rsvpGuest = this.rsvpGuestCollection.snapshotChanges().pipe(
-        map(actions => {
-          return actions.map(a => {
-            const data = a.payload.doc.data();
-            const id = a.payload.doc.id;
-            return { id, ...data };
-          });
-        })
-      );
     }); 
   }
 
   getRsvpGuests() {
-    return this.rsvpGuest;
+    var authUser = this.afAuth.auth.currentUser;
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests').snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots)
+      })
+    })
   }
  
   getRsvpGuest(id) {
-    return this.rsvpGuestCollection.doc<RsvpGuest>(id).valueChanges();
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    return rsvpGuestCollection.doc<RsvpGuest>(id).valueChanges();
   }
  
   updateRsvpGuest(rsvpGuest: RsvpGuest, id: string) {
-    return this.rsvpGuestCollection.doc(id).update(rsvpGuest);
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    return rsvpGuestCollection.doc(id).update(rsvpGuest);
   }
 
   updateRsvpGuestDinnerChoice(dinnerChoiceID: string, id: string) {
-    return this.rsvpGuestCollection.doc(id).update({"DinnerChoice": dinnerChoiceID});
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    return rsvpGuestCollection.doc(id).update({"DinnerChoice": dinnerChoiceID});
   }
 
   updateRsvpGuestDinnerChoiceText(dinnerChoiceText: string, id: string) {
-    return this.rsvpGuestCollection.doc(id).update({"DinnerChoiceText": dinnerChoiceText});
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    return rsvpGuestCollection.doc(id).update({"DinnerChoiceText": dinnerChoiceText});
   }
 
   updateRsvpGuestDietaryRestrictions(dinnerNotes: string, id: string) {
-    return this.rsvpGuestCollection.doc(id).update({"DinnerNotes": dinnerNotes});
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    return rsvpGuestCollection.doc(id).update({"DinnerNotes": dinnerNotes});
   }
  
   addRsvpGuest(rsvpGuest: RsvpGuest) {
-    return this.rsvpGuestCollection.add(rsvpGuest);
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    return rsvpGuestCollection.add(rsvpGuest);
   }
  
   removeRsvpGuest(id) {
-    return this.rsvpGuestCollection.doc(id).delete();
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    return rsvpGuestCollection.doc(id).delete();
   }
 }
