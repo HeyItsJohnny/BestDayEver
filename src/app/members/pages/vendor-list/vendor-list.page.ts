@@ -223,11 +223,11 @@ export class VendorListPage {
   }
 
   routeToVendorPage(item) {
-    if (item.Category == 'Flight') {
+    if (item.payload.doc.Category == 'Flight') {
       this.router.navigateByUrl('/members/vendorFlightDetails/' + item.payload.doc.id);
-    } else if (item.Category == 'Hotel - Personal') {
+    } else if (item.payload.doc.Category == 'Hotel - Personal') {
       this.router.navigateByUrl('/members/vendorHotelDetails/' + item.payload.doc.id);
-    } else if (item.Category == 'Hotel - Guest') {
+    } else if (item.payload.doc.Category == 'Hotel - Guest') {
       this.router.navigateByUrl('/members/vendorGuestHotelDetails/' + item.payload.doc.id);
     } else {
       this.router.navigateByUrl('/members/vendorDetails/' + item.payload.doc.id);
