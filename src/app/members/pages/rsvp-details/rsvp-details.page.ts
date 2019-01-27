@@ -92,7 +92,7 @@ export class RsvpDetailsPage implements OnInit {
 
   async deleteRsvp() {
     this.alertController.create({
-      header: "Are you sure you want to delete this event?",
+      header: "Are you sure you want to delete this guest?",
       buttons: [
         {
           text: 'Yes',
