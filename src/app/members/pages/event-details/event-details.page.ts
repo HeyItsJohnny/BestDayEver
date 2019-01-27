@@ -1,6 +1,6 @@
 import { Event, EventsService} from 'src/app/services/events.service';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
 
 @Component({
@@ -25,6 +25,7 @@ export class EventDetailsPage implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private nav: NavController, 
+    private router: Router,
     private eventsService: EventsService, 
     public alertController: AlertController,
     private loadingController: LoadingController) { }
@@ -57,7 +58,7 @@ export class EventDetailsPage implements OnInit {
     if (this.eventId) {
       this.eventsService.updateEvent(this.event, this.eventId).then(() => {
         loading.dismiss();
-        this.nav.goBack(true);
+        this.router.navigateByUrl('/members/eventList/');
       });
     } 
   }
@@ -70,7 +71,7 @@ export class EventDetailsPage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.eventsService.removeEvent(this.eventId).then(() => {
-              this.nav.goBack(true);
+              this.router.navigateByUrl('/members/eventList/');
             });
           }
         },

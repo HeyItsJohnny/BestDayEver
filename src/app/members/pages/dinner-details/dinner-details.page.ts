@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Dinner, DinnerService} from 'src/app/services/dinner.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
 
 @Component({
@@ -23,6 +23,7 @@ export class DinnerDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
+    private router: Router,
     private nav: NavController, 
     private dinnerService: DinnerService, 
     public alertController: AlertController,
@@ -56,7 +57,7 @@ export class DinnerDetailsPage implements OnInit {
     if (this.dinnerId) {
       this.dinnerService.updateDinner(this.dinner, this.dinnerId).then(() => {
         loading.dismiss();
-        this.nav.goBack(true);
+        this.router.navigateByUrl('/members/dinnerList/');
       });
     } 
   }
@@ -69,7 +70,7 @@ export class DinnerDetailsPage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.dinnerService.removeDinner(this.dinnerId).then(() => {
-              this.nav.goBack(true);
+              this.router.navigateByUrl('/members/dinnerList/');
             });
           }
         },
