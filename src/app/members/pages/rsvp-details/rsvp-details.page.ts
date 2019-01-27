@@ -98,7 +98,7 @@ export class RsvpDetailsPage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.rsvpService.removeRsvp(this.rsvpId).then(() => {
-              this.router.navigateByUrl('/members/rsvpList/');
+              this.nav.goBack(true);
             });
           }
         },

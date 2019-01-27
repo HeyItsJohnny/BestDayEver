@@ -58,7 +58,7 @@ export class EventDetailsPage implements OnInit {
     if (this.eventId) {
       this.eventsService.updateEvent(this.event, this.eventId).then(() => {
         loading.dismiss();
-        this.router.navigateByUrl('/members/eventList/');
+        this.nav.goBack(true);
       });
     } 
   }
@@ -71,7 +71,7 @@ export class EventDetailsPage implements OnInit {
           text: 'Yes',
           handler: () => {
             this.eventsService.removeEvent(this.eventId).then(() => {
-              this.router.navigateByUrl('/members/eventList/');
+              this.nav.goBack(true);
             });
           }
         },
