@@ -3,6 +3,7 @@ import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
 import { NavController, LoadingController } from '@ionic/angular';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators/debounceTime';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-rsvp-list',
@@ -10,7 +11,7 @@ import { debounceTime } from 'rxjs/operators/debounceTime';
   styleUrls: ['./rsvp-list.page.scss'],
 })
 
-export class RsvpListPage implements OnInit {
+export class RsvpListPage {
 
   rsvps: Rsvp[];
   searchTerm: string = '';
@@ -19,16 +20,16 @@ export class RsvpListPage implements OnInit {
 
   constructor(
     private rsvpService: RsvpService,
+    private router: Router,
     private loadingController: LoadingController) { 
       this.searchControl = new FormControl();
     }
 
-  ngOnInit() {
-    this.getRSVPData();
+  ionViewWillEnter() {
+    this.getRsvpData();
     this.searchControl.valueChanges.pipe(
       debounceTime(700)
     ).subscribe(search => {
-      console.log("SEARCH: " + search);
       this.setFilteredRSVPGuests();
       /*if (search == "") {
         this.rsvps = this.rsvpService.getRsvps();
@@ -38,10 +39,15 @@ export class RsvpListPage implements OnInit {
     });
   }
 
-  async getRSVPData() {
-    this.rsvpService.getRsvps().subscribe(res => {
-      this.rsvps = res;
-    });
+  viewDetails(item){
+    this.router.navigateByUrl('/members/rsvpDetails/' + item.payload.doc.id);
+  }
+
+  getRsvpData() {
+    this.rsvpService.getRsvps()
+    .then(data => {
+      this.rsvps = data;
+    })
   }
 
   //Filtering Items
@@ -57,9 +63,5 @@ export class RsvpListPage implements OnInit {
     return this.rsvps.filter((item) => {
       return item.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });  
-  }
-
-  remove(item) {
-    this.rsvpService.removeRsvp(item.id);
   }
 }

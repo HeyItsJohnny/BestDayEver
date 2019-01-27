@@ -24,14 +24,6 @@ export class EventListPage {
      this.getEventData();
   }
 
-  onSegmentChanged(segmentButton: SegmentButton) {
-    // console.log('Segment changed to', segmentButton.value);
-  }
-
-  onSegmentSelected(segmentButton: SegmentButton) {
-    // console.log('Segment selected', segmentButton.value);
-  }
-
   getEventData() {
     this.eventsService.getEvents()
     .then(events => {

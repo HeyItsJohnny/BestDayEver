@@ -28,40 +28,38 @@ export interface Rsvp {
 })
 
 export class RsvpService {
-  private rsvpsCollection: AngularFirestoreCollection<Rsvp>;
-  private rsvps: Observable<Rsvp[]>;
 
   constructor(
     public db: AngularFirestore,
-    private afAuth: AngularFireAuth) { 
-    var authUser = this.afAuth.auth.currentUser;
-    this.rsvpsCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests');
-
-    this.rsvps = this.rsvpsCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );
-  }
+    private afAuth: AngularFireAuth) { }
 
   getRsvps() {
-    return this.rsvps;
+    var authUser = this.afAuth.auth.currentUser;
+
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots)
+      })
+    })
   }
  
   getRsvp(id) {
-    return this.rsvpsCollection.doc<Rsvp>(id).valueChanges();
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    return rsvpsCollection.doc<Rsvp>(id).valueChanges();
   }
  
   updateRsvp(rsvp: Rsvp, id: string) {
-    return this.rsvpsCollection.doc(id).update(rsvp);
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    return rsvpsCollection.doc(id).update(rsvp);
   }
  
   addRsvp(rsvp: Rsvp) {
-    return this.rsvpsCollection.add(rsvp);
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    return rsvpsCollection.add(rsvp);
   }
 
   getRsvpFromSearch(NameToSearch: string) {
@@ -70,20 +68,28 @@ export class RsvpService {
   }
 
   updateRsvpAttendance(id: string, isGoingBool: boolean){
-    this.rsvpsCollection.doc(id).update({"isGoing": isGoingBool});
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    rsvpsCollection.doc(id).update({"isGoing": isGoingBool});
   }
 
   updateRsvpInformation(id: string, rsvpEmail: string, rsvpPhoneNo: string){
-    this.rsvpsCollection.doc(id).update({"Email": rsvpEmail});
-    this.rsvpsCollection.doc(id).update({"PhoneNo": rsvpPhoneNo});
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    rsvpsCollection.doc(id).update({"Email": rsvpEmail});
+    rsvpsCollection.doc(id).update({"PhoneNo": rsvpPhoneNo});
   }
 
   updateRsvpCoupleNote(id: string, CoupleNotes: String){
-    this.rsvpsCollection.doc(id).update({"CoupleNotes": CoupleNotes});
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    rsvpsCollection.doc(id).update({"CoupleNotes": CoupleNotes});
   }
  
   removeRsvp(id) {
-    return this.rsvpsCollection.doc(id).delete();
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    return rsvpsCollection.doc(id).delete();
   }
 
 }

@@ -1,7 +1,7 @@
 import { Rsvp, RsvpService } from 'src/app/services/rsvp.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -35,6 +35,7 @@ export class RsvpDetailsPage implements OnInit {
     private nav: NavController, 
     private rsvpService: RsvpService, 
     private loadingController: LoadingController,
+    public alertController: AlertController,
     private router: Router) { }
 
   ngOnInit() {
@@ -87,5 +88,27 @@ export class RsvpDetailsPage implements OnInit {
         this.router.navigateByUrl('/members/guestList/' + this.rsvpId);
       });
     }
+  }
+
+  async deleteRsvp() {
+    this.alertController.create({
+      header: "Are you sure you want to delete this event?",
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.rsvpService.removeRsvp(this.rsvpId).then(() => {
+              this.router.navigateByUrl('/members/rsvpList/');
+            });
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => { }
+        }
+      ]
+    }).then(alert => alert.present());
   }
 }
