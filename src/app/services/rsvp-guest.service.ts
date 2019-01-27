@@ -32,7 +32,7 @@ export class RsvpGuestService {
     this.events.subscribe('guest:created', set => {
       var authUser = this.afAuth.auth.currentUser;
       this.rsvpId = set;
-      this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingguests').doc(this.rsvpId).collection('guest');
+      this.rsvpGuestCollection  = db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guest');
 
       this.rsvpGuest = this.rsvpGuestCollection.snapshotChanges().pipe(
         map(actions => {
