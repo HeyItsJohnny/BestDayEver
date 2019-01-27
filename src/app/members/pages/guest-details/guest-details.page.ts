@@ -60,6 +60,10 @@ export class GuestDetailsPage implements OnInit {
     })
   }
 
+  goBack(){
+    this.nav.goBack(true);
+  }
+
   async saveRsvpGuest() {
     const loading = await this.loadingController.create({
       message: 'Saving RSVP Guest..'
