@@ -12,6 +12,7 @@ export interface WeddingDayDetails {
   WeddingDate: Date;
   EstimatedNoOfGuests: number;
   YourName: string;
+  BudgetEstimate: number;
   FianceName: string;
   ReceptionTime: Time;
   DinnerTime: Time;
