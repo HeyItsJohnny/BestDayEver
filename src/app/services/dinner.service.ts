@@ -18,9 +18,30 @@ export interface Dinner {
   providedIn: 'root'
 })
 export class DinnerService {
+  private dinnersCollection: AngularFirestoreCollection<Dinner>;
+  private dinners: Observable<Dinner[]>;
+
   constructor(
     public db: AngularFirestore,
-    private afAuth: AngularFireAuth) { }
+    private afAuth: AngularFireAuth) { 
+        
+      var authUser = this.afAuth.auth.currentUser;
+      this.dinnersCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('dinners');
+
+      this.dinners = this.dinnersCollection.snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
+    }
+
+  getDinnersToDisplay() {
+    return this.dinners;
+  }
 
   getDinners() {
     var authUser = this.afAuth.auth.currentUser;

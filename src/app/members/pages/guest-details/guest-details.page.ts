@@ -54,10 +54,10 @@ export class GuestDetailsPage implements OnInit {
   }
 
   getDinnerData() {
-    this.dinnerService.getDinners()
-    .then(events => {
-      this.dinners = events;
-    })
+    var din = this.dinnerService.getDinnersToDisplay().subscribe (res => {
+      this.dinners = res;
+      din.unsubscribe();
+    });
   }
 
   goBack(){
