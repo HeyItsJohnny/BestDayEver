@@ -70,10 +70,10 @@ export class GuestRsvpExamplePage implements OnInit {
   }
 
   getDinnerData() {
-    this.dinnerService.getDinners()
-    .then(events => {
-      this.dinners = events;
-    })
+    var din = this.dinnerService.getDinnersToDisplay().subscribe (res => {
+      this.dinners = res;
+      din.unsubscribe();
+    });
   }
 
   findRSVPRecord() {
@@ -212,13 +212,13 @@ export class GuestRsvpExamplePage implements OnInit {
 
   startDinnerSelection() {
     this.events.publish('guest:created', this.getRsvp.id);
-    this.rsvpGuestService.getRsvpGuests()
-      .then(data => {
-        this.addRsvpGuests  = data;
-        for(var item of this.addRsvpGuests) {
-          this.setDinnerSelection(item.id, item.Name);
-        }
-      })
+    var rsvpGuestUbsubscribe = this.rsvpGuestService.getRsvpGuestsForSearch().subscribe(data => {
+      this.addRsvpGuests  = data;
+      rsvpGuestUbsubscribe.unsubscribe();
+      for(var item of this.addRsvpGuests) {
+        this.setDinnerSelection(item.id, item.Name);
+      }
+    })
   }
 
   

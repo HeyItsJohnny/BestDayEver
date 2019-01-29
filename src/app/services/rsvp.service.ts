@@ -64,7 +64,7 @@ export class RsvpService {
 
   getRsvpFromSearch(NameToSearch: string) {
     var authUser = this.afAuth.auth.currentUser;
-    return this.db.collection<Profile>('profile').doc(authUser.uid).collection<Rsvp>('weddingguests', ref => ref.where('Name', '==', NameToSearch).limit(1)).snapshotChanges();
+    return this.db.collection<Profile>('profile').doc(authUser.uid).collection<Rsvp>('rsvps', ref => ref.where('Name', '==', NameToSearch).limit(1)).snapshotChanges();
   }
 
   updateRsvpAttendance(id: string, isGoingBool: boolean){
