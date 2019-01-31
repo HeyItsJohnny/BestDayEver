@@ -13,7 +13,8 @@ import { Router } from '@angular/router';
 
 export class RsvpListPage {
 
-  rsvps: Rsvp[];
+  rsvps: Array<any>;
+  name_filtered_items: Array<any>;
   searchTerm: string = '';
   searchControl: FormControl;
   searching: any = false;
@@ -29,16 +30,6 @@ export class RsvpListPage {
   ionViewWillEnter() {
     this.searchValue = "";
     this.getRsvpData();
-    /*this.searchControl.valueChanges.pipe(
-      debounceTime(700)
-    ).subscribe(search => {
-      this.setFilteredRSVPGuests();
-      if (search == "") {
-        this.rsvps = this.rsvpService.getRsvps();
-      } else {
-        this.setFilteredRSVPGuests();
-      }
-    });*/
   }
 
   viewDetails(item){
@@ -49,21 +40,21 @@ export class RsvpListPage {
     this.rsvpService.getRsvps()
     .then(data => {
       this.rsvps = data;
+      this.name_filtered_items = data;
     })
   }
 
-  //Filtering Items
-  /*onSearchInput(){
-    this.searching = true;
+  onInputChange(event){
+    console.log("1. VALUE: " + this.searchValue);
+    let value = this.searchValue.toLowerCase();
+    console.log("2. VALUE: " + value);
+    this.rsvpService.searchRSVPName(value)
+    .then(res => {
+      console.log("Results: " + res);
+      this.name_filtered_items = res;
+      this.rsvps = this.name_filtered_items;
+    })
   }
 
-  setFilteredRSVPGuests() {
-    this.rsvps = this.filterRSVPGuests(this.searchTerm);
-  }
-
-  filterRSVPGuests(searchTerm) {
-    return this.rsvps.filter((item) => {
-      return item.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
-    });  
-  }*/
+ 
 }

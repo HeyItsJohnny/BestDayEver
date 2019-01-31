@@ -92,4 +92,17 @@ export class RsvpService {
     return rsvpsCollection.doc(id).delete();
   }
 
+  searchRSVPName(searchValue){
+    console.log("Search Value: " + searchValue);
+    var authUser = this.afAuth.auth.currentUser;
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps', ref => ref.where('Name', '>=', searchValue)
+      .where('Name', '<=', searchValue + '\uf8ff'))
+      .snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots);
+      })
+    })
+  }
+
 }
