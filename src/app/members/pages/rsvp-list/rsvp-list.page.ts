@@ -17,6 +17,7 @@ export class RsvpListPage {
   searchTerm: string = '';
   searchControl: FormControl;
   searching: any = false;
+  searchValue: string;
 
   constructor(
     private rsvpService: RsvpService,
@@ -26,17 +27,18 @@ export class RsvpListPage {
     }
 
   ionViewWillEnter() {
+    this.searchValue = "";
     this.getRsvpData();
-    this.searchControl.valueChanges.pipe(
+    /*this.searchControl.valueChanges.pipe(
       debounceTime(700)
     ).subscribe(search => {
       this.setFilteredRSVPGuests();
-      /*if (search == "") {
+      if (search == "") {
         this.rsvps = this.rsvpService.getRsvps();
       } else {
         this.setFilteredRSVPGuests();
-      }*/
-    });
+      }
+    });*/
   }
 
   viewDetails(item){
@@ -51,7 +53,7 @@ export class RsvpListPage {
   }
 
   //Filtering Items
-  onSearchInput(){
+  /*onSearchInput(){
     this.searching = true;
   }
 
@@ -63,5 +65,5 @@ export class RsvpListPage {
     return this.rsvps.filter((item) => {
       return item.Name.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1;
     });  
-  }
+  }*/
 }
