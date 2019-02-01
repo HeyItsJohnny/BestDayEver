@@ -5,6 +5,7 @@
 </ion-header>
 
 <ion-content padding>
+    <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
     <ion-list>
       <ng-container *ngIf="!vendors || vendors.length == 0">
         <div *ngFor="let n of [0,1,2]" padding>

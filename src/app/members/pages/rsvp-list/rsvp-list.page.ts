@@ -47,25 +47,17 @@ export class RsvpListPage {
   }
 
   getItems(searchbar) {
-
     if (searchbar.srcElement.value == "") {
       this.getRsvpData();
     } else {
       var value = searchbar.srcElement.value;
       var valueTmp: string;
-      valueTmp = value.toLowerCase();
-  
-      console.log("Value: " + value); 
-      console.log("Value Tmp: " + valueTmp);
-     
+      valueTmp = value.toLowerCase();   
   
       this.rsvpService.searchRSVPName(valueTmp)
       .then(res => {
         this.rsvps = res;
       })
     }
-
-    
   }
- 
 }

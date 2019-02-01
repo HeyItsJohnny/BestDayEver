@@ -13,6 +13,7 @@ export class VendorDetailsPage implements OnInit {
 
   vendor: Vendor = {
     Name: '',
+    SearchName: '',
     ContactCategory: '',
     Category: '',
     Email: '',

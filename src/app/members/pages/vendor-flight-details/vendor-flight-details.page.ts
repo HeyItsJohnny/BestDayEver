@@ -13,6 +13,7 @@ export class VendorFlightDetailsPage implements OnInit {
 
   vendor: Vendor = {
     Name: '',
+    SearchName: '',
     ContactCategory: '',
     Category: '',
     Email: '',

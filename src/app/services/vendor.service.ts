@@ -9,6 +9,7 @@ import { Time } from '@angular/common';
 export interface Vendor {
   id?: string;
   Name: string;
+  SearchName: string;
   Email: string;
   PhoneNo: string;
   Address1: string;
@@ -65,20 +66,37 @@ export class VendorService {
   }
 
   addVendor(vendor: Vendor) {
+    var tmp = vendor;
+    tmp.SearchName = vendor.Name.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let vendorsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors');
-    return vendorsCollection.add(vendor);
+    return vendorsCollection.add(tmp);
   }
 
   updateVendor(vendor: Vendor, id: string) {
+    var tmp = vendor;
+    tmp.SearchName = vendor.Name.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let vendorsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors');
-    return vendorsCollection.doc(id).update(vendor);
+    return vendorsCollection.doc(id).update(tmp);
   }
 
   removeVendor(id) {
     var authUser = this.afAuth.auth.currentUser;
     let vendorsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors');
     return vendorsCollection.doc(id).delete();
+  }
+
+  searchVendorName(searchValue){
+    console.log("Search Value: " + searchValue);
+    var authUser = this.afAuth.auth.currentUser;
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('vendors', ref => ref.where('SearchName', '>=', searchValue)
+      .where('SearchName', '<=', searchValue + '\uf8ff'))
+      .snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots);
+      })
+    })
   }
 }

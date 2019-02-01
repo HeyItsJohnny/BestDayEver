@@ -14,6 +14,7 @@ export class VendorListPage {
 
   vendor: Vendor = {
     Name: '',
+    SearchName: '',
     ContactCategory: '',
     Category: '',
     Email: '',
@@ -57,6 +58,21 @@ export class VendorListPage {
     .then(data => {
       this.vendors = data;
     })
+  }
+
+  getItems(searchbar) {
+    if (searchbar.srcElement.value == "") {
+      this.getVendorData();
+    } else {
+      var value = searchbar.srcElement.value;
+      var valueTmp: string;
+      valueTmp = value.toLowerCase();   
+  
+      this.vendorService.searchVendorName(valueTmp)
+      .then(res => {
+        this.vendors = res;
+      })
+    }
   }
 
   async selectVendorCategory() {

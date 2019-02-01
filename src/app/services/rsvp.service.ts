@@ -52,19 +52,19 @@ export class RsvpService {
   }
  
   updateRsvp(rsvp: Rsvp, id: string) {
-    var rsvptmp = rsvp;
-    rsvptmp.SearchName = rsvp.Name.toLowerCase();
+    var tmp = rsvp;
+    tmp.SearchName = rsvp.Name.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
-    return rsvpsCollection.doc(id).update(rsvptmp);
+    return rsvpsCollection.doc(id).update(tmp);
   }
  
   addRsvp(rsvp: Rsvp) {
-    var rsvptmp = rsvp;
-    rsvptmp.SearchName = rsvp.Name.toLowerCase();
+    var tmp = rsvp;
+    tmp.SearchName = rsvp.Name.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
-    return rsvpsCollection.add(rsvptmp);
+    return rsvpsCollection.add(tmp);
   }
 
   getRsvpFromSearch(NameToSearch: string) {
