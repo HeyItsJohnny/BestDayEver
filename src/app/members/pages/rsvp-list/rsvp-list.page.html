@@ -5,12 +5,7 @@
 </ion-header>
 
 <ion-content padding>
-  <ion-searchbar animated
-    [(ngModel)]="searchValue"
-    (ionInput)="onInputChange($event)"
-    placeholder="Search by guest name..."
-    debounce=1000>
-  </ion-searchbar>
+  <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <div *ngIf="searching" class="spinner-container">
       <ion-spinner></ion-spinner>
   </div>

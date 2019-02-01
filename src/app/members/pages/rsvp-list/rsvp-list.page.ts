@@ -13,12 +13,11 @@ import { Router } from '@angular/router';
 
 export class RsvpListPage {
 
-  rsvps: Array<any>;
-  name_filtered_items: Array<any>;
+  public rsvps: Array<any>;
+  public loadedRsvps: Array<any>;
   searchTerm: string = '';
   searchControl: FormControl;
   searching: any = false;
-  searchValue: string;
 
   constructor(
     private rsvpService: RsvpService,
@@ -28,7 +27,6 @@ export class RsvpListPage {
     }
 
   ionViewWillEnter() {
-    this.searchValue = "";
     this.getRsvpData();
   }
 
@@ -40,21 +38,42 @@ export class RsvpListPage {
     this.rsvpService.getRsvps()
     .then(data => {
       this.rsvps = data;
-      this.name_filtered_items = data;
+      this.loadedRsvps = data;
     })
   }
 
-  onInputChange(event){
-    console.log("1. VALUE: " + this.searchValue);
-    let value = this.searchValue.toLowerCase();
-    console.log("2. VALUE: " + value);
-    this.rsvpService.searchRSVPName(value)
-    .then(res => {
-      console.log("Results: " + res);
-      this.name_filtered_items = res;
-      this.rsvps = this.name_filtered_items;
-    })
+  initializeRsvps() {
+    this.rsvps = this.loadedRsvps;
   }
 
+  getItems(searchbar) {
+    // Reset items back to all of the items
+    this.initializeRsvps();
+  
+    // set q to the value of the searchbar
+    var q = searchbar.srcElement.value;
+  
+  
+    // if the value is an empty string don't filter the items
+    if (!q) {
+      return;
+    }
+    console.log('BEFORE');
+    this.rsvps = this.rsvps.filter((v) => {
+      console.log('1. INSIDE: ' + v.Name);
+      if(v.payload.doc.Name && q) {
+        console.log('2. INSIDE');
+        if (v.payload.doc.Name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
+          console.log('3. INSIDE');
+          return true;
+        }
+        console.log('4. INSIDE');
+        return false;
+      }
+    });
+  
+    console.log(q, this.rsvps.length);
+  
+  }
  
 }

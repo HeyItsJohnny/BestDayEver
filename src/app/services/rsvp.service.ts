@@ -92,7 +92,7 @@ export class RsvpService {
     return rsvpsCollection.doc(id).delete();
   }
 
-  searchRSVPName(searchValue){
+  /*searchRSVPName(searchValue){
     console.log("Search Value: " + searchValue);
     var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
@@ -103,6 +103,6 @@ export class RsvpService {
         resolve(snapshots);
       })
     })
-  }
+  }*/
 
 }
