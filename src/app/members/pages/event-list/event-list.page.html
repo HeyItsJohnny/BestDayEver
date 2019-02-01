@@ -5,8 +5,10 @@
       </ion-title>
     </ion-toolbar>
   </ion-header>
+
   
   <ion-content class="schedule-content">
+      <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
       <ion-list class="schedule-list">
           <ion-item class="schedule-item" *ngFor="let item of events">
             <ion-row button (click)="viewDetails(item)">

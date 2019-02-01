@@ -11,6 +11,7 @@ import { NavController, LoadingController, AlertController } from '@ionic/angula
 export class EventDetailsPage implements OnInit {
   event: Event = {
     Subject: '',
+    SearchName: '',
     Description: '',
     StartDate: null,
     EndDate: null,

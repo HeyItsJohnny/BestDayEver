@@ -31,6 +31,21 @@ export class EventListPage {
     })
   }
 
+  getItems(searchbar) {
+    if (searchbar.srcElement.value == "") {
+      this.getEventData();
+    } else {
+      var value = searchbar.srcElement.value;
+      var valueTmp: string;
+      valueTmp = value.toLowerCase();   
+  
+      this.eventsService.searchEventName(valueTmp)
+      .then(res => {
+        this.events = res;
+      })
+    }
+  }
+
   viewDetails(item){
     this.router.navigateByUrl('/members/eventDetails/' + item.payload.doc.id);
   }
@@ -68,6 +83,7 @@ export class EventListPage {
           handler: (data) => {
             var eventObj: Event = {
               Subject: data.EventSubject,
+              SearchName: '',
               Description: data.EventDescription,
               StartDate: null,
               EndDate: null,

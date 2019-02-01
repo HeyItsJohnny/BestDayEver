@@ -10,6 +10,7 @@ export interface Event {
   id?: string;
   Subject: string;
   Description: string;
+  SearchName: string;
   StartDate: Date;
   EndDate: Date;
   StartEventTime: Time;
@@ -45,15 +46,19 @@ export class EventsService {
   }
  
   updateEvent(event: Event, id: string) {
+    var tmp = event;
+    tmp.SearchName = event.Subject.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
-    return eventsCollection.doc(id).update(event);
+    return eventsCollection.doc(id).update(tmp);
   }
  
   addEvent(event: Event) {
+    var tmp = event;
+    tmp.SearchName = event.Subject.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
-    return eventsCollection.add(event);
+    return eventsCollection.add(tmp);
   }
 
   updateEventStartDateTime(startDate: Date, startTime: Time, id: string) {
@@ -74,5 +79,18 @@ export class EventsService {
     var authUser = this.afAuth.auth.currentUser;
     let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('events');
     return eventsCollection.doc(id).delete();
+  }
+
+  searchEventName(searchValue){
+    console.log("Search Value: " + searchValue);
+    var authUser = this.afAuth.auth.currentUser;
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('events', ref => ref.where('SearchName', '>=', searchValue)
+      .where('SearchName', '<=', searchValue + '\uf8ff'))
+      .snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots);
+      })
+    })
   }
 }
