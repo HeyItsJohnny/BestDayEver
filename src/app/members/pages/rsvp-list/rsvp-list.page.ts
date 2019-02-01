@@ -47,33 +47,25 @@ export class RsvpListPage {
   }
 
   getItems(searchbar) {
-    // Reset items back to all of the items
-    this.initializeRsvps();
+
+    if (searchbar.srcElement.value == "") {
+      this.getRsvpData();
+    } else {
+      var value = searchbar.srcElement.value;
+      var valueTmp: string;
+      valueTmp = value.toLowerCase();
   
-    // set q to the value of the searchbar
-    var q = searchbar.srcElement.value;
+      console.log("Value: " + value); 
+      console.log("Value Tmp: " + valueTmp);
+     
   
-  
-    // if the value is an empty string don't filter the items
-    if (!q) {
-      return;
+      this.rsvpService.searchRSVPName(valueTmp)
+      .then(res => {
+        this.rsvps = res;
+      })
     }
-    console.log('BEFORE');
-    this.rsvps = this.rsvps.filter((v) => {
-      console.log('1. INSIDE: ' + v.Name);
-      if(v.payload.doc.Name && q) {
-        console.log('2. INSIDE');
-        if (v.payload.doc.Name.toLowerCase().indexOf(q.toLowerCase()) > -1) {
-          console.log('3. INSIDE');
-          return true;
-        }
-        console.log('4. INSIDE');
-        return false;
-      }
-    });
-  
-    console.log(q, this.rsvps.length);
-  
+
+    
   }
  
 }

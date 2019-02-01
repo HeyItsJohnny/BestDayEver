@@ -8,6 +8,7 @@ import { AngularFireAuth } from "angularfire2/auth";
 export interface Rsvp {
   id?: string;
   Name: string;
+  SearchName: string;
   Email: string;
   PhoneNo: string;
   Address1: string;
@@ -51,15 +52,19 @@ export class RsvpService {
   }
  
   updateRsvp(rsvp: Rsvp, id: string) {
+    var rsvptmp = rsvp;
+    rsvptmp.SearchName = rsvp.Name.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
-    return rsvpsCollection.doc(id).update(rsvp);
+    return rsvpsCollection.doc(id).update(rsvptmp);
   }
  
   addRsvp(rsvp: Rsvp) {
+    var rsvptmp = rsvp;
+    rsvptmp.SearchName = rsvp.Name.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
-    return rsvpsCollection.add(rsvp);
+    return rsvpsCollection.add(rsvptmp);
   }
 
   getRsvpFromSearch(NameToSearch: string) {
@@ -92,17 +97,16 @@ export class RsvpService {
     return rsvpsCollection.doc(id).delete();
   }
 
-  /*searchRSVPName(searchValue){
+  searchRSVPName(searchValue){
     console.log("Search Value: " + searchValue);
     var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps', ref => ref.where('Name', '>=', searchValue)
-      .where('Name', '<=', searchValue + '\uf8ff'))
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps', ref => ref.where('SearchName', '>=', searchValue)
+      .where('SearchName', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots);
       })
     })
-  }*/
-
+  }
 }
