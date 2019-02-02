@@ -32,8 +32,7 @@ const routes: Routes = [
   { path: 'vendorGuestHotelDetails', loadChildren: './pages/vendor-guest-hotel-details/vendor-guest-hotel-details.module#VendorGuestHotelDetailsPageModule' },
   { path: 'vendorGuestHotelDetails/:id', loadChildren: './pages/vendor-guest-hotel-details/vendor-guest-hotel-details.module#VendorGuestHotelDetailsPageModule' },
   { path: 'dinnerDetails', loadChildren: './pages/dinner-details/dinner-details.module#DinnerDetailsPageModule' },
-  { path: 'dinnerDetails/:id', loadChildren: './pages/dinner-details/dinner-details.module#DinnerDetailsPageModule' },  { path: 'registerQuickStart', loadChildren: './pages/register-quick-start/register-quick-start.module#RegisterQuickStartPageModule' }
-
+  { path: 'dinnerDetails/:id', loadChildren: './pages/dinner-details/dinner-details.module#DinnerDetailsPageModule' }
 ];
 
 @NgModule({
