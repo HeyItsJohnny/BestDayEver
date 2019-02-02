@@ -2,9 +2,7 @@ import { WeddingDayDetails, WeddingDayDetailsService } from 'src/app/services/we
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController } from '@ionic/angular';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-
-import { Profile, ProfileService } from 'src/app/services/profile.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 @Component({
   selector: 'app-wedding-day-details',
@@ -37,7 +35,6 @@ export class WeddingDayDetailsPage implements OnInit {
     private nav: NavController, 
     private weddingDayDetailsService: WeddingDayDetailsService, 
     private profileService: ProfileService, 
-    private db: AngularFirestore,
     private loadingController: LoadingController) { }
 
   ngOnInit() {

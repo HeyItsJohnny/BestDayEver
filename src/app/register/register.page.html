@@ -5,6 +5,16 @@
 </ion-header>
 
 <ion-content padding>
+  <h1>Basic Information</h1>
+  <ion-item>
+    <ion-label floating class="bold-label">Your Name:</ion-label>
+    <ion-input required type="text" [(ngModel)]="user.name"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating class="bold-label">Fiance's Name:</ion-label>
+    <ion-input required type="text" [(ngModel)]="weddingDay.FianceName"></ion-input>
+  </ion-item>
+  <h1>Login Credentials</h1>
   <ion-item>
     <ion-label floating class="bold-label">Email Address:</ion-label>
     <ion-input required type="text" [(ngModel)]="user.email"></ion-input>
@@ -14,16 +24,21 @@
     <ion-input required type="password" [(ngModel)]="user.password"></ion-input>
   </ion-item>
   <ion-item>
-    <ion-label floating class="bold-label">First Name:</ion-label>
-    <ion-input required type="text" [(ngModel)]="user.firstname"></ion-input>
-  </ion-item>
-  <ion-item>
-    <ion-label floating class="bold-label">Last Name:</ion-label>
-    <ion-input required type="text" [(ngModel)]="user.lastname"></ion-input>
-  </ion-item>
-  <ion-item>
     <ion-label floating class="bold-label">Phone No.:</ion-label>
     <ion-input required type="text" [(ngModel)]="user.phoneno"></ion-input>
   </ion-item>
+  <h1>Wedding Estimates</h1>
+  <ion-item>
+    <ion-label floating class="bold-label">Budget:</ion-label>
+    <ion-input required type="number" [(ngModel)]="weddingDay.BudgetEstimate"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label floating class="bold-label">Number of Guests:</ion-label>
+    <ion-input required type="number" [(ngModel)]="weddingDay.EstimatedNoOfGuests"></ion-input>
+  </ion-item>
+  <ion-item>
+    <ion-label stacked class="bold-label">Wedding Date:</ion-label>
+    <ion-input required type="date" [(ngModel)]="weddingDay.WeddingDate"></ion-input>
+  </ion-item> 
   <ion-button expand="full" (click)="register(user)">Sign Me Up!</ion-button>
 </ion-content>
