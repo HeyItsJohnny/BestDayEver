@@ -8,6 +8,8 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { WeddingDayDetails, WeddingDayDetailsService } from 'src/app/services/wedding-day-details.service';
+
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +25,7 @@ export class AuthenticationService {
     private router: Router, 
     private db: AngularFirestore,
     private alertController: AlertController,
+    private weddingDayDetailsService: WeddingDayDetailsService, 
     private plt: Platform) { 
       this.plt.ready().then(() => {
         this.checkToken();
@@ -70,7 +73,7 @@ export class AuthenticationService {
     }
   }
 
-  async register(user: User) {
+  async register(user: User, weddingDay: WeddingDayDetails) {
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);      
       if (result) {
@@ -78,7 +81,18 @@ export class AuthenticationService {
         const alert = await this.alertController.create({
           header: 'Success',
           message: 'Thanks for signing up! Please sign in to continue.',
-          buttons: ['OK']
+          buttons: [
+            {
+              text: 'OK',
+              handler: (data) => {
+                //Create Wedding Day
+                //Set Wedding Day ID to Profile
+                //Create Wedding Parties
+                //Set Wedding Party ID's on the Wedding Day Doc.
+              }
+            }
+          ]
+          
         });
         await alert.present();
       } 

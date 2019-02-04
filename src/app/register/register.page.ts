@@ -42,7 +42,7 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  register(user: User) {
-    this.authService.register(user);
+  register(user: User, weddingDay: WeddingDayDetails) {
+    this.authService.register(user, weddingDay);
   }
 }
