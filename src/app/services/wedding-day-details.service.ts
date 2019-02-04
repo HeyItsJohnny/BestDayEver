@@ -61,6 +61,10 @@ export class WeddingDayDetailsService {
   addWeddingDay(weddingParty: WeddingDayDetails) {
     return this.weddingDaysCollection.add(weddingParty);
   }
+
+  addWeddingDayWithID(weddingParty: WeddingDayDetails) {
+    return this.weddingDaysCollection.add(weddingParty);
+  }
  
   removeWeddingDay(id) {
     return this.weddingDaysCollection.doc(id).delete();

@@ -81,18 +81,7 @@ export class AuthenticationService {
         const alert = await this.alertController.create({
           header: 'Success',
           message: 'Thanks for signing up! Please sign in to continue.',
-          buttons: [
-            {
-              text: 'OK',
-              handler: (data) => {
-                //Create Wedding Day
-                //Set Wedding Day ID to Profile
-                //Create Wedding Parties
-                //Set Wedding Party ID's on the Wedding Day Doc.
-              }
-            }
-          ]
-          
+          buttons: ['OK']
         });
         await alert.present();
       } 
@@ -109,6 +98,12 @@ export class AuthenticationService {
   }
 
   createProfile(user: User, userid: string)  {
-    this.db.doc('profile/' + userid).set(user).then(() => this.router.navigateByUrl('/Login'));
+    this.db.doc('profile/' + userid).set(user).then(() => 
+      //Create Wedding Day
+      //Set Wedding Day ID to Profile
+      //Create Wedding Parties
+      //Set Wedding Party ID's on the Wedding Day Doc.
+      this.router.navigateByUrl('/Login')
+    );
   }
 }
