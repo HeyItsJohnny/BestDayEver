@@ -52,6 +52,10 @@ export class ProfileService {
 
   addWeddingID(WeddingIDStr: string){
     var authUser = this.afAuth.auth.currentUser;
-    this.profilesCollection.doc(authUser.uid).update({WeddingID: WeddingIDStr});
+    return this.profilesCollection.doc(authUser.uid).update({WeddingID: WeddingIDStr});
+  }
+
+  addWeddingIDWithID(WeddingIDStr: string, userid: string){
+    return this.profilesCollection.doc(userid).update({WeddingID: WeddingIDStr});
   }
 }

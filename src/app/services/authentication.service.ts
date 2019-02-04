@@ -26,7 +26,7 @@ export class AuthenticationService {
     private router: Router, 
     private db: AngularFirestore,
     private alertController: AlertController,
-    private weddingDayDetailsService: WeddingDayDetailsService, 
+    //private weddingDayDetailsService: WeddingDayDetailsService, 
     private profileService: ProfileService, 
     private plt: Platform) { 
       this.plt.ready().then(() => {
@@ -100,16 +100,18 @@ export class AuthenticationService {
   }
 
   createProfile(user: User, userid: string, weddingDay: WeddingDayDetails)  {
-    this.db.doc('profile/' + userid).set(user).then(() => {
+    /*this.db.doc('profile/' + userid).set(user).then(() => {
       //Create Wedding Day
       this.weddingDayDetailsService.addWeddingDayWithID(weddingDay, userid).then(docRef => {
         //Set Wedding Day ID to Profile
-        this.profileService.addWeddingID(docRef.id);        
+        this.profileService.addWeddingIDWithID(docRef.id, userid).then(docRef => {
+
+        });
       });      
       
       //Create Wedding Parties
       //Set Wedding Party ID's on the Wedding Day Doc.
       this.router.navigateByUrl('/Login');
-    });
+    });*/
   }
 }
