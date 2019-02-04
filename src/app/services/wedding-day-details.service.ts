@@ -33,7 +33,7 @@ export class WeddingDayDetailsService {
   private weddingDays: Observable<WeddingDayDetails[]>;
 
   constructor(
-    db: AngularFirestore,
+    public db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
     
     var authUser = this.afAuth.auth.currentUser;
@@ -62,8 +62,11 @@ export class WeddingDayDetailsService {
     return this.weddingDaysCollection.add(weddingParty);
   }
 
-  addWeddingDayWithID(weddingParty: WeddingDayDetails) {
-    return this.weddingDaysCollection.add(weddingParty);
+  addWeddingDayWithID(weddingParty: WeddingDayDetails, UserID: string) {
+    var authUser = this.afAuth.auth.currentUser;
+    let weddingDetailsCollection = this.db.collection<Profile>('profile').doc(UserID).collection('rsvps');
+    return weddingDetailsCollection.add(weddingParty);
+    //return this.weddingDaysCollection.add(weddingParty);
   }
  
   removeWeddingDay(id) {

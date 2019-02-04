@@ -9,6 +9,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { WeddingDayDetails, WeddingDayDetailsService } from 'src/app/services/wedding-day-details.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 
 @Injectable({
@@ -26,6 +27,7 @@ export class AuthenticationService {
     private db: AngularFirestore,
     private alertController: AlertController,
     private weddingDayDetailsService: WeddingDayDetailsService, 
+    private profileService: ProfileService, 
     private plt: Platform) { 
       this.plt.ready().then(() => {
         this.checkToken();
@@ -77,7 +79,7 @@ export class AuthenticationService {
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);      
       if (result) {
-        this.createProfile(user,result.user.uid);   //Create Profile
+        this.createProfile(user,result.user.uid,weddingDay);   //Create Profile
         const alert = await this.alertController.create({
           header: 'Success',
           message: 'Thanks for signing up! Please sign in to continue.',
@@ -97,13 +99,17 @@ export class AuthenticationService {
     }
   }
 
-  createProfile(user: User, userid: string)  {
-    this.db.doc('profile/' + userid).set(user).then(() => 
+  createProfile(user: User, userid: string, weddingDay: WeddingDayDetails)  {
+    this.db.doc('profile/' + userid).set(user).then(() => {
       //Create Wedding Day
-      //Set Wedding Day ID to Profile
+      this.weddingDayDetailsService.addWeddingDayWithID(weddingDay, userid).then(docRef => {
+        //Set Wedding Day ID to Profile
+        this.profileService.addWeddingID(docRef.id);        
+      });      
+      
       //Create Wedding Parties
       //Set Wedding Party ID's on the Wedding Day Doc.
-      this.router.navigateByUrl('/Login')
-    );
+      this.router.navigateByUrl('/Login');
+    });
   }
 }
