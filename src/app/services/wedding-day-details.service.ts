@@ -63,11 +63,6 @@ export class WeddingDayDetailsService {
     return this.weddingDaysCollection.add(weddingParty);
   }
 
-  addWeddingDayWithID(weddingParty: WeddingDayDetails, UserID: string) {
-    let weddingDetailsCollection = this.db.collection<Profile>('profile').doc(UserID).collection('rsvps');
-    return weddingDetailsCollection.add(weddingParty);
-  }
- 
   removeWeddingDay(id) {
     return this.weddingDaysCollection.doc(id).delete();
   }

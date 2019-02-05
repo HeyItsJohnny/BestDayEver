@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { WeddingDayDetails } from 'src/app/services/wedding-day-details.service';
 import { Profile, ProfileService } from 'src/app/services/profile.service';
+import { WeddingParty } from 'src/app/services/wedding-party.service'
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,11 @@ export class AuthenticationService {
   authenticationState = new BehaviorSubject(false);
 
   user = {} as User;
+
+  weddingParty: WeddingParty = {
+    Name: '',
+    WeddingSide: ''
+  };
 
   constructor(
     private afAuth: AngularFireAuth, 
@@ -99,23 +105,49 @@ export class AuthenticationService {
 
   createProfile(user: User, userid: string, weddingDay: WeddingDayDetails)  {
     //Create Profile
+    var weddingID = '';
     this.db.doc('profile/' + userid).set(user).then(() => {
       //Create Wedding Day
-      this.createWeddingDayWithID(weddingDay, userid).then(docRef => {
+      this.createWeddingDayWithID(weddingDay, userid).then(docRef1 => {
         //Set Wedding Day ID to Profile
-        this.profileService.addWeddingIDWithID(docRef.id, userid).then(docRef => {
-
+        this.profileService.addWeddingIDWithID(docRef1.id, userid).then(docRef2 => {
+          if (weddingDay.YourName) {
+            //Create Wedding Parties
+            this.createWeddingPartyPerson(weddingDay.YourName,userid).then(docRef3 => {
+              //this.updateYourWeddingPartyID(docRef3,userid,docRef1);
+            });
+          }
+          if (weddingDay.FianceName) {
+            //Create Wedding Parties
+            this.createWeddingPartyPerson(weddingDay.FianceName,userid).then(docRef4 => {
+              //this.updateYourWeddingPartyID(docRef3,userid,docRef1);
+            });
+          }
         });
       });    
-      
-      //Create Wedding Parties
       //Set Wedding Party ID's on the Wedding Day Doc.
       this.router.navigateByUrl('/Login');
     });
   }
 
   createWeddingDayWithID(weddingDay: WeddingDayDetails, UserID: string) {
-    let weddingDetailsCollection = this.db.collection<Profile>('profile').doc(UserID).collection('rsvps');
+    let weddingDetailsCollection = this.db.collection<Profile>('profile').doc(UserID).collection('weddingDayDetails');
     return weddingDetailsCollection.add(weddingDay);
+  }
+
+  createWeddingPartyPerson(WeddingPartyName: string, UserID: string) {
+    this.weddingParty.Name = WeddingPartyName;
+    let weddingPartyCollection = this.db.collection<Profile>('profile').doc(UserID).collection('weddingparty');
+    return weddingPartyCollection.add(this.weddingParty);
+  }
+
+  updateYourWeddingPartyID(weddingpartyid: string, UserID: string, weddingDetailsID: string) {
+    let weddingPartyUpdateCollection = this.db.collection<Profile>('profile').doc(UserID).collection('weddingDayDetails');
+    return weddingPartyUpdateCollection.doc(weddingDetailsID).update({YourNameID: weddingpartyid});
+  }
+
+  updateYourFianceWeddingPartyID(weddingpartyid: string, UserID: string, weddingDetailsID: string) {
+    let weddingPartyUpdateCollection = this.db.collection<Profile>('profile').doc(UserID).collection('weddingDayDetails');
+    return weddingPartyUpdateCollection.doc(weddingDetailsID).update({FianceNameID: weddingpartyid});
   }
 }
