@@ -48,7 +48,7 @@ export class WeddingPartyService {
   updateWeddingParty(weddingParty: WeddingParty, id: string) {
     return this.weddingPartysCollection.doc(id).update(weddingParty);
   }
- 
+
   addWeddingParty(weddingParty: WeddingParty) {
     return this.weddingPartysCollection.add(weddingParty);
   }
