@@ -8,9 +8,8 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { WeddingDayDetails, WeddingDayDetailsService } from 'src/app/services/wedding-day-details.service';
-import { ProfileService } from 'src/app/services/profile.service';
-
+import { WeddingDayDetails } from 'src/app/services/wedding-day-details.service';
+import { Profile, ProfileService } from 'src/app/services/profile.service';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,6 @@ export class AuthenticationService {
     private router: Router, 
     private db: AngularFirestore,
     private alertController: AlertController,
-    //private weddingDayDetailsService: WeddingDayDetailsService, 
     private profileService: ProfileService, 
     private plt: Platform) { 
       this.plt.ready().then(() => {
@@ -100,18 +98,24 @@ export class AuthenticationService {
   }
 
   createProfile(user: User, userid: string, weddingDay: WeddingDayDetails)  {
-    /*this.db.doc('profile/' + userid).set(user).then(() => {
+    //Create Profile
+    this.db.doc('profile/' + userid).set(user).then(() => {
       //Create Wedding Day
-      this.weddingDayDetailsService.addWeddingDayWithID(weddingDay, userid).then(docRef => {
+      this.createWeddingDayWithID(weddingDay, userid).then(docRef => {
         //Set Wedding Day ID to Profile
         this.profileService.addWeddingIDWithID(docRef.id, userid).then(docRef => {
 
         });
-      });      
+      });    
       
       //Create Wedding Parties
       //Set Wedding Party ID's on the Wedding Day Doc.
       this.router.navigateByUrl('/Login');
-    });*/
+    });
+  }
+
+  createWeddingDayWithID(weddingDay: WeddingDayDetails, UserID: string) {
+    let weddingDetailsCollection = this.db.collection<Profile>('profile').doc(UserID).collection('rsvps');
+    return weddingDetailsCollection.add(weddingDay);
   }
 }

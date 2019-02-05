@@ -28,6 +28,7 @@ export interface WeddingDayDetails {
   providedIn: 'root'
 })
 
+
 export class WeddingDayDetailsService {
   private weddingDaysCollection: AngularFirestoreCollection<WeddingDayDetails>;
   private weddingDays: Observable<WeddingDayDetails[]>;
@@ -63,10 +64,8 @@ export class WeddingDayDetailsService {
   }
 
   addWeddingDayWithID(weddingParty: WeddingDayDetails, UserID: string) {
-    var authUser = this.afAuth.auth.currentUser;
     let weddingDetailsCollection = this.db.collection<Profile>('profile').doc(UserID).collection('rsvps');
     return weddingDetailsCollection.add(weddingParty);
-    //return this.weddingDaysCollection.add(weddingParty);
   }
  
   removeWeddingDay(id) {
