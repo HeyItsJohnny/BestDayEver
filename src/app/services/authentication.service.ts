@@ -105,7 +105,7 @@ export class AuthenticationService {
 
   createProfile(user: User, userid: string, weddingDay: WeddingDayDetails)  {
     //Create Profile
-    var weddingID = '';
+    weddingDay.YourName = user.name;
     this.db.doc('profile/' + userid).set(user).then(() => {
       //Create Wedding Day
       this.createWeddingDayWithID(weddingDay, userid).then(docRef1 => {
@@ -114,13 +114,13 @@ export class AuthenticationService {
           if (weddingDay.YourName) {
             //Create Wedding Parties
             this.createWeddingPartyPerson(weddingDay.YourName,userid).then(docRef3 => {
-              //this.updateYourWeddingPartyID(docRef3,userid,docRef1);
+              this.updateYourWeddingPartyID(docRef3.id,userid,docRef1.id);
             });
           }
           if (weddingDay.FianceName) {
             //Create Wedding Parties
             this.createWeddingPartyPerson(weddingDay.FianceName,userid).then(docRef4 => {
-              //this.updateYourWeddingPartyID(docRef3,userid,docRef1);
+              this.updateYourFianceWeddingPartyID(docRef4.id,userid,docRef1.id);
             });
           }
         });
