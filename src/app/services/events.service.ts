@@ -82,7 +82,6 @@ export class EventsService {
   }
 
   searchEventName(searchValue){
-    console.log("Search Value: " + searchValue);
     var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
       this.db.collection<Profile>('profile').doc(authUser.uid).collection('events', ref => ref.where('SearchName', '>=', searchValue)
