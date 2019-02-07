@@ -74,7 +74,7 @@ export class AppComponent {
   public planningToolsPages = [
     {
       title: 'Budget',
-      url: '',
+      url: '/members/budgetList',
       canActivate: [AuthGuardService],
       icon: 'md-checkmark-circle'
     },    
