@@ -12,5 +12,4 @@ export class BudgetListPage implements OnInit {
   ngOnInit() {
   }
 
-
 }
