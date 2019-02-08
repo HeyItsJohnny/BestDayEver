@@ -5,6 +5,7 @@ import { map } from 'rxjs/operators';
 import { Time } from '@angular/common';
 import { Profile } from 'src/app/services/profile.service';
 import { AngularFireAuth } from "angularfire2/auth";
+import { AlertController } from '@ionic/angular';
 
 export interface Budget {
   id?: string;
@@ -25,6 +26,7 @@ export class BudgetService {
 
   constructor(
     public db: AngularFirestore,
+    public alertController: AlertController,
     private afAuth: AngularFireAuth) { }
 
   getBudgets() {
@@ -69,4 +71,28 @@ export class BudgetService {
       })
     })
   }
+
+  async startBudgetAdd() {
+    var options = {
+      header: "Budget Category",
+      subHeader: "Please select a budget category",
+      inputs: [],
+      buttons: [
+        {
+          text: 'Ok',
+          handler: (data: any) => {
+            console.log('Data: ' + data);
+          }
+        }
+      ]
+    };
+  
+    /*for (let item of this.dinners) {
+      options.inputs.push({ name : item.Name, value: item.id , label: item.Name, type: 'radio'});
+    }*/
+
+    let alert = await this.alertController.create(options);
+    await alert.present();
+  }
+
 }
