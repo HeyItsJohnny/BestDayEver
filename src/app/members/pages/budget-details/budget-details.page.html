@@ -1,9 +1,41 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>budgetDetails</ion-title>
+    <ion-buttons slot="start">
+        <ion-back-button defaultHref="/members/budgetList"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Budget</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content padding>
-
+    <ion-list lines="full">
+        <h1>Categories</h1>
+        <ion-item>
+            <ion-label stacked class="bold-label">Category:</ion-label>
+            <ion-input required type="text" [(ngModel)]="budget.Category" disabled="true"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked class="bold-label">Subcategory:</ion-label>
+            <ion-input required type="text" [(ngModel)]="budget.SubCategory" disabled="true"></ion-input>
+        </ion-item>
+        <h1>Details</h1>
+        <ion-item>
+            <ion-label stacked class="bold-label">Name:</ion-label>
+            <ion-input required type="text" [(ngModel)]="budget.BudgetName"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked class="bold-label">Estimated Costs:</ion-label>
+            <ion-input required type="number" [(ngModel)]="budget.EstimatedCost"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked class="bold-label">Actual Costs:</ion-label>
+            <ion-input required type="number" [(ngModel)]="budget.ActualCost"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label stacked class="bold-label">Deposit:</ion-label>
+            <ion-input required type="number" [(ngModel)]="budget.Deposit"></ion-input>
+        </ion-item>
+    </ion-list>
+    <ion-button expand="full" (click)="saveBudget()">Save</ion-button>
+    <ion-button expand="full" (click)="deleteBudget()">Delete</ion-button>
 </ion-content>

@@ -41,15 +41,50 @@ export class BudgetDetailsPage implements OnInit {
 
   async loadBudget() {   
     const loading = await this.loadingController.create({
-      message: 'Loading Dinner..'
+      message: 'Loading Budget..'
     });
     await loading.present();
  
     this.budgetService.getBudget(this.budgetId).subscribe(res => {
       loading.dismiss();
-      //this.budget = res;
-    });
+      this.budget = res;
+    })
   }
 
+  async saveBudget() {
+    const loading = await this.loadingController.create({
+      message: 'Saving Budget..'
+    });
+    await loading.present();
+ 
+    if (this.budgetId) {
+      this.budgetService.updateBudget(this.budget, this.budgetId).then(() => {
+        loading.dismiss();
+        this.nav.goBack(true);
+      });
+    }
+  }
+
+  async deleteBudget() {
+    this.alertController.create({
+      header: "Are you sure you want to delete this budget?",
+      buttons: [
+        {
+          text: 'Yes',
+          handler: () => {
+            this.budgetService.removeBudget(this.budgetId).then(() => {
+              this.nav.goBack(true);
+            });
+          }
+        },
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => { }
+        }
+      ]
+    }).then(alert => alert.present());
+  }
 
 }

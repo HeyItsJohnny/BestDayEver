@@ -22,12 +22,33 @@ export interface Budget {
 @Injectable({
   providedIn: 'root'
 })
+
 export class BudgetService {
+
+  private budgetsCollection: AngularFirestoreCollection<Budget>;
+  private budgets: Observable<Budget[]>;
 
   constructor(
     public db: AngularFirestore,
     public alertController: AlertController,
-    private afAuth: AngularFireAuth) { }
+    private afAuth: AngularFireAuth) { 
+      var authUser = this.afAuth.auth.currentUser;
+      this.budgetsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+
+      this.budgets = this.budgetsCollection.snapshotChanges().pipe(
+        map(actions => {
+          return actions.map(a => {
+            const data = a.payload.doc.data();
+            const id = a.payload.doc.id;
+            return { id, ...data };
+          });
+        })
+      );
+    }
+
+  getBudgetsToDisplay() {
+    return this.budgets;
+  }
 
   getBudgets() {
     var authUser = this.afAuth.auth.currentUser;
@@ -42,22 +63,22 @@ export class BudgetService {
 
   getBudget(id) {
     var authUser = this.afAuth.auth.currentUser;
-    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
-    return eventsCollection.doc<Event>(id).valueChanges();
+    let BudgetsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+    return BudgetsCollection.doc<Budget>(id).valueChanges();
   }
 
   updateBudget(budget: Budget, id: string) {
     var tmp = budget;
     tmp.SearchName = budget.BudgetName.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
-    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
-    return eventsCollection.doc(id).update(tmp);
+    let BudgetsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+    return BudgetsCollection.doc(id).update(tmp);
   }
 
   removeBudget(id) {
     var authUser = this.afAuth.auth.currentUser;
-    let eventsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
-    return eventsCollection.doc(id).delete();
+    let BudgetsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+    return BudgetsCollection.doc(id).delete();
   }
 
   searchBudgetName(searchValue){
