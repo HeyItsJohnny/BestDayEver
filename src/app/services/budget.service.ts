@@ -135,22 +135,22 @@ export class BudgetService {
     await alert.present();
   }
 
-  async startSubcategorySelection(subcat: string) {
+  async startSubcategorySelection(category: string) {
     var options = {
-      header: subcat + " Subcategory",
+      header: category + " Subcategory",
       inputs: [],
       buttons: [
         {
           text: 'Ok',
           handler: (data: any) => {
-            console.log('Data: ' + data);
+            this.subcategoryOtherLogic(category,data);
           }
         }
       ]
     };
   
 
-    switch(subcat) {
+    switch(category) {
       case "Ceremony": {
         for (let item of this.subcategoryCeremonyArray) {
           options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
@@ -258,5 +258,22 @@ export class BudgetService {
     let alert = await this.alertController.create(options);
     await alert.present();
   }
+
+  subcategoryOtherLogic(category: string, subcategory: string) {
+    if (subcategory == "Other") {
+      this.AddSubcategoryOtherName(category,subcategory);
+    } else {
+      this.AddBudget(category,subcategory);
+    }
+  }
+
+  AddSubcategoryOtherName(category: string, subcategory: string) {
+    
+  }
+
+  AddBudget(category: string, subcategory: string) {
+
+  }
+
 
 }
