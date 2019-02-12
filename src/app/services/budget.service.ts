@@ -86,6 +86,14 @@ export class BudgetService {
     return BudgetsCollection.doc<Budget>(id).valueChanges();
   }
 
+  addBudget(budget: Budget) {
+    var tmp = budget;
+    tmp.SearchName = budget.SearchName.toLowerCase();
+    var authUser = this.afAuth.auth.currentUser;
+    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+    return rsvpsCollection.add(tmp);
+  }
+
   updateBudget(budget: Budget, id: string) {
     var tmp = budget;
     tmp.SearchName = budget.BudgetName.toLowerCase();
@@ -111,169 +119,4 @@ export class BudgetService {
       })
     })
   }
-
-  async startBudgetAdd() {
-    var options = {
-      header: "Budget Category",
-      subHeader: "Please select a budget category",
-      inputs: [],
-      buttons: [
-        {
-          text: 'Ok',
-          handler: (data: any) => {
-            this.startSubcategorySelection(data);
-          }
-        }
-      ]
-    };
-  
-    for (let item of this.categoryArray) {
-      options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-    }
-
-    let alert = await this.alertController.create(options);
-    await alert.present();
-  }
-
-  async startSubcategorySelection(category: string) {
-    var options = {
-      header: category + " Subcategory",
-      inputs: [],
-      buttons: [
-        {
-          text: 'Ok',
-          handler: (data: any) => {
-            this.subcategoryOtherLogic(category,data);
-          }
-        }
-      ]
-    };
-  
-
-    switch(category) {
-      case "Ceremony": {
-        for (let item of this.subcategoryCeremonyArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Reception": {
-        for (let item of this.subcategoryReceptionArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Stationary": {
-        for (let item of this.subcategoryStationaryArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Clothes": {
-        for (let item of this.subcategoryClothesArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Beauty": {
-        for (let item of this.subcategoryBeautyArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Flowers": {
-        for (let item of this.subcategoryFlowersArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Photography/Videography": {
-        for (let item of this.subcategoryPhotoVideoArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Music": {
-        for (let item of this.subcategoryMusicArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Rentals": {
-        for (let item of this.subcategoryRentalsArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Decor": {
-        for (let item of this.subcategoryDecorArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Misc. Celebrations": {
-        for (let item of this.subcategoryMiscCelebrateArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Gifts & Favors": {
-        for (let item of this.subcategoryGiftsFavorsArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Transportation": {
-        for (let item of this.subcategoryTransportationArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Misc. Party Entertainment": {
-        for (let item of this.subcategoryOtherEnterainArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Destination Weddings": {
-        for (let item of this.subcategoryDestinationWeddingArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Honeymoon": {
-        for (let item of this.subcategoryHoneymoonArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-      case "Miscallaneous": {
-        for (let item of this.subcategoryMiscArray) {
-          options.inputs.push({ name : item, value: item , label: item, type: 'radio'});
-        }
-        break;
-      }
-    }
-
-    let alert = await this.alertController.create(options);
-    await alert.present();
-  }
-
-  subcategoryOtherLogic(category: string, subcategory: string) {
-    if (subcategory == "Other") {
-      this.AddSubcategoryOtherName(category,subcategory);
-    } else {
-      this.AddBudget(category,subcategory);
-    }
-  }
-
-  AddSubcategoryOtherName(category: string, subcategory: string) {
-    
-  }
-
-  AddBudget(category: string, subcategory: string) {
-
-  }
-
-
 }
