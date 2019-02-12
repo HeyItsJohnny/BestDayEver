@@ -13,11 +13,11 @@ export class BudgetListPage {
   budgets: Budget[];
 
   categoryArray: string[] = ["Ceremony","Reception","Stationary","Clothes","Beauty","Flowers","Photography/Videography","Music","Rentals","Decor","Misc. Celebrations","Gifts & Favors","Transportation","Misc. Party Entertainment","Destination Weddings","Honeymoon","Miscallaneous"];
-  subcategoryCeremonyArray: string[] = ["Ceremony Location Fees","Officiant Fee/Donation","Marriage License","Chuppah or Alter","Ceremony Musicians","Other"];
+  subcategoryCeremonyArray: string[] = ["Ceremony Location Fees","Officiant Dues","Marriage License","Chuppah or Alter","Ceremony Musicians","Other"];
   subcategoryReceptionArray: string[] = ["Reception Location", "Food", "Beverages", "Catering Staff", "Catering Manager", "Cake", "Bartenders", "Musicians/DJ", "On-Site Coordinator", "Coatroom Attendants", "Bathroom Attendants", "Wedding Night Hotel Room", "Other"];
-  subcategoryStationaryArray: string[] = ["Save-The-Date Cards","Wedding Invitations and Enclosures","Wedding Announcements","Calligraphy","Postage","Thank-you Notes","Programs","Menus","Seating Cards","Place Cards","Table Numbers","Other"];
+  subcategoryStationaryArray: string[] = ["Save-The-Dates","Wedding Invites","Wedding Announcements","Calligraphy","Postage","Thank-you Notes","Programs","Menus","Seating Cards","Place Cards","Table Numbers","Other"];
   subcategoryClothesArray: string[] = ["Rings-his","Rings-hers","Wedding Gown","Shoes","Alterations","Shoes","Headpiece and veil","Lingerie/Foundation/Hosiery","Jewelry","Handbag","Other bridal accessories","Tuxedo for Groom","Shoes for Groom","Other Accessories for Groom","Bridesmaids' dresses","Groomsmen's Tuxedos","Other"];
-  subcategoryBeautyArray: string[] = ["Hairstylists","Manicure and pedicure for bride","Makeup Artist(s)","Facials and other spa treatments","Other"];
+  subcategoryBeautyArray: string[] = ["Hairstylists","Mani/Pedi","Makeup","Spa treatments","Other"];
   subcategoryFlowersArray: string[] = ["Ceremony Flowers","Bride's Bouquent","Bridemaids' Bouquent","Boutonnieres","Corsages for mothers","Wreath and petals for flower girl","Cocktail flowers","Reception flowers","After-party flowers", "Miscellaneous flowers","Chuppah flowers","Other"];
   subcategoryPhotoVideoArray: string[] = ["Photographer", "Additioanl prints/albums","Videographer","Additional copies of video","Other"];
   subcategoryMusicArray: string[] = ["Ceremony","Cocktail hour","Reception","After-party","Other"];
@@ -293,6 +293,7 @@ export class BudgetListPage {
                 Category: data.category,
                 SubCategory: data.subcategory,
                 BudgetName: data.budgetname,
+                SearchCategoryName: '',
                 SearchName: '',
                 EstimatedCost: data.estcost,
                 ActualCost: data.actcost,
