@@ -3,6 +3,8 @@ import { Budget, BudgetService } from 'src/app/services/budget.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
+declare var google;
+
 @Component({
   selector: 'app-budget-list',
   templateUrl: './budget-list.page.html',
@@ -46,6 +48,30 @@ export class BudgetListPage {
       .then(events => {
         this.budgets = events;
       })
+      this.reloadChart();
+    }
+
+    reloadChart() {
+      // Create the data table.
+      var data = new google.visualization.DataTable();
+      data.addColumn('string', 'Topping');
+      data.addColumn('number', 'Slices');
+      data.addRows([
+        ['Mushrooms', 3],
+        ['Onions', 1],
+        ['Olives', 1],
+        ['Zucchini', 1],
+        ['Pepperoni', 2]
+      ]);
+
+      // Set chart options
+      var options = {'title':'How Much Pizza I Ate Last Night',
+                    'width':400,
+                    'height':300};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      chart.draw(data, options);
     }
 
     async addItem() {
