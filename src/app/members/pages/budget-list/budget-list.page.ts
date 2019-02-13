@@ -48,14 +48,49 @@ export class BudgetListPage {
       .then(events => {
         this.budgets = events;
       })
-      this.reloadChart();
+      this.reloadPieChart();
+      //this.reloadActCostChart();
+      //this.reloadDepositChart();
     }
 
-    reloadChart() {
+    reloadPieChart() {
+      // Create the data table.
+      var estdata = new google.visualization.DataTable();
+      estdata.addColumn('string', 'Category');
+      estdata.addColumn('number', '% against wedding budget');   
+      estdata.addRow(this.budgetService.getCeremonyRow("Estimated"));
+      estdata.addRow(this.budgetService.getReceptionRow("Estimated"));   
+      estdata.addRow(this.budgetService.getStationaryRow("Estimated")); 
+      estdata.addRow(this.budgetService.getClothesRow("Estimated")); 
+      estdata.addRow(this.budgetService.getBeautyRow("Estimated")); 
+      estdata.addRow(this.budgetService.getFlowersRow("Estimated")); 
+      estdata.addRow(this.budgetService.getPhotoVideoRow("Estimated")); 
+      estdata.addRow(this.budgetService.getMusicRow("Estimated")); 
+      estdata.addRow(this.budgetService.getRentalsRow("Estimated")); 
+      estdata.addRow(this.budgetService.getDecorRow("Estimated")); 
+      estdata.addRow(this.budgetService.getMiscCelebrateRow("Estimated")); 
+      estdata.addRow(this.budgetService.getGiftsFavorsRow("Estimated")); 
+      estdata.addRow(this.budgetService.getTransportationRow("Estimated")); 
+      estdata.addRow(this.budgetService.getOtherEntertainRow("Estimated")); 
+      estdata.addRow(this.budgetService.getDestinationWeddingRow("Estimated")); 
+      estdata.addRow(this.budgetService.getHoneymoonRow("Estimated")); 
+      estdata.addRow(this.budgetService.getMiscRow("Estimated")); 
+
+      // Set chart options
+      var options = {'title':'Estimated Cost vs. overall wedding budget',
+                    'width':900,
+                    'height':500};
+
+      // Instantiate and draw our chart, passing in some options.
+      var chart = new google.visualization.PieChart(document.getElementById('est_cost_wedding_budget_percent_div'));
+      chart.draw(estdata, options);
+    }
+
+    reloadActCostChart() {
       // Create the data table.
       var data = new google.visualization.DataTable();
       data.addColumn('string', 'Category');
-      data.addColumn('number', '% against wedding budget');
+      data.addColumn('number', '% against wedding budget');      
       data.addRows([
         ['Mushrooms', 3],
         ['Onions', 1],
@@ -65,12 +100,12 @@ export class BudgetListPage {
       ]);
 
       // Set chart options
-      var options = {'title':'Percentage against overall wedding budget',
+      var options = {'title':'Actual Cost vs. overall wedding budget',
                     'width':400,
                     'height':300};
 
       // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+      var chart = new google.visualization.PieChart(document.getElementById('act_cost_wedding_budget_percent_div'));
       chart.draw(data, options);
     }
 
