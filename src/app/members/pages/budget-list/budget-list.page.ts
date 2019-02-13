@@ -54,8 +54,8 @@ export class BudgetListPage {
     reloadChart() {
       // Create the data table.
       var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Topping');
-      data.addColumn('number', 'Slices');
+      data.addColumn('string', 'Category');
+      data.addColumn('number', '% against wedding budget');
       data.addRows([
         ['Mushrooms', 3],
         ['Onions', 1],
@@ -65,7 +65,7 @@ export class BudgetListPage {
       ]);
 
       // Set chart options
-      var options = {'title':'How Much Pizza I Ate Last Night',
+      var options = {'title':'Percentage against overall wedding budget',
                     'width':400,
                     'height':300};
 
