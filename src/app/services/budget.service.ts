@@ -29,6 +29,7 @@ export class BudgetService {
 
   private budgetsCollection: AngularFirestoreCollection<Budget>;
   private budgets: Observable<Budget[]>;
+  private budgets2: Observable<Budget[]>;
 
   constructor(
     public db: AngularFirestore,
@@ -132,37 +133,48 @@ export class BudgetService {
   }
 
   getChartData(category:string, chartType:string) {
-    var totalCost = 0;
+
+    /*this.budgets = this.budgetsCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    ); */
+
     this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
-      //Get Budgets with filter
-      res.map(a => {
+      return res.map(a => {
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
-
-        switch(chartType) {
+        return { id, ...data };
+        /*switch(chartType) {
           case "Estimated": {
             totalCost += +data.EstimatedCost;
             break;
           }
           case "Actual": {
+            totalCost += +data.ActualCost;
             break;
           }
           case "Deposit": {
+            totalCost += +data.Deposit;
             break;
           }
-        }
-      });   
-      console.log("TOTAL Estimated: " + totalCost);      
-      return totalCost;
+        }*/
+      });  
+
+      //console.log("TOTAL Estimated: " + totalCost);      
+      //return totalCost;
     });    
   }
 
   getCeremonyRow(chart:string) {
     var budgetArray:(string|number)[];
-    var totalCost = 0;
-    //totalCost = this.getChartData("Ceremony",chart);
-    console.log("Total COST AFTER: " + totalCost);
-    budgetArray = ["Ceremony",totalCost];
+    this.getChartData("Ceremony",chart);
+    console.log("Total COST AFTER: ");
+    budgetArray = ["Ceremony",0];
     return budgetArray;
   }
 
