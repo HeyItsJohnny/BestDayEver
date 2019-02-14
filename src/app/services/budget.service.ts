@@ -133,11 +133,20 @@ export class BudgetService {
   }
 
   getChartData(category:string, chartType:string) {
+    var budgets: Budget[];
+    this.searchBudgetCategoryName(category).then(res => {
+      //Get Budgets with filter
+      budgets = res;
 
+      for (let bud of budgets) {
+        console.log("CATEGORY: " + bud.Category);
+      }
+    })
   }
 
   getCeremonyRow(chart:string) {
     var budgetArray:(string|number)[];
+    this.getChartData("Ceremony",chart);
     budgetArray = ["Ceremony",10];
     return budgetArray;
   }
