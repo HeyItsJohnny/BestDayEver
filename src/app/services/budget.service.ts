@@ -132,32 +132,37 @@ export class BudgetService {
   }
 
   getChartData(category:string, chartType:string) {
-    var budgets: Budget[];
-
-    /*this.budgets = this.budgetsCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    );*/
-
+    var totalCost = 0;
     this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
       //Get Budgets with filter
       res.map(a => {
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
-        console.log("DATA: " + data.Category);
-      }); 
-    })
+
+        switch(chartType) {
+          case "Estimated": {
+            totalCost += +data.EstimatedCost;
+            break;
+          }
+          case "Actual": {
+            break;
+          }
+          case "Deposit": {
+            break;
+          }
+        }
+      });   
+      console.log("TOTAL Estimated: " + totalCost);      
+      return totalCost;
+    });    
   }
 
   getCeremonyRow(chart:string) {
     var budgetArray:(string|number)[];
-    this.getChartData("Ceremony",chart);
-    budgetArray = ["Ceremony",10];
+    var totalCost = 0;
+    //totalCost = this.getChartData("Ceremony",chart);
+    console.log("Total COST AFTER: " + totalCost);
+    budgetArray = ["Ceremony",totalCost];
     return budgetArray;
   }
 
