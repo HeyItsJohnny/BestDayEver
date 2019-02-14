@@ -17,6 +17,7 @@ export class BudgetDetailsPage implements OnInit {
     BudgetName: '',
     SearchName: '',
     SearchCategoryName: '',
+    SearchSubCategoryName: '',
     EstimatedCost: 0,
     ActualCost: 0,
     Deposit: 0,

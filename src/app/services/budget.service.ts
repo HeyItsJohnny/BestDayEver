@@ -14,6 +14,7 @@ export interface Budget {
   BudgetName: string;
   SearchName: string;
   SearchCategoryName: string;
+  SearchSubCategoryName: string;
   EstimatedCost: number;
   ActualCost: number;
   Deposit: number;
@@ -72,6 +73,7 @@ export class BudgetService {
     var tmp = budget;
     tmp.SearchName = budget.SearchName.toLowerCase();
     tmp.SearchCategoryName = budget.Category.toLowerCase();
+    tmp.SearchSubCategoryName = budget.SubCategory.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
     return rsvpsCollection.add(tmp);
@@ -81,6 +83,7 @@ export class BudgetService {
     var tmp = budget;
     tmp.SearchName = budget.BudgetName.toLowerCase();
     tmp.SearchCategoryName = budget.Category.toLowerCase();
+    tmp.SearchSubCategoryName = budget.SubCategory.toLowerCase();
     var authUser = this.afAuth.auth.currentUser;
     let BudgetsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
     return BudgetsCollection.doc(id).update(tmp);
@@ -114,6 +117,23 @@ export class BudgetService {
         resolve(snapshots);
       })
     })
+  }
+
+  
+  searchBudgetSubCategoryName(searchValue){
+    var authUser = this.afAuth.auth.currentUser;
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets', ref => ref.where('SearchSubCategoryName', '>=', searchValue)
+      .where('SearchName', '<=', searchValue + '\uf8ff'))
+      .snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots);
+      })
+    })
+  }
+
+  getChartData(category:string, chartType:string) {
+
   }
 
   getCeremonyRow(chart:string) {

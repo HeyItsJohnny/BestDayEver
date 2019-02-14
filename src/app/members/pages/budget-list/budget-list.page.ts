@@ -355,6 +355,7 @@ export class BudgetListPage {
                 SubCategory: data.subcategory,
                 BudgetName: data.budgetname,
                 SearchCategoryName: '',
+                SearchSubCategoryName: '',
                 SearchName: '',
                 EstimatedCost: data.estcost,
                 ActualCost: data.actcost,
