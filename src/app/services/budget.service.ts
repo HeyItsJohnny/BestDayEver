@@ -118,7 +118,6 @@ export class BudgetService {
       })
     })
   }
-
   
   searchBudgetSubCategoryName(searchValue){
     var authUser = this.afAuth.auth.currentUser;
@@ -134,13 +133,24 @@ export class BudgetService {
 
   getChartData(category:string, chartType:string) {
     var budgets: Budget[];
+
+    /*this.budgets = this.budgetsCollection.snapshotChanges().pipe(
+      map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data();
+          const id = a.payload.doc.id;
+          return { id, ...data };
+        });
+      })
+    );*/
+
     this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
       //Get Budgets with filter
-      budgets = res;
-
-      for (let bud of budgets) {
-        console.log("CATEGORY: " + bud.Category);
-      }
+      res.map(a => {
+        const data = a.payload.doc.data();
+        const id = a.payload.doc.id;
+        console.log("DATA: " + data.Category);
+      }); 
     })
   }
 
