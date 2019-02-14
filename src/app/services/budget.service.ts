@@ -111,7 +111,7 @@ export class BudgetService {
     var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
       this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets', ref => ref.where('SearchCategoryName', '>=', searchValue)
-      .where('SearchName', '<=', searchValue + '\uf8ff'))
+      .where('SearchCategoryName', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots);
@@ -124,7 +124,7 @@ export class BudgetService {
     var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
       this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets', ref => ref.where('SearchSubCategoryName', '>=', searchValue)
-      .where('SearchName', '<=', searchValue + '\uf8ff'))
+      .where('SearchSubCategoryName', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots);
@@ -134,7 +134,7 @@ export class BudgetService {
 
   getChartData(category:string, chartType:string) {
     var budgets: Budget[];
-    this.searchBudgetCategoryName(category).then(res => {
+    this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
       //Get Budgets with filter
       budgets = res;
 
