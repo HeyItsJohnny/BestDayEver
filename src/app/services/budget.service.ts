@@ -29,7 +29,6 @@ export class BudgetService {
 
   private budgetsCollection: AngularFirestoreCollection<Budget>;
   private budgets: Observable<Budget[]>;
-  public totalCost: number;
 
   constructor(
     public db: AngularFirestore,
@@ -133,7 +132,6 @@ export class BudgetService {
   }
 
   getChartData(category:string, chartType:string) {
-
     /*this.budgets = this.budgetsCollection.snapshotChanges().pipe(
       map(actions => {
         return actions.map(a => {
@@ -143,35 +141,49 @@ export class BudgetService {
         });
       })
     ); */
-    this.totalCost = 0;
-    this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
-      res.map(a => {
+    var totalCost = this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
+      var singlecost = res.map(a => {
+        var tmpcost = 0;
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
         switch(chartType) {
           case "Estimated": {
-            this.totalCost += +data.EstimatedCost;
+            tmpcost += +data.EstimatedCost;
             break;
           }
           case "Actual": {
-            this.totalCost += +data.ActualCost;
+            tmpcost += +data.ActualCost;
             break;
           }
           case "Deposit": {
-            this.totalCost += +data.Deposit;
+            tmpcost += +data.Deposit;
             break;
           }
         }
-      });  
+        console.log("RESULT 1: " + tmpcost)
+        return {
+          SingleCost: tmpcost
+        }
+        
 
-      console.log("1. TOTAL Estimated: " + this.totalCost);      
+      });  
+      var y = 0;
+      for (let x of singlecost) {
+        y += +x.SingleCost;
+      }
+      console.log("RESULT 2: " + y);
+      return {
+        TotalCost: y
+      }
     });    
+
+    console.log("RESULT 3: " + totalCost); 
+    return(totalCost);
   }
 
   getCeremonyRow(chart:string) {
     var budgetArray:(string|number)[];
     this.getChartData("Ceremony",chart);
-    console.log("Total COST AFTER: " + this.totalCost);
     budgetArray = ["Ceremony",0];
     return budgetArray;
   }
