@@ -60,21 +60,21 @@ export class BudgetListPage {
       estdata.addColumn('number', '% against wedding budget');   
       estdata.addRow(this.budgetService.getCeremonyRow("Estimated"));
       estdata.addRow(this.budgetService.getReceptionRow("Estimated"));   
-      estdata.addRow(this.budgetService.getStationaryRow("Estimated")); 
-      estdata.addRow(this.budgetService.getClothesRow("Estimated")); 
-      estdata.addRow(this.budgetService.getBeautyRow("Estimated")); 
-      estdata.addRow(this.budgetService.getFlowersRow("Estimated")); 
-      estdata.addRow(this.budgetService.getPhotoVideoRow("Estimated")); 
-      estdata.addRow(this.budgetService.getMusicRow("Estimated")); 
-      estdata.addRow(this.budgetService.getRentalsRow("Estimated")); 
-      estdata.addRow(this.budgetService.getDecorRow("Estimated")); 
-      estdata.addRow(this.budgetService.getMiscCelebrateRow("Estimated")); 
-      estdata.addRow(this.budgetService.getGiftsFavorsRow("Estimated")); 
-      estdata.addRow(this.budgetService.getTransportationRow("Estimated")); 
-      estdata.addRow(this.budgetService.getOtherEntertainRow("Estimated")); 
-      estdata.addRow(this.budgetService.getDestinationWeddingRow("Estimated")); 
-      estdata.addRow(this.budgetService.getHoneymoonRow("Estimated")); 
-      estdata.addRow(this.budgetService.getMiscRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getStationaryRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getClothesRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getBeautyRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getFlowersRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getPhotoVideoRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getMusicRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getRentalsRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getDecorRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getMiscCelebrateRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getGiftsFavorsRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getTransportationRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getOtherEntertainRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getDestinationWeddingRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getHoneymoonRow("Estimated")); 
+      //estdata.addRow(this.budgetService.getMiscRow("Estimated")); 
 
       // Set chart options
       var options = {'title':'Estimated Cost vs. overall wedding budget',

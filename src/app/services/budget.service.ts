@@ -131,8 +131,8 @@ export class BudgetService {
     })
   }
 
-  getChartData(category:string, chartType:string): number {
-    var totalCost = this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
+  getChartData(category:string, chartType:string) {
+    return this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
       var singlecost = res.map(a => {
         var tmpcost = 0;
         const data = a.payload.doc.data();
@@ -166,7 +166,7 @@ export class BudgetService {
       }
     });    
 
-    var twat;
+    /*var twat;
     totalCost.then(x=> {
       twat = x.TotalCost;
       console.log("RESULT 3: " + x.TotalCost);
@@ -174,14 +174,20 @@ export class BudgetService {
     });
 
     console.log("RESULT 4: " + twat); 
-    return(twat);
+    return(twat);*/
   }
 
   getCeremonyRow(chart:string) {
-    var budgetArray:(string|number)[];
+    this.getChartData("Ceremony",chart).then(result => {
+      console.log("LAST: " + result.TotalCost);
+      var budgetArray:(string|number)[];
+      budgetArray = ["Ceremony",result.TotalCost];
+      return budgetArray;
+    });
+    /*var budgetArray:(string|number)[];
     this.getChartData("Ceremony",chart);
     budgetArray = ["Ceremony",0];
-    return budgetArray;
+    return budgetArray;*/
   }
 
   getReceptionRow(chart:string) {
