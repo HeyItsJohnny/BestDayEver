@@ -151,7 +151,6 @@ export class BudgetService {
             break;
           }
         }
-        console.log("RESULT 1: " + tmpcost)
         return {
           SingleCost: tmpcost
         }
@@ -160,129 +159,9 @@ export class BudgetService {
       for (let x of singlecost) {
         y += +x.SingleCost;
       }
-      console.log("RESULT 2: " + y);
       return {
         TotalCost: y
       }
     });    
-
-    /*var twat;
-    totalCost.then(x=> {
-      twat = x.TotalCost;
-      console.log("RESULT 3: " + x.TotalCost);
-      return twat;
-    });
-
-    console.log("RESULT 4: " + twat); 
-    return(twat);*/
-  }
-
-  getCeremonyRow(chart:string) {
-    this.getChartData("Ceremony",chart).then(result => {
-      console.log("LAST: " + result.TotalCost);
-      var budgetArray:(string|number)[];
-      budgetArray = ["Ceremony",result.TotalCost];
-      return budgetArray;
-    });
-    /*var budgetArray:(string|number)[];
-    this.getChartData("Ceremony",chart);
-    budgetArray = ["Ceremony",0];
-    return budgetArray;*/
-  }
-
-  getReceptionRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Reception",20];
-    return budgetArray;
-  }
-
-  getStationaryRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Stationary",1];
-    return budgetArray;
-  }
-
-  getClothesRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Clothes",5];
-    return budgetArray;
-  }
-
-  getBeautyRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Beauty",7];
-    return budgetArray;
-  }
-
-  getFlowersRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Flowers",5];
-    return budgetArray;
-  }
-
-  getPhotoVideoRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Photography/Videography",50];
-    return budgetArray;
-  }
-
-  getMusicRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Music",30];
-    return budgetArray;
-  }
-
-  getRentalsRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Rentals",10];
-    return budgetArray;
-  }
-
-  getDecorRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Decor",8];
-    return budgetArray;
-  }
-
-  getMiscCelebrateRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Misc. Celebrations",12];
-    return budgetArray;
-  }
-
-  getGiftsFavorsRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Gifts & Favors",4];
-    return budgetArray;
-  }
-
-  getTransportationRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Transportation",12];
-    return budgetArray;
-  }
-
-  getOtherEntertainRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Other Entertainment",20];
-    return budgetArray;
-  }
-
-  getDestinationWeddingRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Destination Wedding",6];
-    return budgetArray;
-  }
-
-  getHoneymoonRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Honeymoon",30];
-    return budgetArray;
-  }
-
-  getMiscRow(chart:string) {
-    var budgetArray:(string|number)[];
-    budgetArray = ["Miscallenous",0];
-    return budgetArray;
   }
 }
