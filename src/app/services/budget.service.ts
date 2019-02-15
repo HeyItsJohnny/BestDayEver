@@ -29,7 +29,7 @@ export class BudgetService {
 
   private budgetsCollection: AngularFirestoreCollection<Budget>;
   private budgets: Observable<Budget[]>;
-  private budgets2: Observable<Budget[]>;
+  public totalCost: number;
 
   constructor(
     public db: AngularFirestore,
@@ -143,37 +143,35 @@ export class BudgetService {
         });
       })
     ); */
-
+    this.totalCost = 0;
     this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
-      return res.map(a => {
+      res.map(a => {
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
-        return { id, ...data };
-        /*switch(chartType) {
+        switch(chartType) {
           case "Estimated": {
-            totalCost += +data.EstimatedCost;
+            this.totalCost += +data.EstimatedCost;
             break;
           }
           case "Actual": {
-            totalCost += +data.ActualCost;
+            this.totalCost += +data.ActualCost;
             break;
           }
           case "Deposit": {
-            totalCost += +data.Deposit;
+            this.totalCost += +data.Deposit;
             break;
           }
-        }*/
+        }
       });  
 
-      //console.log("TOTAL Estimated: " + totalCost);      
-      //return totalCost;
+      console.log("1. TOTAL Estimated: " + this.totalCost);      
     });    
   }
 
   getCeremonyRow(chart:string) {
     var budgetArray:(string|number)[];
     this.getChartData("Ceremony",chart);
-    console.log("Total COST AFTER: ");
+    console.log("Total COST AFTER: " + this.totalCost);
     budgetArray = ["Ceremony",0];
     return budgetArray;
   }
