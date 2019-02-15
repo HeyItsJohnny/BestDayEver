@@ -18,7 +18,7 @@
       <th>Deposit</th>
     </tr>
     <tr>
-      <ion-list>
+      <!--<ion-list>-->
           <ng-container *ngIf="!budgets || budgets.length == 0">
             <div *ngFor="let n of [0,1,2]" padding>
               <ion-skeleton-text></ion-skeleton-text>
@@ -62,7 +62,7 @@
                 </td>
               </ion-item>
           </ion-item-sliding>
-      </ion-list>
+      <!--</ion-list>-->
     </tr>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button (click)="addItem()">
