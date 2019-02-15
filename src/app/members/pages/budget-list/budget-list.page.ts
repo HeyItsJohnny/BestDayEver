@@ -168,7 +168,6 @@ export class BudgetListPage {
 
       // Instantiate and draw our chart, passing in some options.
       var chart = new google.visualization.PieChart(document.getElementById('est_cost_wedding_budget_percent_div'));
-      //chart.draw(estdata, options);
     }
 
     reloadActCostChart() {

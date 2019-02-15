@@ -17,40 +17,25 @@
       <th>Actual Costs</th>
       <th>Deposit</th>
     </tr>
-    <tr>
-      <!--<ion-list>-->
-          <ng-container *ngIf="!budgets || budgets.length == 0">
-            <div *ngFor="let n of [0,1,2]" padding>
-              <ion-skeleton-text></ion-skeleton-text>
-              <p>
-                <ion-skeleton-text class="fake-skeleton"></ion-skeleton-text>
-              </p>
-            </div>
-          </ng-container>
-        
-          <ion-item-sliding *ngFor="let item of budgets">
-              <ion-item lines="inset" button (click)="viewDetails(item)"> 
-                <td>
-                    {{item.payload.doc.data().Category}}
-                </td>
-                <td>
-                    {{item.payload.doc.data().SubCategory}}
-                </td> 
-                <td>
-                    {{item.payload.doc.data().BudgetName}}
-                </td>
-                <td>
-                    {{item.payload.doc.data().EstimatedCost}}
-                </td>
-                <td>
-                    {{item.payload.doc.data().ActualCost}}
-                </td>
-                <td>
-                    {{item.payload.doc.data().Deposit}}
-                </td>
-              </ion-item>
-          </ion-item-sliding>
-      <!--</ion-list>-->
+    <tr *ngFor="let item of budgets">
+      <td button (click)="viewDetails(item)">
+        {{item.payload.doc.data().Category}}
+      </td>
+      <td button (click)="viewDetails(item)">
+          {{item.payload.doc.data().SubCategory}}
+      </td> 
+      <td button (click)="viewDetails(item)">
+          {{item.payload.doc.data().BudgetName}}
+      </td>
+      <td button (click)="viewDetails(item)">
+          {{item.payload.doc.data().EstimatedCost}}
+      </td>
+      <td button (click)="viewDetails(item)">
+          {{item.payload.doc.data().ActualCost}}
+      </td>
+      <td button (click)="viewDetails(item)">
+          {{item.payload.doc.data().Deposit}}
+      </td>
     </tr>
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
       <ion-fab-button (click)="addItem()">
