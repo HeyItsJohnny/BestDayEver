@@ -131,16 +131,7 @@ export class BudgetService {
     })
   }
 
-  getChartData(category:string, chartType:string) {
-    /*this.budgets = this.budgetsCollection.snapshotChanges().pipe(
-      map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data();
-          const id = a.payload.doc.id;
-          return { id, ...data };
-        });
-      })
-    ); */
+  getChartData(category:string, chartType:string): number {
     var totalCost = this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
       var singlecost = res.map(a => {
         var tmpcost = 0;
@@ -164,8 +155,6 @@ export class BudgetService {
         return {
           SingleCost: tmpcost
         }
-        
-
       });  
       var y = 0;
       for (let x of singlecost) {
@@ -177,8 +166,15 @@ export class BudgetService {
       }
     });    
 
-    console.log("RESULT 3: " + totalCost); 
-    return(totalCost);
+    var twat;
+    totalCost.then(x=> {
+      twat = x.TotalCost;
+      console.log("RESULT 3: " + x.TotalCost);
+      return twat;
+    });
+
+    console.log("RESULT 4: " + twat); 
+    return(twat);
   }
 
   getCeremonyRow(chart:string) {
