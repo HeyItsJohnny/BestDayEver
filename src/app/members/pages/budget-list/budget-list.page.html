@@ -31,34 +31,22 @@
           <ion-item-sliding *ngFor="let item of budgets">
               <ion-item lines="inset" button (click)="viewDetails(item)"> 
                 <td>
-                  <ion-label>                  
                     {{item.payload.doc.data().Category}}
-                  </ion-label>
                 </td>
                 <td>
-                  <ion-label>                  
                     {{item.payload.doc.data().SubCategory}}
-                  </ion-label>
                 </td> 
                 <td>
-                  <ion-label>                  
                     {{item.payload.doc.data().BudgetName}}
-                  </ion-label>
                 </td>
                 <td>
-                  <ion-label>                  
                     {{item.payload.doc.data().EstimatedCost}}
-                  </ion-label>
                 </td>
                 <td>
-                  <ion-label>                  
                     {{item.payload.doc.data().ActualCost}}
-                  </ion-label>
                 </td>
                 <td>
-                  <ion-label>                  
                     {{item.payload.doc.data().Deposit}}
-                  </ion-label>
                 </td>
               </ion-item>
           </ion-item-sliding>
