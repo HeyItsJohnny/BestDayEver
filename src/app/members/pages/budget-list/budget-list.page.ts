@@ -48,16 +48,15 @@ export class BudgetListPage {
       .then(events => {
         this.budgets = events;
       })
-      this.reloadPieChart();
-      //this.reloadActCostChart();
-      //this.reloadDepositChart();
+      this.reloadEstimatePieChart();
+      this.reloadActualCostChart();
     }
 
-    reloadPieChart() {
+    reloadEstimatePieChart() {
       // Create the data table.
       var estdata = new google.visualization.DataTable();
       estdata.addColumn('string', 'Category');
-      estdata.addColumn('number', '% against wedding budget');   
+      estdata.addColumn('number', '$$ against budget');   
 
       //Ceremony
       this.budgetService.getChartData("Ceremony","Estimated").then(result => {
@@ -162,35 +161,129 @@ export class BudgetListPage {
       });
 
       // Set chart options
-      var options = {'title':'Estimated Cost vs. overall wedding budget',
-                    'width':900,
-                    'height':500};
+      var options = {'title':'Estimated Cost',
+                    'width':600,
+                    'height':400};
 
       // Instantiate and draw our chart, passing in some options.
       var chart = new google.visualization.PieChart(document.getElementById('est_cost_wedding_budget_percent_div'));
     }
 
-    reloadActCostChart() {
-      // Create the data table.
-      var data = new google.visualization.DataTable();
-      data.addColumn('string', 'Category');
-      data.addColumn('number', '% against wedding budget');      
-      data.addRows([
-        ['Mushrooms', 3],
-        ['Onions', 1],
-        ['Olives', 1],
-        ['Zucchini', 1],
-        ['Pepperoni', 2]
-      ]);
+    reloadActualCostChart() {
+     // Create the data table.
+     var estdata = new google.visualization.DataTable();
+     estdata.addColumn('string', 'Category');
+     estdata.addColumn('number', '$$ against budget');   
 
-      // Set chart options
-      var options = {'title':'Actual Cost vs. overall wedding budget',
-                    'width':400,
-                    'height':300};
+     //Ceremony
+     this.budgetService.getChartData("Ceremony","Actual").then(result => {
+       estdata.addRow(["Ceremony",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
 
-      // Instantiate and draw our chart, passing in some options.
-      var chart = new google.visualization.PieChart(document.getElementById('act_cost_wedding_budget_percent_div'));
-      chart.draw(data, options);
+     //Reception
+     this.budgetService.getChartData("Reception","Actual").then(result => {
+       estdata.addRow(["Reception",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Stationary
+     this.budgetService.getChartData("Stationary","Actual").then(result => {
+       estdata.addRow(["Stationary",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Clothes
+     this.budgetService.getChartData("Clothes","Actual").then(result => {
+       estdata.addRow(["Clothes",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Beauty
+     this.budgetService.getChartData("Beauty","Actual").then(result => {
+       estdata.addRow(["Beauty",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Flowers
+     this.budgetService.getChartData("Flowers","Actual").then(result => {
+       estdata.addRow(["Flowers",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Photography/Videography
+     this.budgetService.getChartData("Photography/Videography","Actual").then(result => {
+       estdata.addRow(["Photography/Videography",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Music
+     this.budgetService.getChartData("Music","Actual").then(result => {
+       estdata.addRow(["Music",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Rentals
+     this.budgetService.getChartData("Rentals","Actual").then(result => {
+       estdata.addRow(["Rentals",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Decor
+     this.budgetService.getChartData("Decor","Actual").then(result => {
+       estdata.addRow(["Decor",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Misc. Celebrations
+     this.budgetService.getChartData("Misc. Celebrations","Actual").then(result => {
+       estdata.addRow(["Misc. Celebrations",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Gift Favors
+     this.budgetService.getChartData("Gifts & Favors","Actual").then(result => {
+       estdata.addRow(["Gifts & Favors",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Transportation
+     this.budgetService.getChartData("Transportation","Actual").then(result => {
+       estdata.addRow(["Transportation",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Other Entertainment
+     this.budgetService.getChartData("Other Entertainment","Actual").then(result => {
+       estdata.addRow(["Other Entertainment",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Destination Wedding
+     this.budgetService.getChartData("Destination Wedding","Actual").then(result => {
+       estdata.addRow(["Destination Wedding",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Honeymoon
+     this.budgetService.getChartData("Honeymoon","Actual").then(result => {
+       estdata.addRow(["Honeymoon",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     //Misc
+     this.budgetService.getChartData("Miscallenous","Actual").then(result => {
+       estdata.addRow(["Miscallenous",result.TotalCost]);
+       chart.draw(estdata, options);
+     });
+
+     // Set chart options
+     var options = {'title':'Actual Cost',
+                   'width':600,
+                   'height':400};
+
+     // Instantiate and draw our chart, passing in some options.
+     var chart = new google.visualization.PieChart(document.getElementById('act_cost_wedding_budget_percent_div'));
     }
 
     async addItem() {
