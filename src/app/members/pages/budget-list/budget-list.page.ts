@@ -14,6 +14,16 @@ export class BudgetListPage {
 
   budgets: Budget[];
 
+  TotalEstimatedCost: string;
+  TotalActualCost: string;
+  EstimatedOverUnderBudget: string;
+  ActualOverUnderBudget: string;
+
+  /*sumExpenses(): void {
+    this.totalExpenses = 0;
+    this.expenses.forEach(exp => this.totalExpenses += exp.amount);
+  }*/
+
   categoryArray: string[] = ["Ceremony","Reception","Stationary","Clothes","Beauty","Flowers","Photography/Videography","Music","Rentals","Decor","Misc. Celebrations","Gifts & Favors","Transportation","Misc. Party Entertainment","Destination Weddings","Honeymoon","Miscallaneous"];
   subcategoryCeremonyArray: string[] = ["Ceremony Location Fees","Officiant Dues","Marriage License","Chuppah or Alter","Ceremony Musicians","Other"];
   subcategoryReceptionArray: string[] = ["Reception Location", "Food", "Beverages", "Catering Staff", "Catering Manager", "Cake", "Bartenders", "Musicians/DJ", "On-Site Coordinator", "Coatroom Attendants", "Bathroom Attendants", "Wedding Night Hotel Room", "Other"];
@@ -50,6 +60,11 @@ export class BudgetListPage {
       })
       this.reloadEstimatePieChart();
       this.reloadActualCostChart();
+
+      this.TotalActualCost = "TOTAL ACTUAL";
+      this.TotalEstimatedCost = "TOTAL ESTIMATED";
+      this.EstimatedOverUnderBudget = "EST. OVER/UNDER";
+      this.ActualOverUnderBudget = "ACT. Over/UNDER";
     }
 
     reloadEstimatePieChart() {
