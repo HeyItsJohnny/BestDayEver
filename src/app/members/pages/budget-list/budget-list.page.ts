@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Budget, BudgetService } from 'src/app/services/budget.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { WeddingDayDetails, WeddingDayDetailsService } from 'src/app/services/wedding-day-details.service';
+import { ProfileService } from 'src/app/services/profile.service';
 
 declare var google;
 
@@ -14,16 +16,28 @@ export class BudgetListPage {
 
   budgets: Budget[];
 
+  weddingDay: WeddingDayDetails = {
+    WeddingPartyGroupdID: '',
+    WeddingDate: null,
+    EstimatedNoOfGuests: 0,
+    YourName: '',
+    YourNameID: '',
+    BudgetEstimate: 0,
+    FianceName: '',
+    FianceNameID: '',
+    ReceptionTime: null,
+    DinnerTime: null,
+    CocktailTime: null,
+    WeddingInvitesSentOut: false,
+    UpdatedAt: 0,
+    CreatedAt: 0
+  };
+  weddingDayId = null;
+
   TotalEstimatedCost: string;
   TotalActualCost: string;
   EstimatedOverUnderBudget: string;
   ActualOverUnderBudget: string;
-
-  /*sumExpenses(): void {
-    this.totalExpenses = 0;
-    this.expenses.forEach(exp => this.totalExpenses += exp.amount);
-  }*/
-
   categoryArray: string[] = ["Ceremony","Reception","Stationary","Clothes","Beauty","Flowers","Photography/Videography","Music","Rentals","Decor","Misc. Celebrations","Gifts & Favors","Transportation","Misc. Party Entertainment","Destination Weddings","Honeymoon","Miscallaneous"];
   subcategoryCeremonyArray: string[] = ["Ceremony Location Fees","Officiant Dues","Marriage License","Chuppah or Alter","Ceremony Musicians","Other"];
   subcategoryReceptionArray: string[] = ["Reception Location", "Food", "Beverages", "Catering Staff", "Catering Manager", "Cake", "Bartenders", "Musicians/DJ", "On-Site Coordinator", "Coatroom Attendants", "Bathroom Attendants", "Wedding Night Hotel Room", "Other"];
@@ -47,31 +61,56 @@ export class BudgetListPage {
   constructor(
     private budgetService: BudgetService,
     private router: Router,
+    private weddingDayDetailsService: WeddingDayDetailsService,
+    private profileService: ProfileService, 
     public alertController: AlertController) { }
 
     ionViewWillEnter() {
-      this.getBudgetData();
+      var prof = this.profileService.getProfile().subscribe(res => {
+        this.weddingDayId = res.WeddingID; 
+        if (this.weddingDayId)  {
+          this.loadWeddingDay();          
+          prof.unsubscribe();
+        }
+      });
+      
     }
 
-    getBudgetData() {
+    loadWeddingDay() {
+      var wedDay = this.weddingDayDetailsService.getWeddingDay(this.weddingDayId).subscribe(res => {
+        this.weddingDay = res;
+        this.getBudgetData(this.weddingDay.BudgetEstimate);
+        wedDay.unsubscribe();
+      });
+    }
+
+    getBudgetData(OverallBudget: number) {
       this.budgetService.getBudgets()
       .then(events => {
         this.budgets = events;
       })
-      this.reloadEstimatePieChart();
-      this.reloadActualCostChart();
-
-      this.TotalActualCost = "TOTAL ACTUAL";
-      this.TotalEstimatedCost = "TOTAL ESTIMATED";
-      this.EstimatedOverUnderBudget = "EST. OVER/UNDER";
-      this.ActualOverUnderBudget = "ACT. Over/UNDER";
+      this.reloadEstimatePieChart(OverallBudget);
+      this.reloadActualCostChart(OverallBudget);
     }
 
-    reloadEstimatePieChart() {
+    reloadEstimatePieChart(OverallBudget: number) {
       // Create the data table.
       var estdata = new google.visualization.DataTable();
       estdata.addColumn('string', 'Category');
       estdata.addColumn('number', '$$ against budget');   
+
+      //All Chart Data
+      this.budgetService.getAllChartData("Estimated").then(result => {
+        let remainBudget = +OverallBudget - +result.TotalCost;
+        if (remainBudget > 0) {
+          estdata.addRow(["Remaining Budget",remainBudget]);
+          this.EstimatedOverUnderBudget = "Under Budget by: " + remainBudget;
+        } else {
+          this.EstimatedOverUnderBudget = "Over Budget by: " + remainBudget;
+        }
+        this.TotalEstimatedCost = "Total Estimated: " + result.TotalCost;
+        chart.draw(estdata, options);
+      });
 
       //Ceremony
       this.budgetService.getChartData("Ceremony","Estimated").then(result => {
@@ -173,22 +212,40 @@ export class BudgetListPage {
       this.budgetService.getChartData("Miscallenous","Estimated").then(result => {
         estdata.addRow(["Miscallenous",result.TotalCost]);
         chart.draw(estdata, options);
-      });
+      });      
 
       // Set chart options
-      var options = {'title':'Estimated Cost',
-                    'width':600,
-                    'height':400};
+     var options = {
+      'title':'Estiamted Cost',
+      'width':600,
+      'height':400,
+      slices: {
+        0: { color: 'grey' },
+      }
+     };
 
       // Instantiate and draw our chart, passing in some options.
       var chart = new google.visualization.PieChart(document.getElementById('est_cost_wedding_budget_percent_div'));
     }
 
-    reloadActualCostChart() {
+    reloadActualCostChart(OverallBudget: number) {
      // Create the data table.
      var estdata = new google.visualization.DataTable();
      estdata.addColumn('string', 'Category');
      estdata.addColumn('number', '$$ against budget');   
+
+    //All Chart Data
+    this.budgetService.getAllChartData("Actual").then(result => {
+      let remainBudget = +OverallBudget - +result.TotalCost;
+      if (remainBudget > 0) {
+        estdata.addRow(["Remaining Budget",remainBudget]);
+        this.ActualOverUnderBudget = "Under Budget by: " + remainBudget;
+      } else {
+        this.ActualOverUnderBudget = "Over Budget by: " + remainBudget;
+      }
+      this.TotalActualCost = "Total Actual: " + result.TotalCost;
+      chart.draw(estdata, options);
+    });
 
      //Ceremony
      this.budgetService.getChartData("Ceremony","Actual").then(result => {
@@ -293,9 +350,14 @@ export class BudgetListPage {
      });
 
      // Set chart options
-     var options = {'title':'Actual Cost',
-                   'width':600,
-                   'height':400};
+     var options = {
+       'title':'Actual Cost',
+        'width':600,
+        'height':400,
+        slices: {
+          0: { color: 'grey' },
+        }
+      };
 
      // Instantiate and draw our chart, passing in some options.
      var chart = new google.visualization.PieChart(document.getElementById('act_cost_wedding_budget_percent_div'));
@@ -311,7 +373,7 @@ export class BudgetListPage {
             text: 'Ok',
             handler: (data: any) => {
               this.startSubcategorySelection(data);
-              this.getBudgetData();
+              this.getBudgetData(this.weddingDay.BudgetEstimate);
             }
           }
         ]
@@ -334,7 +396,7 @@ export class BudgetListPage {
             text: 'Ok',
             handler: (data: any) => {
               this.subcategoryOtherLogic(category,data);
-              this.getBudgetData();
+              this.getBudgetData(this.weddingDay.BudgetEstimate);
             }
           }
         ]
@@ -480,7 +542,7 @@ export class BudgetListPage {
             text: 'Ok',
             handler: (data) => {
               this.AddBudget(category, data.subcategory);   
-              this.getBudgetData();  
+              this.getBudgetData(this.weddingDay.BudgetEstimate);  
             }
           }
         ]
@@ -556,7 +618,7 @@ export class BudgetListPage {
               };       
               this.budgetService.addBudget(dinnerObj);  
               this.budgets.push(dinnerObj);
-              this.getBudgetData();
+              this.getBudgetData(this.weddingDay.BudgetEstimate);
             }
           }
         ]

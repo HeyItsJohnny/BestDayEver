@@ -131,6 +131,39 @@ export class BudgetService {
     })
   }
 
+  getAllChartData(chartType:string) {
+    return this.getBudgets().then(events => {
+      var singlecost = events.map(a => {
+        var allCost = 0;
+        const data = a.payload.doc.data();
+        switch(chartType) {
+          case "Estimated": {
+            allCost += +data.EstimatedCost;
+            break;
+          }
+          case "Actual": {
+            allCost += +data.ActualCost;
+            break;
+          }
+          case "Deposit": {
+            allCost += +data.Deposit;
+            break;
+          }
+        }
+        return {
+          SingleCost: allCost
+        }
+      });
+      var y = 0;
+      for (let x of singlecost) {
+        y += +x.SingleCost;
+      }
+      return {
+        TotalCost: y
+      }
+    });
+  }
+
   getChartData(category:string, chartType:string) {
     return this.searchBudgetCategoryName(category.toLowerCase()).then(res => {
       var singlecost = res.map(a => {
