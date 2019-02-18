@@ -15,6 +15,7 @@ declare var google;
 export class BudgetListPage {
 
   budgets: Budget[];
+  searchCategory: string;
 
   weddingDay: WeddingDayDetails = {
     WeddingPartyGroupdID: '',
@@ -56,7 +57,6 @@ export class BudgetListPage {
   subcategoryDestinationWeddingArray: string[] = ["Scouting costs","Long-distance transportation","Local transportation","Lodging for bride and groom","Shipping supplies to site","Other"];
   subcategoryHoneymoonArray: string[]= ["Travel","Lodging","Meals","Activities","Gratuities","Other"];
   subcategoryMiscArray: string[] = ["Miscallaneous tips","Wedding planner","Wedding insurance","Honeymoon insurance","Other"];
-
 
   constructor(
     private budgetService: BudgetService,
@@ -623,6 +623,32 @@ export class BudgetListPage {
           }
         ]
       }).then(alert => alert.present());
+    }
+
+    getItems(searchbar) {
+      console.log("Saerch Category: " + this.searchCategory);
+      if (searchbar.srcElement.value == "") {
+        this.getBudgetData(this.weddingDay.BudgetEstimate);
+      } else {
+        var value = searchbar.srcElement.value;
+        var valueTmp: string;
+        valueTmp = value.toLowerCase();   
+    
+        if ((this.searchCategory == 'category') || (this.searchCategory == null)) {
+          this.budgetService.searchBudgetCategoryName(valueTmp).then(res => {
+            this.budgets = res;
+          })
+        } else if (this.searchCategory == 'subcategory') {
+          this.budgetService.searchBudgetSubCategoryName(valueTmp).then(res => {
+            this.budgets = res;
+          })
+        } else if (this.searchCategory == 'budgetName') {
+          this.budgetService.searchBudgetName(valueTmp).then(res => {
+            this.budgets = res;
+          })
+        }
+        
+      }
     }
   
     viewDetails(item){

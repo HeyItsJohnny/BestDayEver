@@ -28,7 +28,7 @@ export interface Budget {
 export class BudgetService {
 
   private budgetsCollection: AngularFirestoreCollection<Budget>;
-  private budgets: Observable<Budget[]>;
+  private budgets: Observable<Budget[]>;  
 
   constructor(
     public db: AngularFirestore,
