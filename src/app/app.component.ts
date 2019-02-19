@@ -128,21 +128,6 @@ export class AppComponent {
     }
   ]
 
-  /*public venueSetupPages = [
-    {
-      title: 'Details',
-      url: '/members/venueSetup',
-      canActivate: [AuthGuardService],
-      icon: 'md-checkmark-circle'
-    },
-    {
-      title: 'Sleeping Arrangements',
-      url: '',
-      canActivate: [AuthGuardService],
-      icon: 'md-checkmark-circle'
-    }
-  ]*/
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,
