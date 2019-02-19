@@ -23,6 +23,14 @@ export class LoginPage implements OnInit {
     this.authService.login(user);
   }
 
+  doFacebookLogin() {
+    console.log("FACEBOOK LOGIN.");
+  }
+
+  doGoogleLogin() {
+    console.log("GOOGLE LOGIN.");
+  }
+
   register() {
     this.router.navigateByUrl('/Register');
   }

@@ -84,24 +84,6 @@
           </ion-list>
         </ion-list>
         <!-- WEBSITE SETUP PAGES -->
-        <!-- VENUE SETUP PAGES -->
-        <!--<ion-list text-wrap (click)="toggleLevel1VenueSetup('idx'+i)" [ngClass]="{active: isLevel1ShownVenueSetup('idx'+i)}">    
-          <ion-label>
-            Venue Setup
-          <ion-icon color="success" item-right [name]="isLevel1ShownVenueSetup('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
-          </ion-label>
-          <ion-list *ngIf="isLevel1ShownVenueSetup('idx'+i)">
-            <ion-menu-toggle auto-hide="false" *ngFor="let p of venueSetupPages " (click)="toggleLevel2VenueSetup('idx'+i+'idx'+i2)" [ngClass]="{active: isLevel2ShownVenueSetup('idx'+i+'idx'+i2)}">
-              <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-                <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                <ion-label>
-                  {{p.title}}
-                </ion-label>
-              </ion-item>  
-            </ion-menu-toggle>
-          </ion-list>
-        </ion-list> -->
-        <!-- VENUE SETUP PAGES -->
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
