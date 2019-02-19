@@ -1,10 +1,7 @@
 import { Component } from '@angular/core';
-
-
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
-
 import { AuthenticationService } from '../app/services/authentication.service';
 import { Router } from '@angular/router';
 import { AuthGuardService } from './services/auth-guard.service';
