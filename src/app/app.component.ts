@@ -12,6 +12,8 @@ import { AuthGuardService } from './services/auth-guard.service';
 })
 export class AppComponent {
 
+  loginHidden: boolean;
+
   showLevel1WeddingDetails = null;    //Used for accordian list
   showLevel2WeddingDetails = null;    //Used for accordian list
 
@@ -143,12 +145,15 @@ export class AppComponent {
       this.statusBar.styleDefault();
       this.splashScreen.hide();
 
-      this.authService.authenticationState.subscribe(state => {
+      var authState = this.authService.authenticationState.subscribe(state => {
         if (state) {
           this.router.navigate(['members', 'home']);
+          this.loginHidden = false;
         } else {
           this.router.navigate(['Login']);
+          this.loginHidden = true;
         }
+        authState.unsubscribe();
       });
 
     });
