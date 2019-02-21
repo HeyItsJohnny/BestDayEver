@@ -4,6 +4,7 @@ import { NavController, LoadingController } from '@ionic/angular';
 import { FormControl } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators/debounceTime';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-rsvp-list',
@@ -22,11 +23,13 @@ export class RsvpListPage {
   constructor(
     private rsvpService: RsvpService,
     private router: Router,
+    public menuController: MenuController,
     private loadingController: LoadingController) { 
       this.searchControl = new FormControl();
     }
 
   ionViewWillEnter() {
+    this.menuController.enable(true);
     this.getRsvpData();
   }
 

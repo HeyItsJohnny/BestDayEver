@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { Event, EventsService} from 'src/app/services/events.service';
 import { AlertController, SegmentButton } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-event-list',
@@ -16,11 +17,13 @@ export class EventListPage {
   constructor(
     private eventsService: EventsService,
     public alertController: AlertController,
+    public menuController: MenuController,
     private router: Router) { 
       this.segment = "today";
     }
  
   ionViewWillEnter() {
+    this.menuController.enable(true);
      this.getEventData();
   }
 

@@ -4,6 +4,7 @@ import { RsvpGuest, RsvpGuestService } from 'src/app/services/rsvp-guest.service
 import { AlertController } from '@ionic/angular';
 import { Events } from 'ionic-angular';
 import { Dinner, DinnerService } from 'src/app/services/dinner.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-guest-rsvp-example',
@@ -21,6 +22,7 @@ export class GuestRsvpExamplePage implements OnInit {
     private rsvpService: RsvpService,
     private rsvpGuestService: RsvpGuestService,
     private dinnerService: DinnerService,
+    public menuController: MenuController,
     public events: Events) { }
 
   findRsvp: Rsvp = {
@@ -69,6 +71,10 @@ export class GuestRsvpExamplePage implements OnInit {
 
   ngOnInit() {
     this.getDinnerData(); 
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   getDinnerData() {

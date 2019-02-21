@@ -1,8 +1,9 @@
 import { Vendor, VendorService } from 'src/app/services/vendor.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, LoadingController, AlertController } from '@ionic/angular';
+import { NavController, LoadingController, AlertController, MenuController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
+
 
 @Component({
   selector: 'app-vendor-hotel-details',
@@ -51,6 +52,7 @@ export class VendorHotelDetailsPage implements OnInit {
     private vendorService: VendorService, 
     private profileService: ProfileService, 
     public alertController: AlertController,
+    public menuController: MenuController,
     private loadingController: LoadingController) { }
 
 
@@ -59,6 +61,10 @@ export class VendorHotelDetailsPage implements OnInit {
     if (this.vendorId)  {
       this.loadVendor();
     }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadVendor() {   

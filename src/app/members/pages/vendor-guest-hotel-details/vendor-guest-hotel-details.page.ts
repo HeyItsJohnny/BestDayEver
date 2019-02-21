@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-vendor-guest-hotel-details',
@@ -50,6 +51,7 @@ export class VendorGuestHotelDetailsPage implements OnInit {
     private nav: NavController, 
     private vendorService: VendorService, 
     private profileService: ProfileService, 
+    public menuController: MenuController,
     public alertController: AlertController,
     private loadingController: LoadingController) { }
 
@@ -58,6 +60,10 @@ export class VendorGuestHotelDetailsPage implements OnInit {
     if (this.vendorId)  {
       this.loadVendor();
     }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadVendor() {   

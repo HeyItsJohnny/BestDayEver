@@ -1,7 +1,7 @@
 import { WeddingDayDetails, WeddingDayDetailsService } from 'src/app/services/wedding-day-details.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, MenuController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
 import { WeddingParty, WeddingPartyService} from 'src/app/services/wedding-party.service';
 
@@ -47,7 +47,8 @@ export class WeddingDayDetailsPage implements OnInit {
     private nav: NavController, 
     private weddingDayDetailsService: WeddingDayDetailsService, 
     private profileService: ProfileService, 
-    private weddingPartyService: WeddingPartyService, 
+    private weddingPartyService: WeddingPartyService,
+    public menuController: MenuController, 
     private loadingController: LoadingController) { }
 
   ngOnInit() {
@@ -61,6 +62,10 @@ export class WeddingDayDetailsPage implements OnInit {
         this.loadWeddingDay();
       }
     });
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadWeddingDay() {   

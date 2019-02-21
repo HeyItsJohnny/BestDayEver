@@ -1,7 +1,7 @@
 import { WeddingParty, WeddingPartyService} from 'src/app/services/wedding-party.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController, LoadingController } from '@ionic/angular';
+import { NavController, LoadingController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -23,6 +23,7 @@ export class WeddingPartyDetailsPage implements OnInit {
     private nav: NavController, 
     private weddingPartyService: WeddingPartyService, 
     private loadingController: LoadingController,
+    public menuController: MenuController,
     private router: Router) { }
 
   ngOnInit() {
@@ -30,6 +31,10 @@ export class WeddingPartyDetailsPage implements OnInit {
     if (this.weddingPartyId)  {
       this.loadWeddingParty();
     }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadWeddingParty() {   

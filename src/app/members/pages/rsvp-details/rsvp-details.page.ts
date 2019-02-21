@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-rsvp-details',
@@ -37,6 +38,7 @@ export class RsvpDetailsPage implements OnInit {
     private rsvpService: RsvpService, 
     private loadingController: LoadingController,
     public alertController: AlertController,
+    public menuController: MenuController,
     private router: Router) { }
 
   ngOnInit() {
@@ -44,6 +46,10 @@ export class RsvpDetailsPage implements OnInit {
     if (this.rsvpId)  {
       this.loadRsvp();
     }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadRsvp() {   

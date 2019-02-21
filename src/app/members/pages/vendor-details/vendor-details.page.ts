@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-vendor-details',
@@ -52,6 +53,7 @@ export class VendorDetailsPage implements OnInit {
     private vendorService: VendorService, 
     private profileService: ProfileService, 
     public alertController: AlertController,
+    public menuController: MenuController,
     private loadingController: LoadingController) { }
 
   ngOnInit() {
@@ -61,6 +63,9 @@ export class VendorDetailsPage implements OnInit {
     }
   }
 
+  ionViewWillEnter() {
+    this.menuController.enable(true);
+  }
 
   async loadVendor() {   
     const loading = await this.loadingController.create({

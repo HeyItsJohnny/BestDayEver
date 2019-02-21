@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
 import { Budget, BudgetService } from 'src/app/services/budget.service';
-
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-budget-details',
@@ -28,10 +28,10 @@ export class BudgetDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private router: Router,
     private nav: NavController, 
     private budgetService: BudgetService, 
     public alertController: AlertController,
+    public menuController: MenuController,
     private loadingController: LoadingController) { }
 
   ngOnInit() {
@@ -39,6 +39,10 @@ export class BudgetDetailsPage implements OnInit {
     if (this.budgetId)  {
       this.loadBudget();
     }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadBudget() {   

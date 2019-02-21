@@ -1,7 +1,8 @@
-import { Component, OnInit, EventEmitter } from '@angular/core';
+import { Component  } from '@angular/core';
 import { RsvpGuest, RsvpGuestService } from 'src/app/services/rsvp-guest.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Events } from 'ionic-angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-guest-list',
@@ -17,19 +18,11 @@ export class GuestListPage {
     private rsvpGuestService: RsvpGuestService,
     private route: ActivatedRoute,
     private router: Router,
+    public menuController: MenuController,
     public events: Events) { }
 
-  /*ngOnInit() {
-    this.rsvpId = this.route.snapshot.params['id'];
-    if (this.rsvpId)  {   
-      this.events.publish('guest:created', this.rsvpId);   
-      this.rsvpGuestService.getRsvpGuests().subscribe(res => {
-        this.rsvpGuests = res;
-      });
-    }
-  }*/
-
   ionViewWillEnter() {
+    this.menuController.enable(true);
     this.getEventData();
   }
 

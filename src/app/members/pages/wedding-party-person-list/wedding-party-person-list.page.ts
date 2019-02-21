@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WeddingPartyPerson, WeddingPartyPersonService } from 'src/app/services/wedding-party-person.service';
 import { ActivatedRoute } from '@angular/router';
 import { Events } from 'ionic-angular';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-wedding-party-person-list',
@@ -18,6 +18,7 @@ export class WeddingPartyPersonListPage implements OnInit {
     private weddingPartyPersonService: WeddingPartyPersonService,
     private route: ActivatedRoute,
     public events: Events,
+    public menuController: MenuController,
     public alertController: AlertController) { }
 
   ngOnInit() {
@@ -28,6 +29,10 @@ export class WeddingPartyPersonListPage implements OnInit {
         this.weddingPartyPersons = res;
       });
     }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   remove(item) {

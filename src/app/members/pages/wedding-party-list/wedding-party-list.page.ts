@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { WeddingParty, WeddingPartyService} from 'src/app/services/wedding-party.service'
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-wedding-party-list',
@@ -13,7 +13,12 @@ export class WeddingPartyListPage implements OnInit {
 
   constructor(
     private weddingPartyService: WeddingPartyService,
+    public menuController: MenuController,
     public alertController: AlertController) { }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
+  }
 
   ngOnInit() {
     this.weddingPartyService.getWeddingPartys().subscribe (res => {

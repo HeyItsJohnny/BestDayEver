@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Dinner, DinnerService } from 'src/app/services/dinner.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dinner-list',
@@ -16,9 +17,11 @@ export class DinnerListPage {
   constructor(
     private dinnerService: DinnerService,
     private router: Router,
+    public menuController: MenuController,
     public alertController: AlertController) { }
 
   ionViewWillEnter() {
+    this.menuController.enable(true);
     this.getDinnerData();
    }
 

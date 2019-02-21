@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { RsvpGuest, RsvpGuestService } from 'src/app/services/rsvp-guest.service';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController, AlertController} from '@ionic/angular';
-import { Router } from '@angular/router';
 import { Dinner, DinnerService } from 'src/app/services/dinner.service';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-guest-details',
@@ -29,7 +29,7 @@ export class GuestDetailsPage implements OnInit {
     private nav: NavController, 
     private rsvpGuestService: RsvpGuestService, 
     private loadingController: LoadingController,
-    private router: Router,
+    public menuController: MenuController,
     private alertController: AlertController,
     private dinnerService: DinnerService) { }
 
@@ -39,6 +39,10 @@ export class GuestDetailsPage implements OnInit {
       this.loadRsvpGuest();
     }
     this.getDinnerData();
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadRsvpGuest() {   

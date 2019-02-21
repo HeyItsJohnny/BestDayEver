@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import { AngularFireAuth } from "angularfire2/auth";
 import { AlertController } from '@ionic/angular';
 import { WeddingDayDetails, WeddingDayDetailsService } from 'src/app/services/wedding-day-details.service';
-
+import { MenuController } from '@ionic/angular';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -37,9 +37,14 @@ export class RegisterPage implements OnInit {
     private afAuth: AngularFireAuth, 
     private router: Router, 
     private alertController: AlertController,
+    public menuController: MenuController,
     private authService: AuthenticationService) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(false);
   }
 
   register(user: User, weddingDay: WeddingDayDetails) {

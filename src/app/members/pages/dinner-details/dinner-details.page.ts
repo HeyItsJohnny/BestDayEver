@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Dinner, DinnerService} from 'src/app/services/dinner.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute} from '@angular/router';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-dinner-details',
@@ -23,10 +24,10 @@ export class DinnerDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute, 
-    private router: Router,
     private nav: NavController, 
     private dinnerService: DinnerService, 
     public alertController: AlertController,
+    public menuController: MenuController,
     private loadingController: LoadingController) { }
 
   ngOnInit() {
@@ -34,6 +35,10 @@ export class DinnerDetailsPage implements OnInit {
     if (this.dinnerId)  {
       this.loadDinner();
     }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadDinner() {   

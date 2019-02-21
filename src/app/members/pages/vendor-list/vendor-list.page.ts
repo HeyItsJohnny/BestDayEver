@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Vendor, VendorService } from 'src/app/services/vendor.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { Router } from '@angular/router';
 
 @Component({
@@ -47,9 +47,11 @@ export class VendorListPage {
   constructor(
     private vendorService: VendorService,
     private router: Router,
+    public menuController: MenuController,
     public alertController: AlertController) { }
 
   ionViewWillEnter() {
+    this.menuController.enable(true);
     this.getVendorData();
    }
 

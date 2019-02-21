@@ -2,6 +2,7 @@ import { Event, EventsService} from 'src/app/services/events.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NavController, LoadingController, AlertController } from '@ionic/angular';
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-event-details',
@@ -26,7 +27,7 @@ export class EventDetailsPage implements OnInit {
   constructor(
     private route: ActivatedRoute, 
     private nav: NavController, 
-    private router: Router,
+    public menuController: MenuController,
     private eventsService: EventsService, 
     public alertController: AlertController,
     private loadingController: LoadingController) { }
@@ -36,6 +37,10 @@ export class EventDetailsPage implements OnInit {
     if (this.eventId)  {
       this.loadEvent();
     }
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
 
   async loadEvent() {   

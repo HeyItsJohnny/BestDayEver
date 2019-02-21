@@ -4,6 +4,7 @@ import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { WeddingDayDetails, WeddingDayDetailsService } from 'src/app/services/wedding-day-details.service';
 import { ProfileService } from 'src/app/services/profile.service';
+import { MenuController } from '@ionic/angular';
 
 declare var google;
 
@@ -63,9 +64,11 @@ export class BudgetListPage {
     private router: Router,
     private weddingDayDetailsService: WeddingDayDetailsService,
     private profileService: ProfileService, 
+    public menuController: MenuController,
     public alertController: AlertController) { }
 
     ionViewWillEnter() {
+      this.menuController.enable(true);
       var prof = this.profileService.getProfile().subscribe(res => {
         this.weddingDayId = res.WeddingID; 
         if (this.weddingDayId)  {
