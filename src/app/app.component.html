@@ -22,7 +22,7 @@
           </ion-menu-toggle>-->
           <!--REMOVE FOR NOW-->
         </ion-list>
-        <ion-menu-toggle auto-hide="false" *ngFor="let p of homePages">
+        <ion-menu-toggle auto-hide="false" *ngFor="let p of homePages" #menu>
           <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
             <ion-icon slot="start" [name]="p.icon"></ion-icon>
             <ion-label>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from "angularfire2/auth";
+import { MenuController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +10,11 @@ import { AngularFireAuth } from "angularfire2/auth";
   styleUrls: ['home.page.scss'],
 })
 export class HomePage implements OnInit{
-  constructor(private alertController: AlertController, private afAuth: AngularFireAuth, private router: Router) { }
+  constructor(
+    private alertController: AlertController, 
+    private afAuth: AngularFireAuth, 
+    public menuController: MenuController,
+    private router: Router) { }
 
   ngOnInit() {
     var user = this.afAuth.auth.currentUser;
@@ -17,6 +22,10 @@ export class HomePage implements OnInit{
       console.log('THERE IS NO USER..');
       this.router.navigateByUrl('/Login');
     }*/
+  }
+
+  ionViewWillEnter() {
+    this.menuController.enable(true);
   }
   
 }

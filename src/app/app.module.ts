@@ -15,6 +15,7 @@ import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { Events } from 'ionic-angular';   //Guessing
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';   //Guessing
+import { MenuController } from '@ionic/angular';
 
 @NgModule({
   declarations: [AppComponent],
@@ -26,13 +27,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';   //Guessing
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     FormsModule,              //Guessing
-    ReactiveFormsModule,      //Guessing
+    ReactiveFormsModule,      //Guessing    
     AngularFirestoreModule
   ],
   providers: [
     StatusBar,
     SplashScreen,
     Events,     //Guessing
+    MenuController,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
   ],
   bootstrap: [AppComponent]
