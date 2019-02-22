@@ -26,7 +26,6 @@ export class RsvpGuestService {
   constructor(
     public db: AngularFirestore,
     private afAuth: AngularFireAuth,
-    private route: ActivatedRoute,
     public events: Events) { 
     this.events.subscribe('guest:created', set => {
       this.rsvpId = set;
