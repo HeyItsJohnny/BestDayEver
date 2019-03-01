@@ -21,13 +21,13 @@
   </table>
   <br>
   <ion-item>
-      <ion-label>Search Budgets</ion-label>
-      <ion-select value="category" [(ngModel)]="searchCategory">
-        <ion-select-option value="category">Category</ion-select-option>
-        <ion-select-option value="subcategory">Subcategory</ion-select-option>
-        <ion-select-option value="budgetName">Budget Name</ion-select-option>
-      </ion-select>
-    </ion-item>
+    <ion-label>Search Budgets</ion-label>
+    <ion-select value="category" [(ngModel)]="searchCategory">
+      <ion-select-option value="category">Category</ion-select-option>
+      <ion-select-option value="subcategory">Subcategory</ion-select-option>
+      <ion-select-option value="budgetName">Budget Name</ion-select-option>
+    </ion-select>
+  </ion-item>
   <ion-searchbar (ionInput)="getItems($event)"></ion-searchbar>
   <br>
   <table>
