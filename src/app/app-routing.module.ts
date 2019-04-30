@@ -8,7 +8,6 @@ const routes: Routes = [
     redirectTo: 'Login',
     pathMatch: 'full'
   },
-  { path: 'Register', loadChildren: './register/register.module#RegisterPageModule' },
   { path: 'Login', loadChildren: './login/login.module#LoginPageModule' },
   { 
     path: 'members', 

@@ -79,7 +79,7 @@ export class AuthenticationService {
     }
   }
 
-  async register(user: User, weddingDay: WeddingDayDetails) {
+  /*async register(user: User, weddingDay: WeddingDayDetails) {
     try {
       const result = await this.afAuth.auth.createUserWithEmailAndPassword(user.email,user.password);      
       if (result) {
@@ -101,7 +101,7 @@ export class AuthenticationService {
       });
       await alert.present();
     }
-  }
+  }*/
 
   createProfile(user: User, userid: string, weddingDay: WeddingDayDetails)  {
     //Create Profile

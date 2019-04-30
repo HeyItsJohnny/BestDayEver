@@ -37,8 +37,4 @@ export class LoginPage implements OnInit {
     console.log("GOOGLE LOGIN.");
   }
 
-  register() {
-    this.router.navigateByUrl('/Register');
-  }
-
 }

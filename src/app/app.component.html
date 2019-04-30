@@ -8,19 +8,6 @@
       </ion-header>
       <ion-content>
         <ion-list>
-          <!--REMOVE FOR NOW-->
-          <!--<ion-menu-toggle auto-hide="false" *ngFor="let p of loginPages">
-            <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-              <ion-icon slot="start" [name]="p.icon"></ion-icon>
-              <ion-label>
-                {{p.title}}
-              </ion-label>
-            </ion-item>  
-            <ion-item>
-              <ion-button (click)="Logout()">Logout</ion-button>
-            </ion-item>
-          </ion-menu-toggle>-->
-          <!--REMOVE FOR NOW-->
         </ion-list>
         <ion-menu-toggle auto-hide="false" *ngFor="let p of homePages">
           <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
@@ -30,60 +17,6 @@
             </ion-label>
           </ion-item>  
         </ion-menu-toggle>
-        <!-- WEDDING DETAILS PAGES -->
-        <ion-list text-wrap (click)="toggleLevel1WeddingDetails('idx'+i)" [ngClass]="{active: isLevel1ShownWeddingDetails('idx'+i)}">    
-            <ion-label>
-              Wedding Details
-              <ion-icon color="success" item-right [name]="isLevel1ShownWeddingDetails('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
-            </ion-label>
-            <ion-list *ngIf="isLevel1ShownWeddingDetails('idx'+i)">
-              <ion-menu-toggle auto-hide="false" *ngFor="let p of weddingDetailsPages " (click)="toggleLevel2WeddingDetails('idx'+i+'idx'+i2)" [ngClass]="{active: isLevel2ShownWeddingDetails('idx'+i+'idx'+i2)}">
-                <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-                  <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                  <ion-label>
-                    {{p.title}}
-                  </ion-label>
-                </ion-item>  
-              </ion-menu-toggle>
-            </ion-list>
-          </ion-list>
-        <!-- WEDDING DETAILS PAGES -->
-        <!-- PLANNING TOOLS PAGES -->
-        <ion-list text-wrap (click)="toggleLevel1PlanningTools('idx'+i)" [ngClass]="{active: isLevel1ShownPlanningTools('idx'+i)}">    
-          <ion-label>
-            Planning Tools
-            <ion-icon color="success" item-right [name]="isLevel1ShownPlanningTools('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
-          </ion-label>
-          <ion-list *ngIf="isLevel1ShownPlanningTools('idx'+i)">
-            <ion-menu-toggle auto-hide="false" *ngFor="let p of planningToolsPages " (click)="toggleLevel2PlanningTools('idx'+i+'idx'+i2)" [ngClass]="{active: isLevel2ShownPlanningTools('idx'+i+'idx'+i2)}">
-              <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-                <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                <ion-label>
-                  {{p.title}}
-                </ion-label>
-              </ion-item>  
-            </ion-menu-toggle>
-          </ion-list>
-        </ion-list>
-        <!-- PLANNING TOOLS PAGES -->
-        <!-- WEBSITE SETUP PAGES -->
-        <ion-list text-wrap (click)="toggleLevel1WebsiteSetup('idx'+i)" [ngClass]="{active: isLevel1ShownWebsiteSetup('idx'+i)}">    
-          <ion-label>
-            Website Setup
-            <ion-icon color="success" item-right [name]="isLevel1ShownWebsiteSetup('idx'+i) ? 'arrow-dropdown' : 'arrow-dropright'"></ion-icon>
-          </ion-label>
-          <ion-list *ngIf="isLevel1ShownWebsiteSetup('idx'+i)">
-            <ion-menu-toggle auto-hide="false" *ngFor="let p of websiteSetupPages " (click)="toggleLevel2WebsiteSetup('idx'+i+'idx'+i2)" [ngClass]="{active: isLevel2ShownWebsiteSetup('idx'+i+'idx'+i2)}">
-              <ion-item [routerDirection]="'root'" [routerLink]="[p.url]">
-                <ion-icon slot="start" [name]="p.icon"></ion-icon>
-                <ion-label>
-                  {{p.title}}
-                </ion-label>
-              </ion-item>  
-            </ion-menu-toggle>
-          </ion-list>
-        </ion-list>
-        <!-- WEBSITE SETUP PAGES -->
       </ion-content>
     </ion-menu>
     <ion-router-outlet main></ion-router-outlet>
