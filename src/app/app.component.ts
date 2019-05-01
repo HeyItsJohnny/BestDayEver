@@ -52,6 +52,11 @@ export class AppComponent {
       icon: 'md-checkmark-circle'
     },
     {
+      title: 'Dinner',
+      url: '/members/dinnerList',
+      icon: 'md-checkmark-circle'
+    },
+    {
       title: 'Guest List',
       url: '/members/rsvpList',
       icon: 'md-checkmark-circle'

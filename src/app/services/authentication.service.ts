@@ -10,7 +10,6 @@ import { Router } from '@angular/router';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { WeddingDayDetails } from 'src/app/services/wedding-day-details.service';
 import { Profile, ProfileService } from 'src/app/services/profile.service';
-import { WeddingParty } from 'src/app/services/wedding-party.service'
 
 @Injectable({
   providedIn: 'root'
@@ -21,10 +20,6 @@ export class AuthenticationService {
 
   user = {} as User;
 
-  weddingParty: WeddingParty = {
-    Name: '',
-    WeddingSide: ''
-  };
 
   constructor(
     private afAuth: AngularFireAuth, 
@@ -112,16 +107,8 @@ export class AuthenticationService {
         //Set Wedding Day ID to Profile
         this.profileService.addWeddingIDWithID(docRef1.id, userid).then(docRef2 => {
           if (weddingDay.YourName) {
-            //Create Wedding Parties
-            this.createWeddingPartyPerson(weddingDay.YourName,userid).then(docRef3 => {
-              this.updateYourWeddingPartyID(docRef3.id,userid,docRef1.id);
-            });
           }
           if (weddingDay.FianceName) {
-            //Create Wedding Parties
-            this.createWeddingPartyPerson(weddingDay.FianceName,userid).then(docRef4 => {
-              this.updateYourFianceWeddingPartyID(docRef4.id,userid,docRef1.id);
-            });
           }
         });
       });    
@@ -135,11 +122,6 @@ export class AuthenticationService {
     return weddingDetailsCollection.add(weddingDay);
   }
 
-  createWeddingPartyPerson(WeddingPartyName: string, UserID: string) {
-    this.weddingParty.Name = WeddingPartyName;
-    let weddingPartyCollection = this.db.collection<Profile>('profile').doc(UserID).collection('weddingparty');
-    return weddingPartyCollection.add(this.weddingParty);
-  }
 
   updateYourWeddingPartyID(weddingpartyid: string, UserID: string, weddingDetailsID: string) {
     let weddingPartyUpdateCollection = this.db.collection<Profile>('profile').doc(UserID).collection('weddingDayDetails');

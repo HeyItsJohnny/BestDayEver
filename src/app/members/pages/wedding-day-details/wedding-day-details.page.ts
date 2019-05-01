@@ -3,7 +3,6 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NavController, LoadingController, MenuController } from '@ionic/angular';
 import { ProfileService } from 'src/app/services/profile.service';
-import { WeddingParty, WeddingPartyService} from 'src/app/services/wedding-party.service';
 
 @Component({
   selector: 'app-wedding-day-details',
@@ -30,16 +29,6 @@ export class WeddingDayDetailsPage implements OnInit {
     CreatedAt: 0
   };
 
-  weddingParty1: WeddingParty = {
-    Name: '',
-    WeddingSide: ''
-  };
-
-  weddingParty2: WeddingParty = {
-    Name: '',
-    WeddingSide: ''
-  };
-
   weddingDayId = null;
 
   constructor(
@@ -47,7 +36,6 @@ export class WeddingDayDetailsPage implements OnInit {
     private nav: NavController, 
     private weddingDayDetailsService: WeddingDayDetailsService, 
     private profileService: ProfileService, 
-    private weddingPartyService: WeddingPartyService,
     public menuController: MenuController, 
     private loadingController: LoadingController) { }
 
@@ -86,7 +74,6 @@ export class WeddingDayDetailsPage implements OnInit {
     await loading.present();
     if (this.weddingDayId) {
       this.weddingDayDetailsService.updateWeddingday(this.weddingDay, this.weddingDayId).then(() => {
-        this.updateWeddingPartyNames();
         loading.dismiss();
         this.nav.goBack(true);
       });
@@ -97,12 +84,5 @@ export class WeddingDayDetailsPage implements OnInit {
       loading.dismiss();
       this.nav.goBack(true);
     }
-  }
-
-  updateWeddingPartyNames() {
-    this.weddingParty1.Name = this.weddingDay.YourName;
-    this.weddingPartyService.updateWeddingParty(this.weddingParty1, this.weddingDay.YourNameID);
-    this.weddingParty2.Name = this.weddingDay.FianceName;
-    this.weddingPartyService.updateWeddingParty(this.weddingParty2, this.weddingDay.FianceNameID);
   }
 }
