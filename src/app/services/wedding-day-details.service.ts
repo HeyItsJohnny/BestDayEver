@@ -12,16 +12,13 @@ export interface WeddingDayDetails {
   WeddingDate: Date;
   EstimatedNoOfGuests: number;
   YourName: string;
-  YourNameID: string;
   BudgetEstimate: number;
   FianceName: string;
-  FianceNameID: string;
   ReceptionTime: Time;
   DinnerTime: Time;
   CocktailTime: Time;
   WeddingInvitesSentOut: boolean;
   UpdatedAt: number;
-  CreatedAt: number;
 }
 
 @Injectable({
@@ -37,8 +34,7 @@ export class WeddingDayDetailsService {
     public db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
     
-    var authUser = this.afAuth.auth.currentUser;
-    this.weddingDaysCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('weddingDayDetails');
+    this.weddingDaysCollection = db.collection('WeddingDayDetails');
  
     this.weddingDays = this.weddingDaysCollection.snapshotChanges().pipe(
       map(actions => {
@@ -51,16 +47,17 @@ export class WeddingDayDetailsService {
     );
   }
 
-  getWeddingDay(id) {
-    return this.weddingDaysCollection.doc<WeddingDayDetails>(id).valueChanges();
+  getWeddingDay() {
+    return this.weddingDaysCollection.doc<WeddingDayDetails>('Details').valueChanges();
   }
  
-  updateWeddingday(weddingParty: WeddingDayDetails, id: string) {
-    return this.weddingDaysCollection.doc(id).update(weddingParty);
+  updateWeddingday(weddingParty: WeddingDayDetails) {
+    return this.weddingDaysCollection.doc('Details').update(weddingParty);
   }
  
   addWeddingDay(weddingParty: WeddingDayDetails) {
-    return this.weddingDaysCollection.add(weddingParty);
+    return this.weddingDaysCollection.doc('Details').set(weddingParty);
+    //return this.weddingDaysCollection.add(weddingParty);
   }
 
   removeWeddingDay(id) {

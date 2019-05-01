@@ -17,16 +17,13 @@ export class WeddingDayDetailsPage implements OnInit {
     WeddingDate: null,
     EstimatedNoOfGuests: 0,
     YourName: '',
-    YourNameID: '',
     BudgetEstimate: 0,
     FianceName: '',
-    FianceNameID: '',
     ReceptionTime: null,
     DinnerTime: null,
     CocktailTime: null,
     WeddingInvitesSentOut: false,
-    UpdatedAt: 0,
-    CreatedAt: 0
+    UpdatedAt: 0
   };
 
   weddingDayId = null;
@@ -40,16 +37,7 @@ export class WeddingDayDetailsPage implements OnInit {
     private loadingController: LoadingController) { }
 
   ngOnInit() {
-    this.profileService.getProfile().subscribe(res => {
-      if (res.WeddingID == null) {
-        this.weddingDayId = this.route.snapshot.params['id'];
-      } else {
-        this.weddingDayId = res.WeddingID; 
-      }
-      if (this.weddingDayId)  {
-        this.loadWeddingDay();
-      }
-    });
+    this.loadWeddingDay();
   }
 
   ionViewWillEnter() {
@@ -61,7 +49,7 @@ export class WeddingDayDetailsPage implements OnInit {
       message: 'Loading Wedding Day..'
     });
     await loading.present();
-    this.weddingDayDetailsService.getWeddingDay(this.weddingDayId).subscribe(res => {
+    this.weddingDayDetailsService.getWeddingDay().subscribe(res => {
       loading.dismiss();
       this.weddingDay = res;
     });
@@ -73,16 +61,16 @@ export class WeddingDayDetailsPage implements OnInit {
     });
     await loading.present();
     if (this.weddingDayId) {
-      this.weddingDayDetailsService.updateWeddingday(this.weddingDay, this.weddingDayId).then(() => {
+      this.weddingDayDetailsService.updateWeddingday(this.weddingDay).then(() => {
         loading.dismiss();
         this.nav.goBack(true);
       });
     } else {
-      this.weddingDayDetailsService.addWeddingDay(this.weddingDay).then(docRef => {
-        this.profileService.addWeddingID(docRef.id);        
+      this.weddingDayDetailsService.addWeddingDay(this.weddingDay).then(() => {
+        loading.dismiss();
+        this.nav.goBack(true);  
       });
-      loading.dismiss();
-      this.nav.goBack(true);
+      
     }
   }
 }

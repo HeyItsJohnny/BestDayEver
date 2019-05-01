@@ -23,16 +23,13 @@ export class BudgetListPage {
     WeddingDate: null,
     EstimatedNoOfGuests: 0,
     YourName: '',
-    YourNameID: '',
     BudgetEstimate: 0,
     FianceName: '',
-    FianceNameID: '',
     ReceptionTime: null,
     DinnerTime: null,
     CocktailTime: null,
     WeddingInvitesSentOut: false,
-    UpdatedAt: 0,
-    CreatedAt: 0
+    UpdatedAt: 0
   };
   weddingDayId = null;
 
@@ -80,7 +77,7 @@ export class BudgetListPage {
     }
 
     loadWeddingDay() {
-      var wedDay = this.weddingDayDetailsService.getWeddingDay(this.weddingDayId).subscribe(res => {
+      var wedDay = this.weddingDayDetailsService.getWeddingDay().subscribe(res => {
         this.weddingDay = res;
         this.getBudgetData(this.weddingDay.BudgetEstimate);
         wedDay.unsubscribe();

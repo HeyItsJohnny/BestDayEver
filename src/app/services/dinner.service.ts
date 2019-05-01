@@ -24,7 +24,7 @@ export class DinnerService {
   constructor(
     public db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
-      this.dinnersCollection = db.collection('dinners');
+      this.dinnersCollection = db.collection('Dinners');
       this.dinners = this.dinnersCollection.snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
@@ -42,7 +42,7 @@ export class DinnerService {
 
   getDinners() {
     return new Promise<any>((resolve, reject) => {
-      this.db.collection('dinners').snapshotChanges()
+      this.db.collection('Dinners').snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots)
       })
@@ -50,22 +50,22 @@ export class DinnerService {
   }
  
   getDinner(id) {
-    let dinnersCollection = this.db.collection('dinners');
+    let dinnersCollection = this.db.collection('Dinners');
     return dinnersCollection.doc<Dinner>(id).valueChanges();
   }
  
   updateDinner(dinner: Dinner, id: string) {
-    let dinnersCollection = this.db.collection('dinners');
+    let dinnersCollection = this.db.collection('Dinners');
     return dinnersCollection.doc(id).update(dinner);
   }
  
   addDinner(dinner: Dinner) {
-    let dinnersCollection = this.db.collection('dinners');
+    let dinnersCollection = this.db.collection('Dinners');
     return dinnersCollection.add(dinner);
   }
  
   removeDinner(id) {
-    let dinnersCollection = this.db.collection('dinners');
+    let dinnersCollection = this.db.collection('Dinners');
     return dinnersCollection.doc(id).delete();
   }
 }
