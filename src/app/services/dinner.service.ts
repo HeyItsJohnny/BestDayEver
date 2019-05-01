@@ -24,10 +24,7 @@ export class DinnerService {
   constructor(
     public db: AngularFirestore,
     private afAuth: AngularFireAuth) { 
-        
-      var authUser = this.afAuth.auth.currentUser;
-      this.dinnersCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('dinners');
-
+      this.dinnersCollection = db.collection('dinners');
       this.dinners = this.dinnersCollection.snapshotChanges().pipe(
         map(actions => {
           return actions.map(a => {
@@ -44,10 +41,8 @@ export class DinnerService {
   }
 
   getDinners() {
-    var authUser = this.afAuth.auth.currentUser;
-
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('dinners').snapshotChanges()
+      this.db.collection('dinners').snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots)
       })
@@ -55,26 +50,22 @@ export class DinnerService {
   }
  
   getDinner(id) {
-    var authUser = this.afAuth.auth.currentUser;
-    let dinnersCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('dinners');
+    let dinnersCollection = this.db.collection('dinners');
     return dinnersCollection.doc<Dinner>(id).valueChanges();
   }
  
   updateDinner(dinner: Dinner, id: string) {
-    var authUser = this.afAuth.auth.currentUser;
-    let dinnersCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('dinners');
+    let dinnersCollection = this.db.collection('dinners');
     return dinnersCollection.doc(id).update(dinner);
   }
  
   addDinner(dinner: Dinner) {
-    var authUser = this.afAuth.auth.currentUser;
-    let dinnersCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('dinners');
+    let dinnersCollection = this.db.collection('dinners');
     return dinnersCollection.add(dinner);
   }
  
   removeDinner(id) {
-    var authUser = this.afAuth.auth.currentUser;
-    let dinnersCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('dinners');
+    let dinnersCollection = this.db.collection('dinners');
     return dinnersCollection.doc(id).delete();
   }
 }
