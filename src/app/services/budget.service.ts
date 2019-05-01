@@ -34,8 +34,7 @@ export class BudgetService {
     public db: AngularFirestore,
     public alertController: AlertController,
     private afAuth: AngularFireAuth) { 
-      var authUser = this.afAuth.auth.currentUser;
-      this.budgetsCollection = db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+      this.budgetsCollection = db.collection('Budgets');
 
       this.budgets = this.budgetsCollection.snapshotChanges().pipe(
         map(actions => {
@@ -53,10 +52,9 @@ export class BudgetService {
   }
 
   getBudgets() {
-    var authUser = this.afAuth.auth.currentUser;
 
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets').snapshotChanges()
+      this.db.collection('Budgets').snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots)
       })
@@ -64,8 +62,7 @@ export class BudgetService {
   }
 
   getBudget(id) {
-    var authUser = this.afAuth.auth.currentUser;
-    let BudgetsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+    let BudgetsCollection = this.db.collection('Budgets');
     return BudgetsCollection.doc<Budget>(id).valueChanges();
   }
 
@@ -74,8 +71,7 @@ export class BudgetService {
     tmp.SearchName = budget.SearchName.toLowerCase();
     tmp.SearchCategoryName = budget.Category.toLowerCase();
     tmp.SearchSubCategoryName = budget.SubCategory.toLowerCase();
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+    let rsvpsCollection = this.db.collection('Budgets');
     return rsvpsCollection.add(tmp);
   }
 
@@ -84,21 +80,19 @@ export class BudgetService {
     tmp.SearchName = budget.BudgetName.toLowerCase();
     tmp.SearchCategoryName = budget.Category.toLowerCase();
     tmp.SearchSubCategoryName = budget.SubCategory.toLowerCase();
-    var authUser = this.afAuth.auth.currentUser;
-    let BudgetsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+    let BudgetsCollection = this.db.collection('Budgets');
     return BudgetsCollection.doc(id).update(tmp);
   }
 
   removeBudget(id) {
     var authUser = this.afAuth.auth.currentUser;
-    let BudgetsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets');
+    let BudgetsCollection = this.db.collection('Budgets');
     return BudgetsCollection.doc(id).delete();
   }
 
   searchBudgetName(searchValue){
-    var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets', ref => ref.where('SearchName', '>=', searchValue)
+      this.db.collection('Budgets', ref => ref.where('SearchName', '>=', searchValue)
       .where('SearchName', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
       .subscribe(snapshots => {
@@ -108,9 +102,8 @@ export class BudgetService {
   }
 
   searchBudgetCategoryName(searchValue){
-    var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets', ref => ref.where('SearchCategoryName', '>=', searchValue)
+      this.db.collection('Budgets', ref => ref.where('SearchCategoryName', '>=', searchValue)
       .where('SearchCategoryName', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
       .subscribe(snapshots => {
@@ -120,9 +113,8 @@ export class BudgetService {
   }
   
   searchBudgetSubCategoryName(searchValue){
-    var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('budgets', ref => ref.where('SearchSubCategoryName', '>=', searchValue)
+      this.db.collection('Budgets', ref => ref.where('SearchSubCategoryName', '>=', searchValue)
       .where('SearchSubCategoryName', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
       .subscribe(snapshots => {
