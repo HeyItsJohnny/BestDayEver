@@ -15,8 +15,7 @@ export interface Budget {
   SearchName: string;
   SearchCategoryName: string;
   SearchSubCategoryName: string;
-  EstimatedCost: number;
-  ActualCost: number;
+  TotalCost: number;
   Deposit: number;
   Comments: string;
 }
@@ -68,7 +67,7 @@ export class BudgetService {
 
   addBudget(budget: Budget) {
     var tmp = budget;
-    tmp.SearchName = budget.SearchName.toLowerCase();
+    tmp.SearchName = budget.BudgetName.toLowerCase();
     tmp.SearchCategoryName = budget.Category.toLowerCase();
     tmp.SearchSubCategoryName = budget.SubCategory.toLowerCase();
     let rsvpsCollection = this.db.collection('Budgets');
@@ -129,12 +128,8 @@ export class BudgetService {
         var allCost = 0;
         const data = a.payload.doc.data();
         switch(chartType) {
-          case "Estimated": {
-            allCost += +data.EstimatedCost;
-            break;
-          }
-          case "Actual": {
-            allCost += +data.ActualCost;
+          case "Total": {
+            allCost += +data.TotalCost;
             break;
           }
           case "Deposit": {
@@ -163,12 +158,8 @@ export class BudgetService {
         const data = a.payload.doc.data();
         const id = a.payload.doc.id;
         switch(chartType) {
-          case "Estimated": {
-            tmpcost += +data.EstimatedCost;
-            break;
-          }
-          case "Actual": {
-            tmpcost += +data.ActualCost;
+          case "Total": {
+            tmpcost += +data.TotalCost;
             break;
           }
           case "Deposit": {

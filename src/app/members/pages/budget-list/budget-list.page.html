@@ -9,8 +9,8 @@
     <tr>
       <td>
         <div id="act_cost_wedding_budget_percent_div"></div>
-        <h2>{{TotalActualCost}}</h2>
-        <h2>{{ActualOverUnderBudget}}</h2>
+        <h2>{{TotalCost}}</h2>
+        <h2>{{TotalOverUnderBudget}}</h2>
       </td>
     </tr>
   </table>
@@ -30,8 +30,7 @@
       <th>Category</th>
       <th>Subcategory</th>
       <th>Name</th>
-      <th>Estimated Costs</th>
-      <th>Actual Costs</th>
+      <th>Total Costs</th>
       <th>Deposit</th>
     </tr>
     <tr *ngFor="let item of budgets">
@@ -45,10 +44,7 @@
           {{item.payload.doc.data().BudgetName}}
       </td>
       <td button (click)="viewDetails(item)">
-          {{item.payload.doc.data().EstimatedCost}}
-      </td>
-      <td button (click)="viewDetails(item)">
-          {{item.payload.doc.data().ActualCost}}
+          {{item.payload.doc.data().TotalCost}}
       </td>
       <td button (click)="viewDetails(item)">
           {{item.payload.doc.data().Deposit}}
