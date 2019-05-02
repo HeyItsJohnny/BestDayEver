@@ -66,14 +66,7 @@ export class BudgetListPage {
 
     ionViewWillEnter() {
       this.menuController.enable(true);
-      var prof = this.profileService.getProfile().subscribe(res => {
-        this.weddingDayId = res.WeddingID; 
-        if (this.weddingDayId)  {
-          this.loadWeddingDay();          
-          prof.unsubscribe();
-        }
-      });
-      
+      this.loadWeddingDay(); 
     }
 
     loadWeddingDay() {
