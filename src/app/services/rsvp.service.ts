@@ -35,10 +35,9 @@ export class RsvpService {
     private afAuth: AngularFireAuth) { }
 
   getRsvps() {
-    var authUser = this.afAuth.auth.currentUser;
 
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').snapshotChanges()
+      this.db.collection('Rsvps').snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots)
       })
@@ -46,61 +45,52 @@ export class RsvpService {
   }
  
   getRsvp(id) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    let rsvpsCollection = this.db.collection('Rsvps');
     return rsvpsCollection.doc<Rsvp>(id).valueChanges();
   }
  
   updateRsvp(rsvp: Rsvp, id: string) {
     var tmp = rsvp;
     tmp.SearchName = rsvp.Name.toLowerCase();
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    let rsvpsCollection = this.db.collection('Rsvps');
     return rsvpsCollection.doc(id).update(tmp);
   }
  
   addRsvp(rsvp: Rsvp) {
     var tmp = rsvp;
     tmp.SearchName = rsvp.Name.toLowerCase();
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    let rsvpsCollection = this.db.collection('Rsvps');
     return rsvpsCollection.add(tmp);
   }
 
   getRsvpFromSearch(NameToSearch: string) {
-    var authUser = this.afAuth.auth.currentUser;
-    return this.db.collection<Profile>('profile').doc(authUser.uid).collection<Rsvp>('rsvps', ref => ref.where('Name', '==', NameToSearch).limit(1)).snapshotChanges();
+    return this.db.collection<Rsvp>('Rsvps', ref => ref.where('Name', '==', NameToSearch).limit(1)).snapshotChanges();
   }
 
   updateRsvpAttendance(id: string, isGoingBool: boolean){
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    let rsvpsCollection = this.db.collection('Rsvps');
     rsvpsCollection.doc(id).update({"isGoing": isGoingBool});
   }
 
   updateRsvpInformation(id: string, rsvpEmail: string, rsvpPhoneNo: string){
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    let rsvpsCollection = this.db.collection('Rsvps');
     rsvpsCollection.doc(id).update({"Email": rsvpEmail});
     rsvpsCollection.doc(id).update({"PhoneNo": rsvpPhoneNo});
   }
 
   updateRsvpCoupleNote(id: string, CoupleNotes: String){
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    let rsvpsCollection = this.db.collection('Rsvps');
     rsvpsCollection.doc(id).update({"CoupleNotes": CoupleNotes});
   }
  
   removeRsvp(id) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps');
+    let rsvpsCollection = this.db.collection('Rsvps');
     return rsvpsCollection.doc(id).delete();
   }
 
   searchRSVPName(searchValue){
-    var authUser = this.afAuth.auth.currentUser;
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps', ref => ref.where('SearchName', '>=', searchValue)
+      this.db.collection('Rsvps', ref => ref.where('SearchName', '>=', searchValue)
       .where('SearchName', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
       .subscribe(snapshots => {

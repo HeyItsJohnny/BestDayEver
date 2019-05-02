@@ -29,8 +29,7 @@ export class RsvpGuestService {
     public events: Events) { 
     this.events.subscribe('guest:created', set => {
       this.rsvpId = set;
-      var authUser = this.afAuth.auth.currentUser;
-      this.rsvpGuestsCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+      this.rsvpGuestsCollection = this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests');
 
       this.rsvpGuests= this.rsvpGuestsCollection.snapshotChanges().pipe(
         map(actions => {
@@ -49,10 +48,8 @@ export class RsvpGuestService {
   }
 
   getRsvpGuests() {
-    var authUser = this.afAuth.auth.currentUser;
-
     return new Promise<any>((resolve, reject) => {
-      this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests').snapshotChanges()
+      this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests').snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots)
       })
@@ -60,44 +57,37 @@ export class RsvpGuestService {
   }
  
   getRsvpGuest(id) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    let rsvpGuestCollection = this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests');
     return rsvpGuestCollection.doc<RsvpGuest>(id).valueChanges();
   }
  
   updateRsvpGuest(rsvpGuest: RsvpGuest, id: string) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    let rsvpGuestCollection = this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests');
     return rsvpGuestCollection.doc(id).update(rsvpGuest);
   }
 
   updateRsvpGuestDinnerChoice(dinnerChoiceID: string, id: string) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    let rsvpGuestCollection = this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests');
     return rsvpGuestCollection.doc(id).update({"DinnerChoice": dinnerChoiceID});
   }
 
   updateRsvpGuestDinnerChoiceText(dinnerChoiceText: string, id: string) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    let rsvpGuestCollection = this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests');
     return rsvpGuestCollection.doc(id).update({"DinnerChoiceText": dinnerChoiceText});
   }
 
   updateRsvpGuestDietaryRestrictions(dinnerNotes: string, id: string) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    let rsvpGuestCollection = this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests');
     return rsvpGuestCollection.doc(id).update({"DinnerNotes": dinnerNotes});
   }
  
   addRsvpGuest(rsvpGuest: RsvpGuest) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    let rsvpGuestCollection = this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests');
     return rsvpGuestCollection.add(rsvpGuest);
   }
  
   removeRsvpGuest(id) {
-    var authUser = this.afAuth.auth.currentUser;
-    let rsvpGuestCollection = this.db.collection<Profile>('profile').doc(authUser.uid).collection('rsvps').doc(this.rsvpId).collection('guests');
+    let rsvpGuestCollection = this.db.collection('Rsvps').doc(this.rsvpId).collection('Guests');
     return rsvpGuestCollection.doc(id).delete();
   }
 }
