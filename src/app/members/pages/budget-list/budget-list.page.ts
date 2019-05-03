@@ -18,21 +18,6 @@ export class BudgetListPage {
   budgets: Budget[];
   searchCategory: string;
 
-  weddingDay: WeddingDayDetails = {
-    WeddingPartyGroupdID: '',
-    WeddingDate: null,
-    EstimatedNoOfGuests: 0,
-    YourName: '',
-    BudgetEstimate: 0,
-    FianceName: '',
-    ReceptionTime: null,
-    DinnerTime: null,
-    CocktailTime: null,
-    WeddingInvitesSentOut: false,
-    UpdatedAt: 0
-  };
-  weddingDayId = null;
-
   TotalCost: string;
   TotalOverUnderBudget: string;
   categoryArray: string[] = ["Ceremony","Reception","Stationary","Clothes","Beauty","Flowers","Photography/Videography","Music","Rentals","Decor","Misc. Celebrations","Gifts & Favors","Transportation","Misc. Party Entertainment","Destination Weddings","Honeymoon","Miscallaneous"];
@@ -64,158 +49,14 @@ export class BudgetListPage {
 
     ionViewWillEnter() {
       this.menuController.enable(true);
-      this.loadWeddingDay(); 
+      this.getBudgetData(); 
     }
 
-    loadWeddingDay() {
-      var wedDay = this.weddingDayDetailsService.getWeddingDay().subscribe(res => {
-        this.weddingDay = res;
-        this.getBudgetData(this.weddingDay.BudgetEstimate);
-        wedDay.unsubscribe();
-      });
-    }
-
-    getBudgetData(OverallBudget: number) {
+    getBudgetData() {
       this.budgetService.getBudgets()
       .then(events => {
         this.budgets = events;
       })
-      this.reloadTotalCostChart(OverallBudget);
-    }
-
-    reloadTotalCostChart(OverallBudget: number) {
-     // Create the data table.
-     var estdata = new google.visualization.DataTable();
-     estdata.addColumn('string', 'Category');
-     estdata.addColumn('number', '$$ against budget');   
-
-    //All Chart Data
-    this.budgetService.getAllChartData("Total").then(result => {
-      let remainBudget = +OverallBudget - +result.TotalCost;
-      if (remainBudget > 0) {
-        estdata.addRow(["Remaining Budget",remainBudget]);
-        this.TotalOverUnderBudget = "Under Budget by: " + remainBudget;
-      } else {
-        this.TotalOverUnderBudget = "Over Budget by: " + remainBudget;
-      }
-      this.TotalCost = "Total Cost: " + result.TotalCost;
-      chart.draw(estdata, options);
-    });
-
-     //Ceremony
-     this.budgetService.getChartData("Ceremony","Total").then(result => {
-       estdata.addRow(["Ceremony",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Reception
-     this.budgetService.getChartData("Reception","Total").then(result => {
-       estdata.addRow(["Reception",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Stationary
-     this.budgetService.getChartData("Stationary","Total").then(result => {
-       estdata.addRow(["Stationary",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Clothes
-     this.budgetService.getChartData("Clothes","Total").then(result => {
-       estdata.addRow(["Clothes",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Beauty
-     this.budgetService.getChartData("Beauty","Total").then(result => {
-       estdata.addRow(["Beauty",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Flowers
-     this.budgetService.getChartData("Flowers","Total").then(result => {
-       estdata.addRow(["Flowers",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Photography/Videography
-     this.budgetService.getChartData("Photography/Videography","Total").then(result => {
-       estdata.addRow(["Photography/Videography",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Music
-     this.budgetService.getChartData("Music","Total").then(result => {
-       estdata.addRow(["Music",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Rentals
-     this.budgetService.getChartData("Rentals","Total").then(result => {
-       estdata.addRow(["Rentals",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Decor
-     this.budgetService.getChartData("Decor","Total").then(result => {
-       estdata.addRow(["Decor",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Misc. Celebrations
-     this.budgetService.getChartData("Misc. Celebrations","Total").then(result => {
-       estdata.addRow(["Misc. Celebrations",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Gift Favors
-     this.budgetService.getChartData("Gifts & Favors","Total").then(result => {
-       estdata.addRow(["Gifts & Favors",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Transportation
-     this.budgetService.getChartData("Transportation","Total").then(result => {
-       estdata.addRow(["Transportation",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Other Entertainment
-     this.budgetService.getChartData("Other Entertainment","Total").then(result => {
-       estdata.addRow(["Other Entertainment",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Destination Wedding
-     this.budgetService.getChartData("Destination Wedding","Total").then(result => {
-       estdata.addRow(["Destination Wedding",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Honeymoon
-     this.budgetService.getChartData("Honeymoon","Total").then(result => {
-       estdata.addRow(["Honeymoon",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     //Misc
-     this.budgetService.getChartData("Miscallenous","Total").then(result => {
-       estdata.addRow(["Miscallenous",result.TotalCost]);
-       chart.draw(estdata, options);
-     });
-
-     // Set chart options
-     var options = {
-       'title':'Total Cost',
-        'width':600,
-        'height':400,
-        slices: {
-          0: { color: 'grey' },
-        }
-      };
-
-     // Instantiate and draw our chart, passing in some options.
-     var chart = new google.visualization.PieChart(document.getElementById('act_cost_wedding_budget_percent_div'));
     }
 
     async addItem() {
@@ -228,7 +69,7 @@ export class BudgetListPage {
             text: 'Ok',
             handler: (data: any) => {
               this.startSubcategorySelection(data);
-              this.getBudgetData(this.weddingDay.BudgetEstimate);
+              this.getBudgetData();
             }
           }
         ]
@@ -251,7 +92,7 @@ export class BudgetListPage {
             text: 'Ok',
             handler: (data: any) => {
               this.subcategoryOtherLogic(category,data);
-              this.getBudgetData(this.weddingDay.BudgetEstimate);
+              this.getBudgetData();
             }
           }
         ]
@@ -397,7 +238,7 @@ export class BudgetListPage {
             text: 'Ok',
             handler: (data) => {
               this.AddBudget(category, data.subcategory);   
-              this.getBudgetData(this.weddingDay.BudgetEstimate);  
+              this.getBudgetData();  
             }
           }
         ]
@@ -467,7 +308,7 @@ export class BudgetListPage {
               };       
               this.budgetService.addBudget(dinnerObj);  
               this.budgets.push(dinnerObj);
-              this.getBudgetData(this.weddingDay.BudgetEstimate);
+              this.getBudgetData();
             }
           }
         ]
@@ -477,7 +318,7 @@ export class BudgetListPage {
     getItems(searchbar) {
       console.log("Saerch Category: " + this.searchCategory);
       if (searchbar.srcElement.value == "") {
-        this.getBudgetData(this.weddingDay.BudgetEstimate);
+        this.getBudgetData();
       } else {
         var value = searchbar.srcElement.value;
         var valueTmp: string;
