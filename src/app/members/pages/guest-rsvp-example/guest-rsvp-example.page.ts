@@ -27,7 +27,9 @@ export class GuestRsvpExamplePage implements OnInit {
 
   findRsvp: Rsvp = {
     Name: '',
+    SpecialTitle: '',
     SearchName: '',
+    SearchSpecialTitle: '',
     Email: '',
     PhoneNo: '',
     Address1: '',
@@ -45,7 +47,9 @@ export class GuestRsvpExamplePage implements OnInit {
 
   getRsvp: Rsvp = {
     Name: '',
+    SpecialTitle: '',
     SearchName: '',
+    SearchSpecialTitle: '',
     Email: '',
     PhoneNo: '',
     Address1: '',

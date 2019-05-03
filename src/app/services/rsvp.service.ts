@@ -8,7 +8,9 @@ import { AngularFireAuth } from "angularfire2/auth";
 export interface Rsvp {
   id?: string;
   Name: string;
+  SpecialTitle: string;
   SearchName: string;
+  SearchSpecialTitle: string;
   Email: string;
   PhoneNo: string;
   Address1: string;
@@ -52,6 +54,7 @@ export class RsvpService {
   updateRsvp(rsvp: Rsvp, id: string) {
     var tmp = rsvp;
     tmp.SearchName = rsvp.Name.toLowerCase();
+    tmp.SearchSpecialTitle = rsvp.SpecialTitle.toLowerCase();
     let rsvpsCollection = this.db.collection('Rsvps');
     return rsvpsCollection.doc(id).update(tmp);
   }
@@ -59,6 +62,7 @@ export class RsvpService {
   addRsvp(rsvp: Rsvp) {
     var tmp = rsvp;
     tmp.SearchName = rsvp.Name.toLowerCase();
+    tmp.SearchSpecialTitle = rsvp.SpecialTitle.toLowerCase();
     let rsvpsCollection = this.db.collection('Rsvps');
     return rsvpsCollection.add(tmp);
   }
@@ -92,6 +96,17 @@ export class RsvpService {
     return new Promise<any>((resolve, reject) => {
       this.db.collection('Rsvps', ref => ref.where('SearchName', '>=', searchValue)
       .where('SearchName', '<=', searchValue + '\uf8ff'))
+      .snapshotChanges()
+      .subscribe(snapshots => {
+        resolve(snapshots);
+      })
+    })
+  }
+
+  searchRSVPSpecialTitle(searchValue){
+    return new Promise<any>((resolve, reject) => {
+      this.db.collection('Rsvps', ref => ref.where('SearchSpecialTitle', '>=', searchValue)
+      .where('SearchSpecialTitle', '<=', searchValue + '\uf8ff'))
       .snapshotChanges()
       .subscribe(snapshots => {
         resolve(snapshots);

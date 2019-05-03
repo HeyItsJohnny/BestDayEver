@@ -14,7 +14,9 @@ export class RsvpDetailsPage implements OnInit {
 
   rsvp: Rsvp = {
     Name: '',
+    SpecialTitle: '',
     SearchName: '',
+    SearchSpecialTitle: '',
     Email: '',
     PhoneNo: '',
     Address1: '',

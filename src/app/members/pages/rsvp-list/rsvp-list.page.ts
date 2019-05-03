@@ -13,12 +13,13 @@ import { MenuController } from '@ionic/angular';
 })
 
 export class RsvpListPage {
-
+  
   public rsvps: Array<any>;
   public loadedRsvps: Array<any>;
   searchTerm: string = '';
   searchControl: FormControl;
   searching: any = false;
+  searchCategory: string;
 
   constructor(
     private rsvpService: RsvpService,
@@ -57,10 +58,27 @@ export class RsvpListPage {
       var valueTmp: string;
       valueTmp = value.toLowerCase();   
   
+      if ((this.searchCategory == 'name') || (this.searchCategory == null)) {
+        this.rsvpService.searchRSVPName(valueTmp).then(res => {
+          this.rsvps = res;
+        })
+      } else if (this.searchCategory == 'title') {
+        this.rsvpService.searchRSVPSpecialTitle(valueTmp).then(res => {
+          this.rsvps = res;
+        })
+      }
+    }
+    /*if (searchbar.srcElement.value == "") {
+      this.getRsvpData();
+    } else {
+      var value = searchbar.srcElement.value;
+      var valueTmp: string;
+      valueTmp = value.toLowerCase();   
+  
       this.rsvpService.searchRSVPName(valueTmp)
       .then(res => {
         this.rsvps = res;
       })
-    }
+    }*/
   }
 }

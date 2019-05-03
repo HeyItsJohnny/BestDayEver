@@ -336,8 +336,7 @@ export class BudgetListPage {
           this.budgetService.searchBudgetName(valueTmp).then(res => {
             this.budgets = res;
           })
-        }
-        
+        } 
       }
     }
   
