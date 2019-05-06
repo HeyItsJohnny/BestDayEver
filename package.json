@@ -9,7 +9,7 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "preinstall": "npm install -g angular-cli",
+    "preinstall": "npm install firebase angularfire2",
     "e2e": "ng e2e"
   },
   "private": true,
