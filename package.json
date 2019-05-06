@@ -10,10 +10,13 @@
     "test": "ng test",
     "lint": "ng lint",
     "preinstall": "npm install firebase angularfire2",
+    "postinstall": "ng build --aot -prod",
     "e2e": "ng e2e"
   },
   "private": true,
   "dependencies": {
+    "@angular/cli": "7.0.7",
+    "@angular/compiler-cli": "~7.0.0",
     "@angular/common": "~7.0.0",
     "@angular/core": "~7.0.0",
     "@angular/forms": "~7.0.0",
