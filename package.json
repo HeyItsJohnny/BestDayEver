@@ -10,7 +10,6 @@
     "test": "ng test",
     "lint": "ng lint",
     "preinstall": "npm install firebase angularfire2",
-    "postinstall": "ng build --aot -prod",
     "e2e": "ng e2e"
   },
   "engines": {
