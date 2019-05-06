@@ -34,7 +34,8 @@
     "rxjs": "~6.3.3",
     "rxjs-compat": "^6.3.3",
     "zone.js": "~0.8.26",
-    "typescript": "~3.1.6"
+    "typescript": "~3.1.6",
+    "@ionic/app-scripts": "2.1.4"
   },
   "devDependencies": {
     "@angular-devkit/architect": "~0.10.0",
